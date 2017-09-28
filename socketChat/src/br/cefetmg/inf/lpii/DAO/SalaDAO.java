@@ -5,10 +5,17 @@
  */
 package br.cefetmg.inf.lpii.DAO;
 
+import br.cefetmg.inf.lpii.entities.Sala;
+import java.util.ArrayList;
+
 /**
  *
  * @author Aluno
  */
 public interface SalaDAO {
-    
+    public Long inserir(Sala sala);
+    public boolean remover(Long id);
+    public boolean atualizar(Sala sala);
+    public Sala get(Long id);
+    public ArrayList<Sala> getTodas();
 }
