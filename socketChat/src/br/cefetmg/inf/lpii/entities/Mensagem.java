@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.entities;
 
+import java.sql.Timestamp;
 
 /**
  *
@@ -13,20 +14,24 @@ package br.cefetmg.inf.lpii.entities;
 public class Mensagem {
 
     private Usuario remetente;
-    private Usuario destinatario;
-    private Sala salasDestino;
+    private Usuario usuarioDestino;
+    private Sala salaDestino;
     private String conteudo;
+    private Timestamp horaEnvio;
+    private Long idMensagem;
 
-    public Mensagem(Usuario remetente, Usuario destinatario, String conteudo) {
+    public Mensagem(Usuario remetente, Usuario usuarioDestino, String conteudo, Timestamp horaEnvio) {
         this.remetente = remetente;
-        this.destinatario = destinatario;
+        this.usuarioDestino = usuarioDestino;
         this.conteudo = conteudo;
+        this.horaEnvio = horaEnvio;
     }
 
-    public Mensagem(Usuario remetente, Sala salasDestino, String conteudo) {
+    public Mensagem(Usuario remetente, Sala salaDestino, String conteudo, Timestamp horaEnvio) {
         this.remetente = remetente;
-        this.salasDestino = salasDestino;
+        this.salaDestino = salaDestino;
         this.conteudo = conteudo;
+        this.horaEnvio = horaEnvio;
     }
 
     public Usuario getRemetente() {
@@ -37,20 +42,20 @@ public class Mensagem {
         this.remetente = remetente;
     }
 
-    public Usuario getDestinatario() {
-        return destinatario;
+    public Usuario getUsuarioDestino() {
+        return usuarioDestino;
     }
 
-    public void setDestinatario(Usuario destinatario) {
-        this.destinatario = destinatario;
+    public void setUsuarioDestino(Usuario usuarioDestino) {
+        this.usuarioDestino = usuarioDestino;
     }
 
-    public Sala getSalasDestino() {
-        return salasDestino;
+    public Sala getSalaDestino() {
+        return salaDestino;
     }
 
-    public void setSalasDestino(Sala salasDestino) {
-        this.salasDestino = salasDestino;
+    public void setSalaDestino(Sala salaDestino) {
+        this.salaDestino = salaDestino;
     }
 
     public String getConteudo() {
@@ -60,5 +65,21 @@ public class Mensagem {
     public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
     }
-    
+
+    public Timestamp getHoraEnvio() {
+        return horaEnvio;
+    }
+
+    public void setHoraEnvio(Timestamp horaEnvio) {
+        this.horaEnvio = horaEnvio;
+    }
+
+    public Long getIdMensagem() {
+        return idMensagem;
+    }
+
+    public void setIdMensagem(Long idMensagem) {
+        this.idMensagem = idMensagem;
+    }
+  
 }

@@ -16,7 +16,8 @@ public class Sala {
     private ArrayList<Usuario> usuarios;
     private String nome;
     private String senha;
-
+    private Long id; 
+    
     public Sala(ArrayList<Usuario> usuarios, String nome, String senha) {
         this.usuarios = usuarios;
         this.nome = nome;
@@ -50,6 +51,14 @@ public class Sala {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
     
 }
