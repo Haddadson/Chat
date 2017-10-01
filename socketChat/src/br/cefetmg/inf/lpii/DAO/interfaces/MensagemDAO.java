@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.cefetmg.inf.lpii.DAO;
+package br.cefetmg.inf.lpii.DAO.interfaces;
 
-import br.cefetmg.inf.lpii.entities.Usuario;
+import br.cefetmg.inf.lpii.entities.Mensagem;
 
 /**
  *
  * @author Aluno
  */
-public interface UsuarioDAO {
-    public Long inserir(Usuario usuario);
-    public boolean atualizar(Usuario usuario);
+public interface MensagemDAO {
+    public Long inserir(Mensagem mensagem);
     public boolean remover(Long id);
-    public Usuario get(Long id);
+    public boolean atualizar(Mensagem mensagem);
+    public Mensagem get(Long id);
 }

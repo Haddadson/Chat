@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.cefetmg.inf.lpii.DAO;
+package br.cefetmg.inf.lpii.DAO.interfaces;
 
 import br.cefetmg.inf.lpii.entities.Sala;
 import java.util.ArrayList;

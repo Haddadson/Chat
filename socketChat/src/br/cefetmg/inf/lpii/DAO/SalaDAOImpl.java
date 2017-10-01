@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.DAO;
 
+import br.cefetmg.inf.lpii.DAO.interfaces.SalaDAO;
 import br.cefetmg.inf.lpii.entities.Sala;
 import java.util.ArrayList;
 

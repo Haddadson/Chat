@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.DAO;
 
+import br.cefetmg.inf.lpii.DAO.interfaces.UsuarioDAO;
 import br.cefetmg.inf.lpii.entities.Usuario;
 
 /**

@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.DAO;
 
+import br.cefetmg.inf.lpii.DAO.interfaces.MensagemDAO;
 import br.cefetmg.inf.lpii.entities.Mensagem;
 
 public class MensagemDAOImpl implements MensagemDAO {
