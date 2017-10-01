@@ -6,14 +6,16 @@
 package br.cefetmg.inf.lpii.service.interfaces;
 
 import br.cefetmg.inf.lpii.entities.Mensagem;
+import br.cefetmg.inf.lpii.exception.BusinessException;
+import br.cefetmg.inf.lpii.exception.PersistenceException;
 
 /**
  *
  * @author GABRIEL HADDAD
  */
 public interface MensagemManagement {
-    public Long inserir(Mensagem mensagem);
-    public boolean remover(Long id);
-    public boolean atualizar(Mensagem mensagem);
-    public Mensagem get(Long id);
+    public Long inserir(Mensagem mensagem) throws BusinessException, PersistenceException;
+    public boolean remover(Long id) throws BusinessException, PersistenceException;
+    public boolean atualizar(Mensagem mensagem) throws PersistenceException;
+    public Mensagem get(Long id) throws PersistenceException;
 }

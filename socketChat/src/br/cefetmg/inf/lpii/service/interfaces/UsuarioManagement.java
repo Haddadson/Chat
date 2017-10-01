@@ -6,6 +6,8 @@
 package br.cefetmg.inf.lpii.service.interfaces;
 
 import br.cefetmg.inf.lpii.entities.Usuario;
+import br.cefetmg.inf.lpii.exception.BusinessException;
+import br.cefetmg.inf.lpii.exception.PersistenceException;
 
 /**
  *
@@ -13,8 +15,8 @@ import br.cefetmg.inf.lpii.entities.Usuario;
  */
 
 public interface UsuarioManagement {
-    public Long inserir(Usuario usuario);
-    public boolean atualizar(Usuario usuario);
-    public boolean remover(Long id);
-    public Usuario get(Long id);
+    public Long inserir(Usuario usuario) throws BusinessException, PersistenceException;
+    public boolean atualizar(Usuario usuario) throws BusinessException, PersistenceException;
+    public boolean remover(Long id) throws PersistenceException;
+    public Usuario get(Long id) throws PersistenceException;
 }

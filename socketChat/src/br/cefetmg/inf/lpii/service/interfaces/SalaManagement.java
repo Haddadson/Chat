@@ -6,6 +6,8 @@
 package br.cefetmg.inf.lpii.service.interfaces;
 
 import br.cefetmg.inf.lpii.entities.Sala;
+import br.cefetmg.inf.lpii.exception.BusinessException;
+import br.cefetmg.inf.lpii.exception.PersistenceException;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +15,9 @@ import java.util.ArrayList;
  * @author GABRIEL HADDAD
  */
 public interface SalaManagement {
-    public Long inserir(Sala sala);
-    public boolean remover(Long id);
-    public boolean atualizar(Sala sala);
-    public Sala get(Long id);
-    public ArrayList<Sala> getTodas();
+    public Long inserir(Sala sala) throws BusinessException, PersistenceException;
+    public boolean remover(Long id) throws BusinessException, PersistenceException;
+    public boolean atualizar(Sala sala) throws PersistenceException;
+    public Sala get(Long id) throws PersistenceException;
+    public ArrayList<Sala> getTodas() throws PersistenceException;
 }
