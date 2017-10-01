@@ -29,6 +29,9 @@ public class Sala {
         this.nome = nome;
     }
 
+    public Sala() {
+    }    
+
     public ArrayList<Usuario> getUsuarios() {
         return usuarios;
     }
