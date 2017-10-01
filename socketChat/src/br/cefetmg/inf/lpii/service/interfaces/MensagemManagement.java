@@ -16,6 +16,6 @@ import br.cefetmg.inf.lpii.exception.PersistenceException;
 public interface MensagemManagement {
     public Long inserir(Mensagem mensagem) throws BusinessException, PersistenceException;
     public boolean remover(Long id) throws BusinessException, PersistenceException;
-    public boolean atualizar(Mensagem mensagem) throws PersistenceException;
-    public Mensagem get(Long id) throws PersistenceException;
+    public boolean atualizar(Mensagem mensagem) throws BusinessException, PersistenceException;
+    public Mensagem get(Long id) throws BusinessException, PersistenceException;
 }

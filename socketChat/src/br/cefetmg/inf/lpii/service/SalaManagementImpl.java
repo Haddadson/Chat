@@ -19,27 +19,60 @@ public class SalaManagementImpl implements SalaManagement{
 
     @Override
     public Long inserir(Sala sala) throws BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (sala == null) {
+            throw new BusinessException("Sala a ser inserida nao pode ser nula");
+        }
+        if (sala.getNome() == null) {
+            throw new BusinessException("Nome da sala nao pode ser nulo");
+        }
+        if (sala.getNome().trim().isEmpty()) {
+            throw new BusinessException("Nome da sala a ser inserida nao pode ser vazio");
+        }
+        if (sala.getUsuarios() == null) {
+            throw new BusinessException("Sala a ser criada nao pode ser vazia");
+        }
+        // TODO: retorno do DAO
     }
 
     @Override
     public boolean remover(Long id) throws BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (id == null) {
+            throw new BusinessException("ID da sala a ser removida nao pode ser nulo");
+        }
+        // TODO: retorno do DAO
     }
 
     @Override
-    public boolean atualizar(Sala sala) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean atualizar(Sala sala) throws BusinessException, PersistenceException {
+        if (sala == null) {
+            throw new BusinessException("Sala a ser inserida nao pode ser nula");
+        }
+        if (sala.getNome() == null) {
+            throw new BusinessException("Nome da sala nao pode ser nulo");
+        }
+        if (sala.getNome().trim().isEmpty()) {
+            throw new BusinessException("Nome da sala a ser inserida nao pode ser vazio");
+        }
+        if (sala.getUsuarios() == null) {
+            throw new BusinessException("Sala a ser criada nao pode ser vazia");
+        }
+        if (sala.getId() == null) {
+            throw new BusinessException("Id da sala a ser atualizada nao pode ser nulo");
+        }
+         // TODO: retorno do DAO
     }
 
     @Override
-    public Sala get(Long id) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Sala get(Long id) throws BusinessException, PersistenceException {
+        if (id == null) {
+            throw new BusinessException("Id da sala nao pode ser nulo");
+        }
+         // TODO: retorno do DAO
     }
 
     @Override
     public ArrayList<Sala> getTodas() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         // TODO: retorno do DAO
     }
     
 }

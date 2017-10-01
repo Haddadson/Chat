@@ -17,6 +17,6 @@ import br.cefetmg.inf.lpii.exception.PersistenceException;
 public interface UsuarioManagement {
     public Long inserir(Usuario usuario) throws BusinessException, PersistenceException;
     public boolean atualizar(Usuario usuario) throws BusinessException, PersistenceException;
-    public boolean remover(Long id) throws PersistenceException;
-    public Usuario get(Long id) throws PersistenceException;
+    public boolean remover(Long id) throws BusinessException, PersistenceException;
+    public Usuario get(Long id) throws BusinessException, PersistenceException;
 }
