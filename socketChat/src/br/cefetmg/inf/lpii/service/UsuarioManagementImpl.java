@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.service;
 
+import br.cefetmg.inf.lpii.DAO.interfaces.UsuarioDAO;
 import br.cefetmg.inf.lpii.service.interfaces.UsuarioManagement;
 import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.BusinessException;
@@ -16,6 +17,12 @@ import br.cefetmg.inf.lpii.exception.PersistenceException;
  */
 public class UsuarioManagementImpl implements UsuarioManagement{
 
+    private final UsuarioDAO usuarioDAO;
+
+    public UsuarioManagementImpl(UsuarioDAO usuarioDAO) {
+        this.usuarioDAO = usuarioDAO;
+    }
+    
     @Override
     public Long inserir(Usuario usuario) throws BusinessException, PersistenceException {
         if (usuario == null) {
@@ -27,7 +34,7 @@ public class UsuarioManagementImpl implements UsuarioManagement{
         if (usuario.getNome().trim().isEmpty()) {
             throw new BusinessException("Nome do usuario a ser inserido nao pode ser vazio");
         }
-        // TODO: retorno do DAO
+        return usuarioDAO.inserir(usuario);
     }
 
     @Override
@@ -44,7 +51,7 @@ public class UsuarioManagementImpl implements UsuarioManagement{
         if (usuario.getId() == null) {
             throw new BusinessException("Id do usuario a ser atualizado nao pode ser nulo");
         }
-        // TODO: retorno do DAO
+        return usuarioDAO.atualizar(usuario);
     }
 
     @Override
@@ -52,7 +59,7 @@ public class UsuarioManagementImpl implements UsuarioManagement{
         if (id == null) {
             throw new BusinessException("Id do usuario a ser removido nao pode ser nulo");
         }
-        // TODO: retorno do DAO
+        return usuarioDAO.remover(id);
     }
 
     @Override
@@ -60,7 +67,7 @@ public class UsuarioManagementImpl implements UsuarioManagement{
         if (id == null) {
             throw new BusinessException("Id do usuario nao pode ser nulo");
         }
-        // TODO: retorno do DAO
+        return usuarioDAO.get(id);
     }
     
 }

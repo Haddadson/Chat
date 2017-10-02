@@ -17,9 +17,10 @@ import br.cefetmg.inf.lpii.exception.PersistenceException;
  */
 public class MensagemManagementImpl implements MensagemManagement {
 
-    private MensagemDAO mensagemDAO;
+    private final MensagemDAO mensagemDAO;
 
-    public MensagemManagementImpl() {
+    public MensagemManagementImpl(MensagemDAO mensagemDAO) {
+        this.mensagemDAO = mensagemDAO;
     }
     
     @Override
@@ -44,7 +45,8 @@ public class MensagemManagementImpl implements MensagemManagement {
             throw new BusinessException("Remetente da mensagem nao pode ser nulo");
         }
         
-        // TODO: persistir e retornar ID
+        return mensagemDAO.inserir(mensagem);
+        
     }
 
     @Override
@@ -53,7 +55,7 @@ public class MensagemManagementImpl implements MensagemManagement {
             throw new BusinessException("Id da mensagem nao pode ser nulo");
         }
         
-        // TODO: retorno do DAO
+        return mensagemDAO.remover(id);
     }
 
     @Override
@@ -79,7 +81,7 @@ public class MensagemManagementImpl implements MensagemManagement {
         if (mensagem.getIdMensagem() == null) {
             throw new BusinessException("ID da mensagem a ser atualizada nao pode ser nulo");
         }
-        // TODO: retorno do DAO
+        return mensagemDAO.atualizar(mensagem);
     }
 
     @Override
@@ -87,7 +89,7 @@ public class MensagemManagementImpl implements MensagemManagement {
         if (id == null) {
             throw new BusinessException("Id da mensagem nao pode ser nulo");
         }
-        // TODO: retorno do DAO
+        return mensagemDAO.get(id);
     }
     
 }

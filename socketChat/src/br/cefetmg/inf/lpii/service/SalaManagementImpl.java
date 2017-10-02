@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.service;
 
+import br.cefetmg.inf.lpii.DAO.interfaces.SalaDAO;
 import br.cefetmg.inf.lpii.service.interfaces.SalaManagement;
 import br.cefetmg.inf.lpii.entities.Sala;
 import br.cefetmg.inf.lpii.exception.BusinessException;
@@ -17,6 +18,12 @@ import java.util.ArrayList;
  */
 public class SalaManagementImpl implements SalaManagement{
 
+    private final SalaDAO salaDAO;
+
+    public SalaManagementImpl(SalaDAO salaDAO) {
+        this.salaDAO = salaDAO;
+    }
+    
     @Override
     public Long inserir(Sala sala) throws BusinessException, PersistenceException {
         if (sala == null) {
@@ -31,7 +38,7 @@ public class SalaManagementImpl implements SalaManagement{
         if (sala.getUsuarios() == null) {
             throw new BusinessException("Sala a ser criada nao pode ser vazia");
         }
-        // TODO: retorno do DAO
+        return salaDAO.inserir(sala);
     }
 
     @Override
@@ -39,7 +46,7 @@ public class SalaManagementImpl implements SalaManagement{
         if (id == null) {
             throw new BusinessException("ID da sala a ser removida nao pode ser nulo");
         }
-        // TODO: retorno do DAO
+        return salaDAO.remover(id);
     }
 
     @Override
@@ -59,7 +66,7 @@ public class SalaManagementImpl implements SalaManagement{
         if (sala.getId() == null) {
             throw new BusinessException("Id da sala a ser atualizada nao pode ser nulo");
         }
-         // TODO: retorno do DAO
+         return salaDAO.atualizar(sala);
     }
 
     @Override
@@ -67,12 +74,12 @@ public class SalaManagementImpl implements SalaManagement{
         if (id == null) {
             throw new BusinessException("Id da sala nao pode ser nulo");
         }
-         // TODO: retorno do DAO
+         return salaDAO.get(id);
     }
 
     @Override
     public ArrayList<Sala> getTodas() throws PersistenceException {
-         // TODO: retorno do DAO
+         return salaDAO.getTodas();
     }
     
 }
