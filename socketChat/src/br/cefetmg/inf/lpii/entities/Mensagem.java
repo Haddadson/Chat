@@ -20,6 +20,8 @@ public class Mensagem {
     private Timestamp horaEnvio;
     private Long idMensagem;
 
+    public Mensagem () {}
+    
     public Mensagem(Usuario remetente, Usuario usuarioDestino, String conteudo, Timestamp horaEnvio) {
         this.remetente = remetente;
         this.usuarioDestino = usuarioDestino;
