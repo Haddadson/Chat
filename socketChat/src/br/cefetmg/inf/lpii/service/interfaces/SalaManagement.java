@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public interface SalaManagement {
     public Long inserir(Sala sala) throws BusinessException, PersistenceException;
     public boolean remover(Long id) throws BusinessException, PersistenceException;
-    public boolean atualizar(Sala sala) throws PersistenceException;
-    public Sala get(Long id) throws PersistenceException;
+    public boolean atualizar(Sala sala) throws BusinessException, PersistenceException;
+    public Sala get(Long id) throws BusinessException, PersistenceException;
     public ArrayList<Sala> getTodas() throws PersistenceException;
 }

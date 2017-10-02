@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.service;
 
+import br.cefetmg.inf.lpii.DAO.interfaces.MensagemDAO;
 import br.cefetmg.inf.lpii.service.interfaces.MensagemManagement;
 import br.cefetmg.inf.lpii.entities.Mensagem;
 import br.cefetmg.inf.lpii.exception.BusinessException;
@@ -16,24 +17,77 @@ import br.cefetmg.inf.lpii.exception.PersistenceException;
  */
 public class MensagemManagementImpl implements MensagemManagement {
 
+    private MensagemDAO mensagemDAO;
+
+    public MensagemManagementImpl() {
+    }
+    
     @Override
     public Long inserir(Mensagem mensagem) throws BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if (mensagem == null) {
+            throw new BusinessException("Mensagem nao instanciada");
+        }
+        if (mensagem.getConteudo() == null){
+            throw new BusinessException("Conteudo da mensagem nao pode ser nulo ");
+        }
+        if (mensagem.getConteudo().trim().isEmpty()) {
+            throw new BusinessException("Conteudo da mensagem nao pode ser vazio");
+        }
+        if (mensagem.getUsuarioDestino() == null && mensagem.getSalaDestino() == null ) {
+            throw new BusinessException("Destinatario da mensagem nao pode ser nulo");
+        }
+        if (mensagem.getHoraEnvio() == null) {
+            throw new BusinessException("Horario de envio da mensagem nao pode ser nulo ");
+        }
+        if (mensagem.getRemetente() == null) {
+            throw new BusinessException("Remetente da mensagem nao pode ser nulo");
+        }
+        
+        // TODO: persistir e retornar ID
     }
 
     @Override
     public boolean remover(Long id) throws BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (id == null) {
+            throw new BusinessException("Id da mensagem nao pode ser nulo");
+        }
+        
+        // TODO: retorno do DAO
     }
 
     @Override
-    public boolean atualizar(Mensagem mensagem) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean atualizar(Mensagem mensagem) throws BusinessException, PersistenceException {
+        if (mensagem == null) {
+            throw new BusinessException("Mensagem nao instanciada");
+        }
+        if (mensagem.getConteudo() == null){
+            throw new BusinessException("Conteudo da mensagem nao pode ser nulo ");
+        }
+        if (mensagem.getConteudo().trim().isEmpty()) {
+            throw new BusinessException("Conteudo da mensagem nao pode ser vazio");
+        }
+        if (mensagem.getUsuarioDestino() == null && mensagem.getSalaDestino() == null ) {
+            throw new BusinessException("Destinatario da mensagem nao pode ser nulo");
+        }
+        if (mensagem.getHoraEnvio() == null) {
+            throw new BusinessException("Horario de envio da mensagem nao pode ser nulo ");
+        }
+        if (mensagem.getRemetente() == null) {
+            throw new BusinessException("Remetente da mensagem nao pode ser nulo");
+        }
+        if (mensagem.getIdMensagem() == null) {
+            throw new BusinessException("ID da mensagem a ser atualizada nao pode ser nulo");
+        }
+        // TODO: retorno do DAO
     }
 
     @Override
-    public Mensagem get(Long id) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Mensagem get(Long id) throws BusinessException, PersistenceException {
+        if (id == null) {
+            throw new BusinessException("Id da mensagem nao pode ser nulo");
+        }
+        // TODO: retorno do DAO
     }
     
 }
