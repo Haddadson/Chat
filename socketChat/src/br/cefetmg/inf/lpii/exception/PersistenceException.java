@@ -14,6 +14,7 @@ public class PersistenceException extends Exception {
         super(msg);
     }
 
+
     public PersistenceException(Exception ex) {
         super(ex);
     }

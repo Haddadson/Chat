@@ -17,6 +17,8 @@ public class Usuario {
     private String nome;
     private ArrayList<Sala> salas;
 
+    public Usuario() {}
+    
     public Usuario(String nome) {
         this.nome = nome;
     }
