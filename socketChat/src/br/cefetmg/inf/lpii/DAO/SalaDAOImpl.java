@@ -39,22 +39,19 @@ public class SalaDAOImpl implements SalaDAO {
         }
         Long salaId = null;
         try{
-            Connection connection = ConnectionManager.getInstance().getConnection();
-            
-            String sql = "INSERT INTO Sala (NOM_sala)" +
-                         " VALUES(?) returning COD_sala";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, sala.getNome());
-            ResultSet rs = pstmt.executeQuery();
-            
-            if(rs.next()) {
-                salaId = rs.getLong("COD_sala");
-                sala.setId(salaId);
+            try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+                String sql = "INSERT INTO Sala (NOM_sala)" +
+                        " VALUES(?) returning COD_sala";
+                try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                    pstmt.setString(1, sala.getNome());
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if(rs.next()) {
+                            salaId = rs.getLong("COD_sala");
+                            sala.setId(salaId);
+                        }
+                    }
+                }
             }
-            
-            rs.close();
-            pstmt.close();
-            connection.close();
             
         }catch(ClassNotFoundException | SQLException ex){
             Logger.getLogger(SalaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,17 +62,15 @@ public class SalaDAOImpl implements SalaDAO {
 
     @Override
     public boolean remover(Long id) throws PersistenceException {
-        try{
-            Connection connection = ConnectionManager.getInstance().getConnection();
-            
-            String sql = "DELETE FROM Sala WHERE COD_sala = ?";
-            
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, id);
-            pstmt.executeUpdate();
-            
-            pstmt.close();
-            connection.close();
+        try {
+            try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+                String sql = "DELETE FROM Sala WHERE COD_sala = ?";
+                
+                try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                    pstmt.setLong(1, id);
+                    pstmt.executeUpdate();
+                }
+            }
             
             return true;
             
@@ -86,51 +81,47 @@ public class SalaDAOImpl implements SalaDAO {
 
     @Override
     public boolean atualizar(Sala sala) throws PersistenceException {
-         try{
-            Connection connection = ConnectionManager.getInstance().getConnection();
-            
-            String sql = "UPDATE Sala" +
-                        "SET NOM_sala = ?,"+
-                        "   TXT_senha = ? "+
-                        "WHERE COD_sala = ?";
-            
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, sala.getNome());
-            pstmt.setString(2, sala.getSenha());
-            pstmt.executeUpdate();
-            
-            pstmt.close();
-            connection.close();
+         try {
+             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+                 String sql = "UPDATE Sala" +
+                         "SET NOM_sala = ?,"+
+                         "   TXT_senha = ? "+
+                         "WHERE COD_sala = ?";
+                 
+                 try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                     pstmt.setString(1, sala.getNome());
+                     pstmt.setString(2, sala.getSenha());
+                     pstmt.executeUpdate();
+                 }
+             }
             
             return true;
-        }catch (ClassNotFoundException | SQLException e){
+        } catch (ClassNotFoundException | SQLException e){
             throw new PersistenceException(e);
         }
     }
 
     @Override
     public Sala get(Long id) throws PersistenceException {
-        try{
-            Connection connection = ConnectionManager.getInstance().getConnection();
-            String sql = "SELECT * FROM Sala WHERE COD_sala = ?";
-            
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, id);
-            ResultSet rs = pstmt.executeQuery();
-            
-            Sala sala = new Sala();
-            if(rs.next()){
-                sala.setId(id);
-                sala.setNome(rs.getString("NOM_sala"));
-                sala.setSenha(rs.getString("TXT_senha"));
-            }            
-            
-            rs.close();
-            pstmt.close();
-            connection.close();
+        try {
+            Sala sala;
+            try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+                String sql = "SELECT * FROM Sala WHERE COD_sala = ?";
+                try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                    pstmt.setLong(1, id);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        sala = new Sala();
+                        if(rs.next()){
+                            sala.setId(id);
+                            sala.setNome(rs.getString("NOM_sala"));
+                            sala.setSenha(rs.getString("TXT_senha"));
+                        }
+                    }
+                }
+            }
             
             return sala;
-        }catch(ClassNotFoundException | SQLException e){
+        } catch(ClassNotFoundException | SQLException e){
             throw new PersistenceException(e);
         }
     }
@@ -138,29 +129,23 @@ public class SalaDAOImpl implements SalaDAO {
     @Override
     public ArrayList<Sala> getTodas() throws PersistenceException {
         try{
-            Connection connection = ConnectionManager.getInstance().getConnection();
-            
-            String sql = "SELECT * FROM Sala ORDER BY NOM_sala";
-            
-            PreparedStatement pstmt = connection.prepareCall(sql);
-            ResultSet rs = pstmt.executeQuery();
-            
-            ArrayList<Sala> listAll = null;
-            Sala sala = null;
-            
-            if(rs.next()){
-                listAll = new ArrayList<>();
-                do{
-                    sala = new Sala();
-                    sala.setId(rs.getLong("COD_sala"));
-                    sala.setNome(rs.getString("NOM_sala"));
-                    sala.setSenha(rs.getString("TXT_senha"));
-                }while(rs.next());
+            ArrayList<Sala> listAll;
+            try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+                String sql = "SELECT * FROM Sala ORDER BY NOM_sala";
+                try (PreparedStatement pstmt = connection.prepareCall(sql); 
+                    ResultSet rs = pstmt.executeQuery()) {
+                    listAll = null;
+                    Sala sala;
+                    if(rs.next()){
+                        listAll = new ArrayList<>();
+                        do{
+                            sala = new Sala();
+                            sala.setId(rs.getLong("COD_sala"));
+                            sala.setNome(rs.getString("NOM_sala"));
+                            sala.setSenha(rs.getString("TXT_senha"));
+                        }while(rs.next());
+                    }                  }
             }
-            
-            rs.close();
-            pstmt.close();
-            connection.close();
             
             return listAll;
             

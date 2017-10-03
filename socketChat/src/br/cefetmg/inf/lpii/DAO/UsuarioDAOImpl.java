@@ -9,8 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -37,24 +35,22 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         Long userId = null;
 
-        try {
-            Connection connection = ConnectionManager.getInstance().getConnection();
+        try (Connection connection = ConnectionManager.getInstance().getConnection();) {
 
             String sql = "INSERT INTO \"Usuario\" (COD_usuario, NOM_usuario) "
                     + "    VALUES (?, ?) returning COD_usuario;";
 
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, usuario.getId());
-            pstmt.setString(2, usuario.getNome());
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                userId = rs.getLong("COD_usuario");
-                usuario.setId(userId);
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                pstmt.setLong(1, usuario.getId());
+                pstmt.setString(2, usuario.getNome());
+                
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        userId = rs.getLong("COD_usuario");
+                        usuario.setId(userId);
+                    }
+                }
             }
-
-            rs.close();
-            pstmt.close();
             connection.close();
 
         } catch (ClassNotFoundException | SQLException ex) {
@@ -68,24 +64,21 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public boolean atualizar(Usuario usuario) throws PersistenceException {
         try {
 
-            Connection connection = ConnectionManager.getInstance().getConnection();
-
-            String sql = "UPDATE \"Usuario\" "
-                    + " SET NOM_usuario = ? "
-                    + " WHERE COD_usuario = ?";
-
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, usuario.getNome());
-            pstmt.setLong(5, usuario.getId());
-            pstmt.executeUpdate();
-
-            pstmt.close();
-            connection.close();
+            try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+                String sql = "UPDATE \"Usuario\" "
+                        + " SET NOM_usuario = ? "
+                        + " WHERE COD_usuario = ?";
+                
+                try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                    pstmt.setString(1, usuario.getNome());
+                    pstmt.setLong(5, usuario.getId());
+                    pstmt.executeUpdate();
+                }
+            }
 
             return true;
             
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | SQLException e) {
                 throw new PersistenceException(e);
         }
 
@@ -94,21 +87,18 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public boolean remover(Long id) throws PersistenceException {
         try {
-            Connection connection = ConnectionManager.getInstance().getConnection();
-
-            String sql = "DELETE FROM \"usuario\" WHERE COD_usuario = ?";
-
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, id);
-            pstmt.executeUpdate();
-
-            pstmt.close();
-            connection.close();
+            try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+                String sql = "DELETE FROM \"usuario\" WHERE COD_usuario = ?";
+                
+                try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                    pstmt.setLong(1, id);
+                    pstmt.executeUpdate();
+                }
+            }
 
             return true;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceException(e);
         }
     }
@@ -116,28 +106,24 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public Usuario get(Long id) throws PersistenceException {
         try {
-            Connection connection = ConnectionManager.getInstance().getConnection();
-
-            String sql = "SELECT * FROM \"Usuario\" WHERE COD_usuario = ? ";
-
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, id);
-            ResultSet rs = pstmt.executeQuery();
-
-            Usuario usuario = null;
-            if (rs.next()) {
-                usuario = new Usuario();
-                usuario.setId(id);
-                usuario.setNome(rs.getString("NOM_usuario"));               
+            Usuario usuario;
+            try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+                String sql = "SELECT * FROM \"Usuario\" WHERE COD_usuario = ? ";
+                try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                    pstmt.setLong(1, id);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        usuario = null;
+                        if (rs.next()) {
+                            usuario = new Usuario();
+                            usuario.setId(id);
+                            usuario.setNome(rs.getString("NOM_usuario"));
+                        }
+                    }
+                }               
             }
 
-            rs.close();
-            pstmt.close();
-            connection.close();
-
             return usuario;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceException(e);
         }
     }
