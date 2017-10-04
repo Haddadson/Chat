@@ -118,6 +118,7 @@ public class MensagemDAOImpl implements MensagemDAO {
     public Mensagem get(Long id) throws PersistenceException {
         try {
             Mensagem mensagem;
+            Usuario usuario;
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
                 String sql = "SELECT * FROM \"Mensagem\" WHERE COD_mensagem = ? ";
                 try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -126,9 +127,12 @@ public class MensagemDAOImpl implements MensagemDAO {
                         mensagem = null;
                         if (rs.next()) {
                             mensagem = new Mensagem();
-                            mensagem.setUsuarioDestino((Usuario) rs.getObject("COD_remetente"));
+                            usuario = new Usuario();
+                            usuario.setId(rs.getLong("COD_remetente"));
+                            mensagem.setUsuarioDestino(usuario);
                             mensagem.setIdMensagem(id);
-                            mensagem.setRemetente((Usuario) rs.getObject("COD_destinatatio"));
+                            usuario.setId(rs.getLong("COD_destinatatio"));
+                            mensagem.setRemetente(usuario);
                             mensagem.setSalaDestino((Sala) rs.getObject("COD_salaDestino"));
                             mensagem.setHoraEnvio(rs.getTimestamp("DAT_msg"));
                             mensagem.setConteudo(rs.getString("TXT_conteudo"));
