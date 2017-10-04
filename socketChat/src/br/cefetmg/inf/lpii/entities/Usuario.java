@@ -12,10 +12,13 @@ import java.util.ArrayList;
  * @author Aluno
  */
 public class Usuario {
-    
+    // atributos persistidos
     private Long id;
     private String nome;
     private ArrayList<Sala> salas;
+    
+    // atributos nao persistidos
+    private int porta;
 
     public Usuario() {}
     
@@ -23,6 +26,11 @@ public class Usuario {
         this.nome = nome;
     }
 
+    public Usuario(String nome, int porta) {
+        this.nome = nome;
+        this.porta = porta;
+    }
+    
     public Usuario(String nome, ArrayList<Sala> salas) {
         this.nome = nome;
         this.salas = salas;
@@ -33,7 +41,14 @@ public class Usuario {
         this.nome = nome;
         this.salas = salas;
     }
-    
+
+    public Usuario(Long id, String nome, ArrayList<Sala> salas, int porta) {
+        this.id = id;
+        this.nome = nome;
+        this.salas = salas;
+        this.porta = porta;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -57,5 +72,13 @@ public class Usuario {
     public void setSalas(ArrayList<Sala> salas) {
         this.salas = salas;
     }
-    
+
+    public int getPorta() {
+        return porta;
+    }
+
+    public void setPorta(int porta) {
+        this.porta = porta;
+    }
+
 }
