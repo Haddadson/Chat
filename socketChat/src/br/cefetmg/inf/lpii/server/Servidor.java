@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.cefeftmg.inf.lpii.server;
+package br.cefetmg.inf.lpii.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
