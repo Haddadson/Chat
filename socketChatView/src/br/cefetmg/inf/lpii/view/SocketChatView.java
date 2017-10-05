@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.view;
 
+import br.cefetmg.inf.lpii.client.Cliente;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,13 +27,10 @@ public class SocketChatView extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
-    /**
-     * @param args the command line arguments
-     */
     
     public static void main(String[] args) {
         launch(args);
+        Cliente cliente = new Cliente();
     }
     
 }

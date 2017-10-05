@@ -13,14 +13,15 @@ import java.io.IOException;
  * @author João Pedro Renan
  */
 public class Cliente {
-    public static void main(String[] args) {
+    
+    public Cliente(){
         try {
             String host = "localhost";
             int porta = 2223;
-            
+
             ChatProxy proxy = new ChatProxy(host, porta);
             new Thread(proxy).start();
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }

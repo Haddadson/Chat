@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.cefetmg.inf.lpii.view.ChatGUIController">
+<VBox prefHeight="265.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.cefetmg.inf.lpii.view.CriarSalaController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -48,24 +48,14 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="208.0" prefWidth="367.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="240.0" prefWidth="423.0" VBox.vgrow="ALWAYS">
       <children>
-            <Accordion layoutX="411.0" layoutY="83.0" />
-            <ScrollPane layoutX="186.0" layoutY="16.0" prefHeight="222.0" prefWidth="440.0" />
-            <ScrollPane layoutX="16.0" layoutY="16.0" prefHeight="167.0" prefWidth="152.0">
-               <content>
-                  <Label text="Groups" />
-               </content>
-            </ScrollPane>
-            <CheckBox layoutX="553.0" layoutY="315.0" mnemonicParsing="false" text="All" />
-            <CheckBox layoutX="553.0" layoutY="338.0" mnemonicParsing="false" text="Private" />
-            <Button layoutX="549.0" layoutY="255.0" mnemonicParsing="false" text="Send" />
-            <TextArea layoutX="186.0" layoutY="255.0" prefHeight="102.0" prefWidth="345.0" />
-            <ScrollPane layoutX="16.0" layoutY="195.0" prefHeight="160.0" prefWidth="152.0">
-               <content>
-                  <Label text="Users" />
-               </content>
-            </ScrollPane>
+            <TextField id="nomeSala" layoutX="139.0" layoutY="59.0" prefHeight="25.0" prefWidth="231.0" />
+            <Label layoutX="37.0" layoutY="63.0" text="Nome da Sala:" />
+            <Label layoutX="23.0" layoutY="96.0" text="Senha (opcional):" />
+            <PasswordField id="senhaSala" layoutX="139.0" layoutY="92.0" prefHeight="25.0" prefWidth="231.0" />
+            <Button id="confirmarCriacao" layoutX="255.0" layoutY="128.0" mnemonicParsing="false" text="Criar" />
+            <Button id="cancelar" cancelButton="true" layoutX="308.0" layoutY="128.0" mnemonicParsing="false" text="Cancelar" wrapText="true" />
       </children>
     </AnchorPane>
   </children>
