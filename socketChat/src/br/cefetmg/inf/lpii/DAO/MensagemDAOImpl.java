@@ -23,7 +23,7 @@ public class MensagemDAOImpl implements MensagemDAO {
     private MensagemDAOImpl() {
     }
 
-    private static MensagemDAOImpl getInstance() {
+    public static MensagemDAOImpl getInstance() {
         if (messageDAO == null) {
             messageDAO = new MensagemDAOImpl();
         }
