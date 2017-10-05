@@ -5,12 +5,18 @@
  */
 package br.cefetmg.inf.lpii.controllers;
 
+import br.cefetmg.inf.lpii.DAO.SalaDAOImpl;
+import br.cefetmg.inf.lpii.entities.Sala;
+import br.cefetmg.inf.lpii.exception.PersistenceException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -24,6 +30,10 @@ public class CriarSalaController implements Initializable {
     @FXML
     private PasswordField senhaSala;
     
+    private Sala sala;
+    private SalaDAOImpl salaDAO;
+    private Stage salaStage;
+    
     /**
      * Initializes the controller class.
      */
@@ -32,6 +42,54 @@ public class CriarSalaController implements Initializable {
         // TODO
     }    
     
+    public void defineStage(Stage stage){
+        salaStage = stage;
+    }
     
+    public boolean checaInput(){
+        String mensagemErro = "";
+        
+        if (nomeSala.getText() == null || nomeSala.getText().length() == 0){
+            mensagemErro += "Nome de Sala inválido!\n";
+        } 
+        
+        if (mensagemErro.length() != 0) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Campo inválido");
+            alert.setHeaderText("Por favor, insira um nome para a sala");
+            alert.setContentText(mensagemErro);
+            alert.showAndWait();
+            
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public void insereSala() {
+        if (checaInput()){
+           try{
+                sala = new Sala();
+                sala.setNome(nomeSala.getText());
+                if(senhaSala.getText()!=null || senhaSala.getText().length() != 0){
+                    sala.setSenha(senhaSala.getText());
+                }
+                salaDAO.inserir(sala);
+           }catch (PersistenceException ex){
+                ex.printStackTrace();
+           }
+        }
+    }
+    
+    @FXML
+    private void clickConfirmar() {
+        insereSala();
+        salaStage.close();
+    }
+    
+    @FXML
+    private void clickCancelar() {
+        salaStage.close();
+    }
 }
 
