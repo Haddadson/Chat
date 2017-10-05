@@ -3,18 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.cefetmg.inf.lpii.controllers;
 
-import br.cefetmg.inf.lpii.DAO.MensagemDAOImpl;
-import br.cefetmg.inf.lpii.entities.Mensagem;
-import br.cefetmg.inf.lpii.exception.PersistenceException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
@@ -43,9 +37,6 @@ public class ChatGUIController implements Initializable {
     private ScrollPane painelUsuarios;
     @FXML
     private Button criarSala;
-    
-    private Mensagem mensagem;
-    private  MensagemDAOImpl mensagemDAO;
 
     /**
      * Initializes the controller class.
@@ -53,20 +44,6 @@ public class ChatGUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
-   public void captarMensagem() throws PersistenceException {
-       if (insereMensagem != null) {
-        mensagem.setConteudo(insereMensagem.getText());
-        mensagemDAO.inserir(mensagem);
-       }
-   }
-    
-    public void enviarMensagem() throws PersistenceException {
-        captarMensagem();
-    }
-    
-    public void exibeCriarSala() {
-    }
+    }    
     
 }

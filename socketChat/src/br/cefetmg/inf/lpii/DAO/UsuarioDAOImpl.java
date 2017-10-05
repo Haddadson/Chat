@@ -18,7 +18,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     private static UsuarioDAOImpl userDAO = null;
     
-    private UsuarioDAOImpl() {}
+    public UsuarioDAOImpl() {}
     
     private static UsuarioDAOImpl getInstance() {
         if (userDAO == null) {

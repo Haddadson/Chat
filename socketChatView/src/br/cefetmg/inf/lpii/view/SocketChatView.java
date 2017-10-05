@@ -17,15 +17,25 @@ import javafx.stage.Stage;
  * @author aluno
  */
 public class SocketChatView extends Application {
+    private Stage stage; 
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    
     
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("chatGUI.fxml"));
-        
+        this.stage = stage;
         Scene scene = new Scene(root);
         
-        stage.setScene(scene);
-        stage.show();
+        this.stage.setScene(scene);
+        this.stage.show();
     }
     
     public static void main(String[] args) {
