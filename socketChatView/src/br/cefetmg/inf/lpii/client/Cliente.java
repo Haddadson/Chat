@@ -5,7 +5,8 @@
  */
 package br.cefetmg.inf.lpii.client;
 
-import br.cefetmg.inf.lpii.view.VisaoChat;
+import java.io.IOException;
+
 
 /**
  *
@@ -17,11 +18,10 @@ public class Cliente {
             String host = "localhost";
             int porta = 2223;
             
-            VisaoChat.launch(args);
             ChatProxy proxy = new ChatProxy(host, porta);
             new Thread(proxy).start();
             
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
