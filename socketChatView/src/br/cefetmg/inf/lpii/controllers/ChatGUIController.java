@@ -12,7 +12,7 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author Pós Graduação
+ * @author Breno Mariz
  */
 public class ChatGUIController implements Initializable {
 
@@ -22,6 +22,8 @@ public class ChatGUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+
+    
     
 }
