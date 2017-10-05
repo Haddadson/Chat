@@ -5,6 +5,9 @@
  */
 package br.cefetmg.inf.lpii.entities;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +21,9 @@ public class Usuario {
     private ArrayList<Sala> salas;
     
     // atributos nao persistidos
-    private int porta;
+    private Socket socket;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
 
     public Usuario() {}
     
@@ -26,9 +31,9 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public Usuario(String nome, int porta) {
+    public Usuario(String nome, Socket socket) {
         this.nome = nome;
-        this.porta = porta;
+        this.socket = socket;
     }
     
     public Usuario(String nome, ArrayList<Sala> salas) {
@@ -42,11 +47,11 @@ public class Usuario {
         this.salas = salas;
     }
 
-    public Usuario(Long id, String nome, ArrayList<Sala> salas, int porta) {
+    public Usuario(Long id, String nome, ArrayList<Sala> salas, Socket socket) {
         this.id = id;
         this.nome = nome;
         this.salas = salas;
-        this.porta = porta;
+        this.socket = socket;
     }
 
     public String getNome() {
@@ -73,12 +78,30 @@ public class Usuario {
         this.salas = salas;
     }
 
-    public int getPorta() {
-        return porta;
+    public Socket getSocket() {
+        return socket;
     }
 
-    public void setPorta(int porta) {
-        this.porta = porta;
+    public void setPorta(Socket socket) {
+        this.socket = socket;
     }
+
+    public ObjectOutputStream getOut() {
+        return out;
+    }
+
+    public void setOut(ObjectOutputStream out) {
+        this.out = out;
+    }
+
+    public ObjectInputStream getIn() {
+        return in;
+    }
+
+    public void setIn(ObjectInputStream in) {
+        this.in = in;
+    }
+    
+    
 
 }
