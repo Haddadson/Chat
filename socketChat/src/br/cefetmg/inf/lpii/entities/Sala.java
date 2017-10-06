@@ -28,7 +28,7 @@ public class Sala {
         this.usuarios = usuarios;
         this.nome = nome;
     }
-
+    
     public Sala() {
     }    
 

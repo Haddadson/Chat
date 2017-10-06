@@ -16,6 +16,8 @@ public class Payload {
     private Usuario usuario;
     private Sala sala;
     
+    public Payload() {}
+    
     public Payload(TipoOperacao op) {
         this.op = op;
     }

@@ -6,9 +6,12 @@
 package br.cefetmg.inf.lpii.controllers;
 
 import br.cefetmg.inf.lpii.DAO.SalaDAOImpl;
+import br.cefetmg.inf.lpii.entities.Payload;
 import br.cefetmg.inf.lpii.entities.Sala;
-import br.cefetmg.inf.lpii.exception.PersistenceException;
+import br.cefetmg.inf.lpii.entities.TipoOperacao;
+import br.cefetmg.inf.lpii.entities.Usuario;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,7 +36,7 @@ public class CriarSalaController implements Initializable {
     private Sala sala;
     private SalaDAOImpl salaDAO;
     private Stage salaStage;
-    
+    private ArrayList<Usuario> listaUsuarios;  
     /**
      * Initializes the controller class.
      */
@@ -68,14 +71,16 @@ public class CriarSalaController implements Initializable {
     
     public void insereSala() {
         if (checaInput()){
-
-            if(senhaSala.getText()!=null || senhaSala.getText().length() != 0){
-                sala = new Sala(nomeSala.getText(), senhaSala.getText());
+            listaUsuarios = new ArrayList();
+            listaUsuarios.add(Compartilhado.getUsuario());
+            if(senhaSala.getText()!= null || senhaSala.getText().length() != 0){
+                sala = new Sala(listaUsuarios, nomeSala.getText(), senhaSala.getText());
             }
             else {
-                sala = new Sala(nomeSala.getText(), null);
+                sala = new Sala(listaUsuarios, nomeSala.getText(), null);
             }
-
+            Payload payload = new Payload(TipoOperacao.CRIAR_SALA, sala);
+            
         }
     }
     
