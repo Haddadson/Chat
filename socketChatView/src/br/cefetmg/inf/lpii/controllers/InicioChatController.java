@@ -35,8 +35,12 @@ public class InicioChatController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cliente = new Cliente(nomeUsuario.getText());
                
     }    
+    
+    @FXML
+    private void inserirUsuario(){
+        cliente = new Cliente(nomeUsuario.getText());
+    }
    
 }

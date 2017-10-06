@@ -38,7 +38,6 @@ public class ChatProxy implements Runnable {
         this.out = new ObjectOutputStream(socket.getOutputStream());
         this.usuario = usuario;
     }
-       
     
     @Override
     public void run() {
