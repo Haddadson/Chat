@@ -7,8 +7,10 @@ package br.cefetmg.inf.lpii.controllers;
 
 import br.cefetmg.inf.lpii.DAO.MensagemDAOImpl;
 import br.cefetmg.inf.lpii.entities.Mensagem;
+import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import java.sql.Timestamp;
 
 /**
  * FXML Controller class
@@ -42,7 +45,10 @@ public class ChatGUIController implements Initializable {
     private Button criarSala;
     
     private Mensagem mensagem;
-    private  MensagemDAOImpl mensagemDAO;
+    
+    private  Usuario usuario;
+    
+    private Timestamp currentTime;
 
     /**
      * Initializes the controller class.
@@ -53,9 +59,11 @@ public class ChatGUIController implements Initializable {
     }
 
     public void captarMensagem() throws PersistenceException {
-        if (insereMensagem != null) {
-            mensagem.setConteudo(insereMensagem.getText());
-            mensagemDAO.inserir(mensagem);
+        if (insereMensagem.getText() != null) {
+            currentTime = new java.sql.Timestamp(System.currentTimeMillis());
+            
+            mensagem = new Mensagem(usuario, usuario, insereMensagem.getText(), currentTime);
+
        }
    }
     

@@ -68,16 +68,14 @@ public class CriarSalaController implements Initializable {
     
     public void insereSala() {
         if (checaInput()){
-           try{
-                sala = new Sala();
-                sala.setNome(nomeSala.getText());
-                if(senhaSala.getText()!=null || senhaSala.getText().length() != 0){
-                    sala.setSenha(senhaSala.getText());
-                }
-                salaDAO.inserir(sala);
-           }catch (PersistenceException ex){
-                ex.printStackTrace();
-           }
+
+            if(senhaSala.getText()!=null || senhaSala.getText().length() != 0){
+                sala = new Sala(nomeSala.getText(), senhaSala.getText());
+            }
+            else {
+                sala = new Sala(nomeSala.getText(), null);
+            }
+
         }
     }
     
