@@ -54,19 +54,18 @@ public class ChatAdapter implements Runnable, Distribuivel {
                     break;
                 case CRIAR_SALA:
                     dist.criarSala(payload.getSala());
-                    //todo
                     break;
                 case ENVIAR_MENSAGEM:
-                    //todo
+                    dist.enviarMensagem(payload.getMensagem());
                     break;
                 case INSERIR_USUARIO_NA_SALA:
-                    //todo
+                    dist.inserirUsuarioNaSala(payload.getUsuario(), payload.getSala(), payload.getSala().getSenha());
                     break;
                 case REMOVER_SALA:
                     //todo
                     break;
                 case REMOVER_USUARIO_DA_SALA:
-                    //todo
+                    dist.removerUsuarioDaSala(payload.getUsuario(), payload.getSala());
                     break;
             }
         } catch (IOException | ClassNotFoundException | BusinessException | PersistenceException ex) {
