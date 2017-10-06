@@ -40,7 +40,6 @@ public class SocketChatView extends Application {
     
     public static void main(String[] args) {
         launch(args);
-        Cliente cliente = new Cliente();
     }
     
 }

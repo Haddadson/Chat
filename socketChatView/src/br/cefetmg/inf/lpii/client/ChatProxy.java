@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.client;
 
+import br.cefetmg.inf.lpii.entities.Usuario;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -18,6 +19,7 @@ public class ChatProxy implements Runnable {
 
     private final Socket socket;
     private final ObjectOutputStream out;  
+    private Usuario usuario;
     
     private static ArrayList<Integer> portsBeingUsed = new ArrayList();
     
@@ -30,11 +32,17 @@ public class ChatProxy implements Runnable {
         this.socket = new Socket(host, porta);
         this.out = new ObjectOutputStream(socket.getOutputStream());
     }
+    
+    public ChatProxy(String host, int porta, Usuario usuario) throws IOException {
+        this.socket = new Socket(host, porta);
+        this.out = new ObjectOutputStream(socket.getOutputStream());
+        this.usuario = usuario;
+    }
        
     
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }

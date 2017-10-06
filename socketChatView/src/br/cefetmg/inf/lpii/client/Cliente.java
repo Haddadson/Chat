@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.client;
 
+import br.cefetmg.inf.lpii.entities.Usuario;
 import java.io.IOException;
 
 
@@ -13,13 +14,14 @@ import java.io.IOException;
  * @author João Pedro Renan
  */
 public class Cliente {
-    
-    public Cliente(){
+    private Usuario usuario;
+    public Cliente(String nome){
         try {
+            usuario = new Usuario(nome);
             String host = "localhost";
             int porta = 2223;
 
-            ChatProxy proxy = new ChatProxy(host, porta);
+            ChatProxy proxy = new ChatProxy(host, porta, usuario);
             new Thread(proxy).start();
 
         } catch (IOException e) {

@@ -11,10 +11,7 @@ import br.cefetmg.inf.lpii.exception.PersistenceException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
@@ -55,10 +52,10 @@ public class ChatGUIController implements Initializable {
         // TODO
     }
 
-   public void captarMensagem() throws PersistenceException {
-       if (insereMensagem != null) {
-        mensagem.setConteudo(insereMensagem.getText());
-        mensagemDAO.inserir(mensagem);
+    public void captarMensagem() throws PersistenceException {
+        if (insereMensagem != null) {
+            mensagem.setConteudo(insereMensagem.getText());
+            mensagemDAO.inserir(mensagem);
        }
    }
     

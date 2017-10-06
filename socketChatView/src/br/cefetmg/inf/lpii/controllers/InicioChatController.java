@@ -5,8 +5,7 @@
  */
 package br.cefetmg.inf.lpii.controllers;
 
-import br.cefetmg.inf.lpii.DAO.UsuarioDAOImpl;
-import br.cefetmg.inf.lpii.DAO.interfaces.UsuarioDAO;
+import br.cefetmg.inf.lpii.client.Cliente;
 import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
 import java.net.URL;
@@ -30,38 +29,14 @@ public class InicioChatController implements Initializable {
     @FXML
     private Button defineUsuario;
     
-    private Usuario usuario;
-    private UsuarioDAOImpl usuarioDAO;
-
+    private Cliente cliente;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        usuario = new Usuario();
-        try {
-            inserirUsuario();
-        } catch (PersistenceException ex) {
-            Logger.getLogger(InicioChatController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        cliente = new Cliente(nomeUsuario.getText());
+               
     }    
-    
-    public void definirUsuario() throws PersistenceException{
-        try {
-            if (nomeUsuario != null) {
-                usuario.setNome(nomeUsuario.getText());
-                usuarioDAO.inserir(usuario);
-            }
-            
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-            throw new PersistenceException(ex);
-        }
-
-    }
-    
-    public void inserirUsuario() throws PersistenceException {
-        definirUsuario();
-    }
+   
 }
