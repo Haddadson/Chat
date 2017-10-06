@@ -5,7 +5,6 @@
  */
 package br.cefetmg.inf.lpii.view;
 
-import br.cefetmg.inf.lpii.client.Cliente;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
