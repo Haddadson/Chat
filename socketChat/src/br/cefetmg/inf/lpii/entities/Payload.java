@@ -17,8 +17,24 @@ public class Payload {
     private Sala sala;
     
     public Payload(TipoOperacao op) {
+        this.op = op;
     }
 
+    public Payload(TipoOperacao op, Mensagem mensagem) {
+        this.op = op;
+        this.mensagem = mensagem;
+    }
+
+    public Payload(TipoOperacao op, Usuario usuario) {
+        this.op = op;
+        this.usuario = usuario;
+    }
+
+    public Payload(TipoOperacao op, Sala sala) {
+        this.op = op;
+        this.sala = sala;
+    }
+    
     public TipoOperacao getOp() {
         return op;
     }
