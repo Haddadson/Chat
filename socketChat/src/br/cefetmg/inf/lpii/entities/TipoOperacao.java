@@ -16,7 +16,8 @@ public enum TipoOperacao {
     INSERIR_USUARIO_NA_SALA(3),
     REMOVER_USUARIO_DA_SALA(4),
     CRIAR_SALA(5),
-    REMOVER_SALA(6);
+    REMOVER_SALA(6),
+    INSERIR_USUARIO_NA_SALA_SENHA(7);
     
     private final int valor;
 

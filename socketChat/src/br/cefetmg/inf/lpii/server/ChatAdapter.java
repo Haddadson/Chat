@@ -50,22 +50,22 @@ public class ChatAdapter implements Runnable, Distribuivel {
             payload = (Payload) in.readObject();
             switch (payload.getOp()) {
                 case CRIAR_CONTA: 
-                    dist.criarConta(payload.getUsuario());
+                    this.criarConta(payload.getUsuario());
                     break;
                 case CRIAR_SALA:
-                    dist.criarSala(payload.getSala());
+                    this.criarSala(payload.getSala());
                     break;
                 case ENVIAR_MENSAGEM:
-                    dist.enviarMensagem(payload.getMensagem());
+                    this.enviarMensagem(payload.getMensagem());
                     break;
                 case INSERIR_USUARIO_NA_SALA:
-                    dist.inserirUsuarioNaSala(payload.getUsuario(), payload.getSala(), payload.getSala().getSenha());
+                    this.inserirUsuarioNaSala(payload.getUsuario(), payload.getSala(), payload.getSala().getSenha());
                     break;
                 case REMOVER_SALA:
-                    //todo
+                    this.removerSala(payload.getSala());
                     break;
                 case REMOVER_USUARIO_DA_SALA:
-                    dist.removerUsuarioDaSala(payload.getUsuario(), payload.getSala());
+                    this.removerUsuarioDaSala(payload.getUsuario(), payload.getSala());
                     break;
             }
         } catch (IOException | ClassNotFoundException | BusinessException | PersistenceException ex) {
@@ -76,27 +76,32 @@ public class ChatAdapter implements Runnable, Distribuivel {
 
     @Override
     public void enviarMensagem(Mensagem mensagem) throws PersistenceException, BusinessException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dist.enviarMensagem(mensagem);
     }
 
     @Override
     public void inserirUsuarioNaSala(Usuario usuario, Sala sala, String senha) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dist.inserirUsuarioNaSala(usuario, sala, senha);
     }
 
     @Override
     public void removerUsuarioDaSala(Usuario usuario, Sala sala) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dist.removerUsuarioDaSala(usuario, sala);
     }
 
     @Override
     public void criarSala(Sala sala) throws BusinessException, PersistenceException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dist.criarSala(sala);
     }
 
     @Override
     public void criarConta(Usuario usuario) throws IOException, BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dist.criarConta(usuario);
+    }
+
+    @Override
+    public void removerSala(Sala sala) throws IOException, BusinessException, PersistenceException {
+        dist.removerSala(sala);
     }
     
 }

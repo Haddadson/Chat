@@ -49,7 +49,7 @@ public class Distribuidor implements Distribuivel {
         this.mensagemDAO = MensagemDAOImpl.getInstance();
         this.salaDAO = SalaDAOImpl.getInstance();
         
-        out = (ObjectOutputStream) socket.getOutputStream();
+        this.out = (ObjectOutputStream) socket.getOutputStream();
         Distribuidor.SOCKETS.add(socket);
     }
     
@@ -110,6 +110,12 @@ public class Distribuidor implements Distribuivel {
     @Override
     public synchronized void criarConta(Usuario usuario) throws IOException, BusinessException, PersistenceException {
         this.out.writeLong(usuarioManagementImpl.inserir(usuario));
+        this.out.flush();
+    }
+
+    @Override
+    public void removerSala(Sala sala) throws IOException, BusinessException, PersistenceException {
+        this.out.writeBoolean(this.salaManagementImpl.remover(sala.getId()));
         this.out.flush();
     }
     
