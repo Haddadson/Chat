@@ -18,6 +18,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import java.sql.Timestamp;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,7 +31,7 @@ import javafx.stage.Stage;
  *
  * @author Pós Graduação
  */
-public class ChatGUIController implements Initializable {
+public class ChatGUIController extends Application implements Initializable {
 
     @FXML
     private ScrollPane painelMensagem;
@@ -55,6 +56,7 @@ public class ChatGUIController implements Initializable {
     
     private Timestamp currentTime;
     
+    private Stage stage;
     
     /**
      * Initializes the controller class.
@@ -77,8 +79,19 @@ public class ChatGUIController implements Initializable {
         //captarMensagem();
     }
     @FXML
-    public void exibeCriarSala(ActionEvent e) {
-        //TODO: Chamar FXML criarSala
+    public void exibeCriarSala(ActionEvent e) throws Exception {
+        start(stage);
+//TODO: Chamar FXML criarSala
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("criarSala.fxml"));
+        
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.show();
     }
     
 }
