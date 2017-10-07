@@ -59,14 +59,14 @@
             </ScrollPane>
             <CheckBox id="publico" fx:id="destinatarioAll" layoutX="553.0" layoutY="315.0" mnemonicParsing="false" text="All" />
             <CheckBox id="privado" fx:id="destinatarioPrivate" layoutX="553.0" layoutY="338.0" mnemonicParsing="false" text="Private" />
-            <Button id="enviar" fx:id="enviarMensagem" onAction="enviarMensagem()" layoutX="549.0" layoutY="255.0" mnemonicParsing="false" text="Send" />
+            <Button id="enviar" fx:id="enviarMensagem" onAction="#enviarMensagem" layoutX="549.0" layoutY="255.0" mnemonicParsing="false" text="Send" />
             <TextArea id="textoEnvio" fx:id="insereMensagem" layoutX="186.0" layoutY="255.0" prefHeight="102.0" prefWidth="345.0" />
             <ScrollPane id="usuario" fx:id="painelUsuarios" layoutX="16.0" layoutY="211.0" prefHeight="148.0" prefWidth="152.0">
                <content>
                   <Label text="Users" />
                </content>
             </ScrollPane>
-            <Button id="criarSala" fx:id="criarSala" onAction="exibeCriarSala()" layoutX="16.0" layoutY="175.0" mnemonicParsing="false" text="Criar Sala" />
+            <Button id="criarSala" fx:id="criarSala" onAction="#exibeCriarSala" layoutX="16.0" layoutY="175.0" mnemonicParsing="false" text="Criar Sala" />
       </children>
     </AnchorPane>
   </children>

@@ -5,12 +5,11 @@
  */
 package br.cefetmg.inf.lpii.controllers;
 
-import br.cefetmg.inf.lpii.DAO.MensagemDAOImpl;
 import br.cefetmg.inf.lpii.entities.Mensagem;
 import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
+import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +18,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import java.sql.Timestamp;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -49,7 +54,8 @@ public class ChatGUIController implements Initializable {
     private  Usuario usuario;
     
     private Timestamp currentTime;
-
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -57,7 +63,7 @@ public class ChatGUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
+   
     public void captarMensagem() throws PersistenceException {
         if (insereMensagem.getText() != null) {
             currentTime = new java.sql.Timestamp(System.currentTimeMillis());
@@ -68,10 +74,11 @@ public class ChatGUIController implements Initializable {
    }
     
     public void enviarMensagem() throws PersistenceException {
-        captarMensagem();
+        //captarMensagem();
     }
-    
-    public void exibeCriarSala() {
+    @FXML
+    public void exibeCriarSala(ActionEvent e) {
+        //TODO: Chamar FXML criarSala
     }
     
 }

@@ -29,7 +29,7 @@ public class SocketChatView extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("chatGUI.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("inicioChat.fxml"));
         this.stage = stage;
         Scene scene = new Scene(root);
         

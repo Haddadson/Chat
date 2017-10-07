@@ -13,10 +13,12 @@ import br.cefetmg.inf.lpii.entities.Usuario;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -33,6 +35,12 @@ public class CriarSalaController implements Initializable {
     @FXML
     private PasswordField senhaSala;
     
+    @FXML
+    private Button confirmaSala;
+    
+    @FXML
+    private Button cancelar;
+    
     private Sala sala;
     private SalaDAOImpl salaDAO;
     private Stage salaStage;
@@ -42,12 +50,7 @@ public class CriarSalaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
-    
-    public void defineStage(Stage stage){
-        salaStage = stage;
-    }
     
     public boolean checaInput(){
         String mensagemErro = "";
@@ -64,12 +67,13 @@ public class CriarSalaController implements Initializable {
             alert.showAndWait();
             
             return false;
-        } else {
-            return true;
         }
+        
+        return true;
+       
     }
     
-    public void insereSala() {
+    public void inserirSala() {
         if (checaInput()){
             listaUsuarios = new ArrayList();
             listaUsuarios.add(Compartilhado.getUsuario());
@@ -85,13 +89,16 @@ public class CriarSalaController implements Initializable {
     }
     
     @FXML
-    private void clickConfirmar() {
-        insereSala();
+    private void clickConfirmar(ActionEvent e) {
+        inserirSala();
+        salaStage = (Stage) confirmaSala.getScene().getWindow();
         salaStage.close();
+        
     }
     
     @FXML
     private void clickCancelar() {
+        salaStage = (Stage) cancelar.getScene().getWindow();
         salaStage.close();
     }
 }

@@ -10,15 +10,21 @@ import br.cefetmg.inf.lpii.entities.Payload;
 import br.cefetmg.inf.lpii.entities.TipoOperacao;
 import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -32,6 +38,7 @@ public class InicioChatController implements Initializable {
     @FXML
     private Button defineUsuario;
     
+    private Stage contaStage;
     private Cliente cliente;
     private Usuario usuarioCompartilhado;
     /**
@@ -41,6 +48,10 @@ public class InicioChatController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cliente = new Cliente();
     }    
+    
+    public void defineStage(Stage stage) {
+        contaStage = stage;
+    }
     
     public boolean checaInput() {
         String mensagemErro = "";
@@ -61,13 +72,18 @@ public class InicioChatController implements Initializable {
         return true;
     }
     
-    @FXML
-    private void inserirUsuario(){
+   
+    public void inserirUsuario(ActionEvent e){
         if(checaInput()){
             usuarioCompartilhado = new Usuario(nomeUsuario.getText());
             Compartilhado.setUsuario(usuarioCompartilhado);
             cliente.setUsuario(usuarioCompartilhado);
         }
+
+        Stage stage = (Stage) defineUsuario.getScene().getWindow();
+        stage.close();  
+
+        //TODO: Abrir ChatGUI.fxml
         
     }
 }
