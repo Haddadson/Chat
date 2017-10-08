@@ -7,20 +7,12 @@ package br.cefetmg.inf.lpii.controllers;
 
 import br.cefetmg.inf.lpii.client.Cliente;
 import br.cefetmg.inf.lpii.entities.Payload;
-import br.cefetmg.inf.lpii.entities.TipoOperacao;
 import br.cefetmg.inf.lpii.entities.Usuario;
-import br.cefetmg.inf.lpii.exception.PersistenceException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -53,13 +45,15 @@ public class InicioChatController implements Initializable {
         contaStage = stage;
     }
     
-    public boolean checaInput() {
+    //Método para verificar a inserção válida de nomes
+    public boolean checaInput() { 
         String mensagemErro = "";
 
+        //Checa se o nome é nulo ou possui tamanho igual à 0
         if (nomeUsuario.getText() == null || nomeUsuario.getText().length() == 0) {
             mensagemErro += "Nome de usuário inválido!\n";
         }
-
+        
         if (mensagemErro.length() != 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Campo inválido");
@@ -72,18 +66,24 @@ public class InicioChatController implements Initializable {
         return true;
     }
     
-   
+   //Método para inserir o usuário ao confirmar
     public void inserirUsuario(ActionEvent e){
+        //Chama o método de validação
         if(checaInput()){
+            
+            //Define o usuário estático para a sessão atual com o nome inserido
             usuarioCompartilhado = new Usuario(nomeUsuario.getText());
             Compartilhado.setUsuario(usuarioCompartilhado);
+            
+            //Envia o usuário da sessão para o Cliente
             cliente.setUsuario(usuarioCompartilhado);
         }
-
+        
+        //Fecha o Stage atual 
         Stage stage = (Stage) defineUsuario.getScene().getWindow();
         stage.close();  
 
-        //TODO: Abrir ChatGUI.fxml
+        //TODO: Abrir ChatGUI.fxml (Abre a tela de chat)
         
     }
 }

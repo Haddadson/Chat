@@ -42,7 +42,6 @@ public class CriarSalaController implements Initializable {
     private Button cancelar;
     
     private Sala sala;
-    private SalaDAOImpl salaDAO;
     private Stage salaStage;
     private ArrayList<Usuario> listaUsuarios;  
     /**
@@ -52,9 +51,11 @@ public class CriarSalaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }    
     
+    //Método para verificar a inserção de dados válidos
     public boolean checaInput(){
         String mensagemErro = "";
         
+         //Checa se o nome é nulo ou possui tamanho igual à 0
         if (nomeSala.getText() == null || nomeSala.getText().length() == 0){
             mensagemErro += "Nome de Sala inválido!\n";
         } 
@@ -73,33 +74,51 @@ public class CriarSalaController implements Initializable {
        
     }
     
+    //Método para inserir a sala ao confirmar
     public void inserirSala() {
         if (checaInput()){
+            //Adiciona o usuário da sessão atual na lista de pessoas da sala
             listaUsuarios = new ArrayList();
             listaUsuarios.add(Compartilhado.getUsuario());
+            
+            //Caso a sala tenha senha, um construtor específico é chamado, definindo-a
             if(senhaSala.getText()!= null || senhaSala.getText().length() != 0){
                 sala = new Sala(listaUsuarios, nomeSala.getText(), senhaSala.getText());
             }
+            //Caso não tenha senha, outro construtor é chamado, definindo-a sem senha
             else {
                 sala = new Sala(listaUsuarios, nomeSala.getText(), null);
             }
+            
+            //A sala é empacotada em uma Payload e enviada ao proxy
             Payload payload = new Payload(TipoOperacao.CRIAR_SALA, sala);
             
         }
     }
     
+    //Método que é chamado ao clicar no botão de confirmar criação de sala
     @FXML
     private void clickConfirmar(ActionEvent e) {
+        
+        //Chama o método de inserção
         inserirSala();
+        
+        //Fecha o Stage atual, retornando para a tela de Chat
         salaStage = (Stage) confirmaSala.getScene().getWindow();
         salaStage.close();
         
+        //TODO: Chamar a tela de Chat (ChatGUI.fxml)
+        
     }
     
+    //Método que é chamado ao clicar no botão de cancelar criação de sala
     @FXML
     private void clickCancelar() {
+        //Fecha o Stage atual, retornando para a tela de Chat
         salaStage = (Stage) cancelar.getScene().getWindow();
         salaStage.close();
+        
+        //TODO: Chamar a tela de Chat (ChatGUI.fxml)
     }
 }
 

@@ -5,16 +5,17 @@
  */
 package br.cefetmg.inf.lpii.controllers;
 
-import br.cefetmg.inf.lpii.entities.Payload;
 import br.cefetmg.inf.lpii.entities.Usuario;
 
 /**
  *
  * @author aluno
  */
+
+//Classe para entidades compartilhadas pela camada de visão durante a sessão atual
 public class Compartilhado {
+    //Atributo do tipo Usuario para representar o usuário atual da sessão
     private static Usuario usuario;
-    private static Payload payload;
     
     public static Usuario getUsuario() {
         return usuario;
