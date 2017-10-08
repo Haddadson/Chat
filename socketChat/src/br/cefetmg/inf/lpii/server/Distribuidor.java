@@ -49,7 +49,7 @@ public class Distribuidor implements Distribuivel {
         this.mensagemDAO = MensagemDAOImpl.getInstance();
         this.salaDAO = SalaDAOImpl.getInstance();
         
-        this.out = (ObjectOutputStream) socket.getOutputStream();
+        this.out = new ObjectOutputStream(socket.getOutputStream());
         Distribuidor.SOCKETS.add(socket);
     }
     
@@ -93,7 +93,7 @@ public class Distribuidor implements Distribuivel {
         }
         if (sala.getUsuarios().isEmpty()) {
             for (Socket socket : SOCKETS) {
-                this.out = (ObjectOutputStream) socket.getOutputStream();
+                this.out = new ObjectOutputStream(socket.getOutputStream());
                 // TODO: implementar payload falando pra remover sala
                 //this.out.writeObject();
                 //this.out.flush();
