@@ -21,6 +21,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     public UsuarioDAOImpl() {}
     
     public static UsuarioDAOImpl getInstance() {
+        //Instancia a variável userDAO
+        
         if (userDAO == null) {
             userDAO = new UsuarioDAOImpl();
         }
