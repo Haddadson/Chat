@@ -9,6 +9,7 @@ import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
 import java.io.IOException;
+import java.net.Socket;
 
 
 /**
@@ -26,15 +27,9 @@ public class Cliente {
             int porta = 2223;
             
             //Chama o Proxy para fazer a transmissão de dados
-            ChatProxy proxy = new ChatProxy(host, porta);
-            
-            //Define a Conta do usuário atual
-            proxy.criarConta(usuario);
-            
-            //Inicia uma Thread com o Proxy
-            new Thread(proxy).start();
+            ChatProxy proxy = ChatProxy.getInstance(new Socket(host, porta));
 
-        } catch (IOException | PersistenceException | BusinessException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
