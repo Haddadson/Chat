@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -19,6 +20,15 @@ public class SocketChatView extends Application {
     
     //Define o Stage que receberá as telas
     private Stage stage; 
+    private BorderPane rootLayout;
+
+    public BorderPane getRootLayout() {
+        return rootLayout;
+    }
+
+    public void setRootLayout(BorderPane rootLayout) {
+        this.rootLayout = rootLayout;
+    }
 
     public Stage getStage() {
         return stage;
@@ -33,6 +43,7 @@ public class SocketChatView extends Application {
      *tratando o cadastro de usuários e chamando as outras telas conforme haja
      *necessidade
      */
+    
     @Override
     public void start(Stage stage) throws Exception {
         //Carrega o arquivo FXML

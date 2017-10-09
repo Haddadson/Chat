@@ -10,6 +10,8 @@ import br.cefetmg.inf.lpii.entities.Payload;
 import br.cefetmg.inf.lpii.entities.TipoOperacao;
 import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
+import br.cefetmg.inf.lpii.view.SocketChatView;
+import static com.sun.glass.ui.Application.run;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -32,7 +35,7 @@ import javafx.stage.Stage;
  *
  * @author Pós Graduação
  */
-public class InicioChatController extends Application implements Initializable {
+public class InicioChatController implements Initializable {
 
     @FXML
     private TextField nomeUsuario;
@@ -41,10 +44,19 @@ public class InicioChatController extends Application implements Initializable {
     
     private Stage contaStage;
     private Cliente cliente;
+    private SocketChatView run;
     private Usuario usuarioCompartilhado;
+    
+    
     /**
      * Initializes the controller class.
      */
+    
+    public void setRun(SocketChatView run) {
+        this.run = run;
+    }
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cliente = new Cliente();
@@ -83,21 +95,21 @@ public class InicioChatController extends Application implements Initializable {
 
         Stage stage = (Stage) defineUsuario.getScene().getWindow();
         stage.close();  
-        start(stage);
+        abrirTelaPrincipal();
 
         //TODO: Abrir ChatGUI.fxml
         
     }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ChatGUI.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
-    }
     
+    private void abrirTelaPrincipal() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../controllers/chatGUI.fxml"));
+            AnchorPane telaChat = (AnchorPane) loader.load();
+            run.getRootLayout().setCenter(telaChat);
+        } catch (IOException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }
