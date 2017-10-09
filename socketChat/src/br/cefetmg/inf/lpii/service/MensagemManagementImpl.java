@@ -25,6 +25,10 @@ public class MensagemManagementImpl implements MensagemManagement {
     
     @Override
     public Long inserir(Mensagem mensagem) throws BusinessException, PersistenceException {
+        /*Checa se os dados necessários para que a mensagem enviada por um usuário
+         *seja persistida no banco de dados não estão nulos. Caso estejam, uma exceção 
+        ´*é lançada, o processo é interrompido e o motivo da interrupção é mostrado ao usuário.
+         */
         
         if (mensagem == null) {
             throw new BusinessException("Mensagem nao instanciada");
@@ -51,6 +55,8 @@ public class MensagemManagementImpl implements MensagemManagement {
 
     @Override
     public boolean remover(Long id) throws BusinessException, PersistenceException {
+        //Checa se a id da mensagem é valida, para que ela seja excluida da base de dados
+        
         if (id == null) {
             throw new BusinessException("Id da mensagem nao pode ser nulo");
         }
@@ -60,6 +66,11 @@ public class MensagemManagementImpl implements MensagemManagement {
 
     @Override
     public boolean atualizar(Mensagem mensagem) throws BusinessException, PersistenceException {
+        /*Checa se os dados necessários para que uma mensagem seja atualizada na 
+         * base de dados não estão nulos. Caso estejam, uma exceção é lançada, o 
+        ´* processo é interrompido e o motivo da interrupção é mostrado ao usuário.
+         */
+        
         if (mensagem == null) {
             throw new BusinessException("Mensagem nao instanciada");
         }
@@ -86,6 +97,8 @@ public class MensagemManagementImpl implements MensagemManagement {
 
     @Override
     public Mensagem get(Long id) throws BusinessException, PersistenceException {
+        //Checa se a id da mensagem é valida, para que ela seja retornada da base de dados
+        
         if (id == null) {
             throw new BusinessException("Id da mensagem nao pode ser nulo");
         }

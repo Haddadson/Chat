@@ -14,6 +14,11 @@ import java.util.logging.Logger;
  *
  * @author João Pedro Renan
  */
+    
+    /*Essa classe tem como responsabilidade realizar a conexão entre o sistema e o banco
+     *de dados, que é onde todos os dados presente no sistema são persistidos.
+     */
+
 
 public class PostgreSQLConnection implements ConnectionFactory {
 
