@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Aluno
+ * @author Breno Mariz
  */
 public class SalaDAOImpl implements SalaDAO {
     private static SalaDAOImpl salaDAO = null;
@@ -34,6 +34,10 @@ public class SalaDAOImpl implements SalaDAO {
     
     @Override
     public Long inserir(Sala sala) throws PersistenceException{
+        /*Um objeto pré-instanciado é recebido nessa classe e seus dados 
+         *são inseridos na base de dados.
+         */
+        
         if (sala == null){
             throw new PersistenceException("Sala não pode ser nula");
         }
@@ -62,6 +66,8 @@ public class SalaDAOImpl implements SalaDAO {
 
     @Override
     public boolean remover(Long id) throws PersistenceException {
+        //A id de uma sala é recebida e os dados relacionados a ela são removidos da base de dados
+        
         try {
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
                 String sql = "DELETE FROM Sala WHERE COD_sala = ?";
@@ -81,6 +87,10 @@ public class SalaDAOImpl implements SalaDAO {
 
     @Override
     public boolean atualizar(Sala sala) throws PersistenceException {
+        /*Um objeto pré-instanciado é recebido nessa classe e seus dados 
+         *são atualizados na base de dados.
+         */
+        
          try {
              try (Connection connection = ConnectionManager.getInstance().getConnection()) {
                  String sql = "UPDATE Sala" +
@@ -102,6 +112,8 @@ public class SalaDAOImpl implements SalaDAO {
     }
 
     @Override
+    //A id de uma sala é retornada e suas características são retornadas
+    
     public Sala get(Long id) throws PersistenceException {
         try {
             Sala sala;
@@ -128,6 +140,8 @@ public class SalaDAOImpl implements SalaDAO {
 
     @Override
     public ArrayList<Sala> getTodas() throws PersistenceException {
+        //Retorna todas as salas presentes na base de dados
+        
         try{
             ArrayList<Sala> listAll;
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {

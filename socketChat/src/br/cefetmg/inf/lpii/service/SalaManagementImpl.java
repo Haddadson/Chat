@@ -26,6 +26,11 @@ public class SalaManagementImpl implements SalaManagement{
     
     @Override
     public Long inserir(Sala sala) throws BusinessException, PersistenceException {
+        /*Checa se os dados necessários para que a sala criada por um usuário
+         *seja persistida no banco de dados não estão nulos. Caso estejam, uma exceção 
+        ´*é lançada, o processo é interrompido e o motivo da interrupção é mostrado ao usuário.
+         */
+        
         if (sala == null) {
             throw new BusinessException("Sala a ser inserida nao pode ser nula");
         }
@@ -43,6 +48,8 @@ public class SalaManagementImpl implements SalaManagement{
 
     @Override
     public boolean remover(Long id) throws BusinessException, PersistenceException {
+        // Checa se a id da sala é valida, para que ela seja removida da base da dados
+        
         if (id == null) {
             throw new BusinessException("ID da sala a ser removida nao pode ser nulo");
         }
@@ -51,6 +58,11 @@ public class SalaManagementImpl implements SalaManagement{
 
     @Override
     public boolean atualizar(Sala sala) throws BusinessException, PersistenceException {
+        /*Checa se os dados necessários para que uma sala já existente seja atualizada
+         *no banco de dados não estão nulos. Caso estejam, uma exceção é lançada, o
+        ´*processo é interrompido e o motivo da interrupção é mostrado ao usuário.
+         */
+        
         if (sala == null) {
             throw new BusinessException("Sala a ser inserida nao pode ser nula");
         }
@@ -71,6 +83,8 @@ public class SalaManagementImpl implements SalaManagement{
 
     @Override
     public Sala get(Long id) throws BusinessException, PersistenceException {
+        // Checa se o id da Sala é valido, para que os dados relacionados àquela id sejam retornados
+        
         if (id == null) {
             throw new BusinessException("Id da sala nao pode ser nulo");
         }
@@ -79,6 +93,8 @@ public class SalaManagementImpl implements SalaManagement{
 
     @Override
     public ArrayList<Sala> getTodas() throws PersistenceException {
+        // Todas as salas presentes na base de dados são retornadas
+        
          return salaDAO.getTodas();
     }
     

@@ -29,6 +29,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     
     @Override
     public Long inserir(Usuario usuario) throws PersistenceException {
+        /*Um objeto pré-instanciado é recebido nessa classe e seus dados 
+         *são inseridos na base de dados.
+         */
+        
         if (usuario == null) {
             throw new PersistenceException("Domain cannot be null");
         }
@@ -62,6 +66,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     @Override
     public boolean atualizar(Usuario usuario) throws PersistenceException {
+        /*Um objeto pré-instanciado é recebido nessa classe e seus dados 
+         *são inseridos na base de dados.
+         */
+        
         try {
 
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
@@ -86,6 +94,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     @Override
     public boolean remover(Long id) throws PersistenceException {
+        //A id de um usuário é recebido e os dados relacionados a ele são removidos da base de dados
+        
         try {
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
                 String sql = "DELETE FROM \"usuario\" WHERE COD_usuario = ?";
@@ -105,6 +115,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
     @Override
     public Usuario get(Long id) throws PersistenceException {
+        //A id de um usuário é recebido e os dados relacionados a ele são retornados da base de dados
+        
         try {
             Usuario usuario;
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {

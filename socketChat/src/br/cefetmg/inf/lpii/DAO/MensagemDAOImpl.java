@@ -32,6 +32,10 @@ public class MensagemDAOImpl implements MensagemDAO {
     
     @Override
     public Long inserir(Mensagem mensagem) throws PersistenceException {
+        /*Um objeto pré-instanciado é recebido nessa classe e seus dados 
+         *são inseridos na base de dados.
+         */
+        
         if (mensagem == null) {
             throw new PersistenceException("Domain cannot be null");
         }
@@ -68,6 +72,8 @@ public class MensagemDAOImpl implements MensagemDAO {
 
     @Override
     public boolean remover(Long id) throws PersistenceException {
+        //Recebe uma id de Mensagem e a remove da base de dados
+        
         try {
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
                 String sql = "DELETE FROM \"Mensagem\" WHERE COD_mensagem = ?";
@@ -87,6 +93,10 @@ public class MensagemDAOImpl implements MensagemDAO {
 
     @Override
     public boolean atualizar(Mensagem mensagem) throws PersistenceException {
+        /*Um objeto pré-instanciado é recebido nesse método e seus dados 
+         *são atualizados na base de dados.
+         */
+        
         try {
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
                 String sql = "UPDATE \"Mensagem\" " +
@@ -116,6 +126,8 @@ public class MensagemDAOImpl implements MensagemDAO {
 
     @Override
     public Mensagem get(Long id) throws PersistenceException {
+        // Recebe a id de uma mensgem e retorna todo os dados relacionados a ela
+        
         try {
             Mensagem mensagem;
             Usuario usuario;
