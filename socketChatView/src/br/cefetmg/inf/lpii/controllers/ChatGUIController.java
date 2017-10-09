@@ -62,6 +62,7 @@ public class ChatGUIController extends Application implements Initializable {
     @FXML
     private TextArea insereMensagem;
     
+    
     private Mensagem mensagem;
     
     private Usuario usuario;

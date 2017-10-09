@@ -5,14 +5,19 @@
  */
 package br.cefetmg.inf.lpii.controllers;
 
-import br.cefetmg.inf.lpii.DAO.SalaDAOImpl;
+import br.cefetmg.inf.lpii.client.ChatProxy;
 import br.cefetmg.inf.lpii.entities.Payload;
 import br.cefetmg.inf.lpii.entities.Sala;
 import br.cefetmg.inf.lpii.entities.TipoOperacao;
 import br.cefetmg.inf.lpii.entities.Usuario;
+import br.cefetmg.inf.lpii.exception.BusinessException;
+import br.cefetmg.inf.lpii.exception.PersistenceException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,12 +48,14 @@ public class CriarSalaController implements Initializable {
     
     private Sala sala;
     private Stage salaStage;
-    private ArrayList<Usuario> listaUsuarios;  
+    private ArrayList<Usuario> listaUsuarios; 
+    private ChatProxy proxy;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //proxy GetInstance
     }    
     
     //Método para verificar a inserção de dados válidos
@@ -84,10 +91,20 @@ public class CriarSalaController implements Initializable {
             //Caso a sala tenha senha, um construtor específico é chamado, definindo-a
             if(senhaSala.getText()!= null || senhaSala.getText().length() != 0){
                 sala = new Sala(listaUsuarios, nomeSala.getText(), senhaSala.getText());
+                try {
+                    proxy.criarSala(sala);
+                } catch (BusinessException |PersistenceException | IOException ex) {
+                    Logger.getLogger(CriarSalaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             //Caso não tenha senha, outro construtor é chamado, definindo-a sem senha
             else {
                 sala = new Sala(listaUsuarios, nomeSala.getText(), null);
+                try {
+                    proxy.criarSala(sala);
+                } catch (BusinessException | PersistenceException | IOException ex) {
+                    Logger.getLogger(CriarSalaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
             //A sala é empacotada em uma Payload e enviada ao proxy

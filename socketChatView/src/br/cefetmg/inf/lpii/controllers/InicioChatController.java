@@ -5,25 +5,19 @@
  */
 package br.cefetmg.inf.lpii.controllers;
 
+import br.cefetmg.inf.lpii.client.ChatProxy;
 import br.cefetmg.inf.lpii.client.Cliente;
-import br.cefetmg.inf.lpii.entities.Payload;
-import br.cefetmg.inf.lpii.entities.TipoOperacao;
 import br.cefetmg.inf.lpii.entities.Usuario;
-import br.cefetmg.inf.lpii.exception.PersistenceException;
 import br.cefetmg.inf.lpii.view.SocketChatView;
-import static com.sun.glass.ui.Application.run;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -46,6 +40,7 @@ public class InicioChatController implements Initializable {
     private Cliente cliente;
     private SocketChatView run;
     private Usuario usuarioCompartilhado;
+    private ChatProxy proxy;
     
     
     /**
@@ -60,6 +55,7 @@ public class InicioChatController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cliente = new Cliente();
+         //proxy GetInstance
     }    
     
     public void defineStage(Stage stage) {
@@ -90,14 +86,12 @@ public class InicioChatController implements Initializable {
         if(checaInput()){
             usuarioCompartilhado = new Usuario(nomeUsuario.getText());
             Compartilhado.setUsuario(usuarioCompartilhado);
-            cliente.setUsuario(usuarioCompartilhado);
+            proxy.criarConta(usuarioCompartilhado);
         }
 
         Stage stage = (Stage) defineUsuario.getScene().getWindow();
         stage.close();  
         abrirTelaPrincipal();
-
-        //TODO: Abrir ChatGUI.fxml
         
     }
     
