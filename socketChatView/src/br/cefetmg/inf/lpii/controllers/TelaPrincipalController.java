@@ -5,21 +5,17 @@
  */
 package br.cefetmg.inf.lpii.controllers;
 
-import br.cefetmg.inf.lpii.DAO.MensagemDAOImpl;
-import br.cefetmg.inf.lpii.DAO.interfaces.MensagemDAO;
 import br.cefetmg.inf.lpii.client.ChatProxy;
+import br.cefetmg.inf.lpii.client.Cliente;
 import br.cefetmg.inf.lpii.entities.Mensagem;
 import br.cefetmg.inf.lpii.entities.Sala;
 import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
-import br.cefetmg.inf.lpii.service.MensagemManagementImpl;
-import br.cefetmg.inf.lpii.service.interfaces.MensagemManagement;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import java.sql.Timestamp;
@@ -29,7 +25,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -58,13 +54,11 @@ public class TelaPrincipalController implements Initializable{
     private TextArea insereMensagem;
     
     @FXML
-    private TextArea nomeUsuario;
+    private TextField nomeUsuario;
     
     @FXML
-    private TextArea nomeSala;
-    
-    @FXML
-    private TextArea destinatario;
+    private TextField nomeSala;
+  
     
     private Mensagem mensagem;
     private Usuario usuario;
@@ -73,10 +67,12 @@ public class TelaPrincipalController implements Initializable{
     private Usuario usuarioCompartilhado;
     private Sala sala;
     private Usuario destino;
+    private Cliente cliente;
     private ArrayList<Usuario> listaUsuarios;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        cliente = new Cliente();
         proxy = ChatProxy.getInstance();
     }
     
@@ -160,30 +156,22 @@ public class TelaPrincipalController implements Initializable{
             
        }
     }
-    
-    public void definirDestinatario() throws IOException, BusinessException, PersistenceException {
-        destino = new Usuario();
-        destino.setNome(destinatario.getText());
-        exibirMensagens();
+
+    public void definirDestinatario() {
+
     }
     
     public void definirSalaDestino() {
-        sala = new Sala();
-        sala.setNome(nomeSala.getText());
-        //TODO: Receber o nome da sala do campo nomeSala e defini-lo como destinatario
+        
     }
     
-    public void entrarSala(ActionEvent e) throws IOException, BusinessException, PersistenceException {
-        sala = new Sala();
-        sala.setNome(nomeSala.getText());
-        definirDestinatario();
-        proxy.inserirUsuarioNaSala(Compartilhado.getUsuario(), sala);
+    public void entrarSala(ActionEvent e) {
+        
     }
     
     //Método para exibição das mensagens recebidas pela sala ou usuário selecionados
-    public void exibirMensagens() throws IOException, BusinessException, PersistenceException {
+    public void exibirMensagens() {
 
-        
         //TODO: Exibir as mensagens no painelMensagem
     }
     
@@ -195,7 +183,6 @@ public class TelaPrincipalController implements Initializable{
     
     //Método para exibição dos Usuários logados na tela
     public void exibirUsuarios() {
-        
         //TODO: Exibir os usuarios no painelUsuarios
     }
 
