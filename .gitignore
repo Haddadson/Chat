@@ -1,4 +1,6 @@
 /socketChat/dist/
 /socketChat/build/
-/socketChat/nbproject
+/socketChat/nbproject/
 /socketChatView/nbproject/
+/socketChatView/dist/
+/socketChatView/build/
