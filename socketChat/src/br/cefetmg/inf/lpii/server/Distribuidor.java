@@ -22,6 +22,7 @@ import br.cefetmg.inf.lpii.service.UsuarioManagementImpl;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -124,5 +125,19 @@ public class Distribuidor implements Distribuivel {
         this.out.writeObject("teste");
         this.out.flush();
     }
+    public void retornarMensagens() throws IOException, BusinessException, PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void retornarUsuarios() throws IOException, BusinessException, PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void retornarSalas() throws IOException, BusinessException, PersistenceException {
+        this.salaManagementImpl.getTodas();
+    }
+
     
 }

@@ -23,6 +23,8 @@ public class MensagemManagementImpl implements MensagemManagement {
         this.mensagemDAO = mensagemDAO;
     }
     
+    
+    
     @Override
     public Long inserir(Mensagem mensagem) throws BusinessException, PersistenceException {
         /*Checa se os dados necessários para que a mensagem enviada por um usuário

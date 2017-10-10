@@ -105,4 +105,22 @@ public class ChatProxy implements Distribuivel {
         out.flush();
     }
 
+
+    @Override
+    public void retornarMensagens() throws IOException, BusinessException, PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void retornarUsuarios() throws IOException, BusinessException, PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void retornarSalas() throws IOException, BusinessException, PersistenceException {
+        Payload pl = new Payload(TipoOperacao.RETORNAR_SALAS);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 }

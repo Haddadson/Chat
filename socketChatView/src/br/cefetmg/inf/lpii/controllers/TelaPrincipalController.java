@@ -5,12 +5,16 @@
  */
 package br.cefetmg.inf.lpii.controllers;
 
+import br.cefetmg.inf.lpii.DAO.MensagemDAOImpl;
+import br.cefetmg.inf.lpii.DAO.interfaces.MensagemDAO;
 import br.cefetmg.inf.lpii.client.ChatProxy;
 import br.cefetmg.inf.lpii.entities.Mensagem;
 import br.cefetmg.inf.lpii.entities.Sala;
 import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
+import br.cefetmg.inf.lpii.service.MensagemManagementImpl;
+import br.cefetmg.inf.lpii.service.interfaces.MensagemManagement;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -157,7 +161,7 @@ public class TelaPrincipalController implements Initializable{
        }
     }
     
-    public void definirDestinatario() {
+    public void definirDestinatario() throws IOException, BusinessException, PersistenceException {
         destino = new Usuario();
         destino.setNome(destinatario.getText());
         exibirMensagens();
@@ -169,7 +173,7 @@ public class TelaPrincipalController implements Initializable{
         //TODO: Receber o nome da sala do campo nomeSala e defini-lo como destinatario
     }
     
-    public void entrarSala(ActionEvent e) {
+    public void entrarSala(ActionEvent e) throws IOException, BusinessException, PersistenceException {
         sala = new Sala();
         sala.setNome(nomeSala.getText());
         definirDestinatario();
@@ -177,13 +181,15 @@ public class TelaPrincipalController implements Initializable{
     }
     
     //Método para exibição das mensagens recebidas pela sala ou usuário selecionados
-    public void exibirMensagens() {
+    public void exibirMensagens() throws IOException, BusinessException, PersistenceException {
+
         
         //TODO: Exibir as mensagens no painelMensagem
     }
     
     //Método para exibição das salas existentes na tela
-    public void eixibirSalas() {
+    public void exibirSalas() throws IOException, BusinessException, PersistenceException {
+        proxy.retornarSalas();
         //TODO: Exibir as salas no painelSalas
     }
     
