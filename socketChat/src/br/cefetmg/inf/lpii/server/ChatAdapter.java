@@ -14,6 +14,7 @@ import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
 import br.cefetmg.inf.lpii.service.MensagemManagementImpl;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -47,30 +48,36 @@ public class ChatAdapter implements Runnable, Distribuivel {
         Payload payload;
         
         try (ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-            payload = (Payload) in.readObject();
-            switch (payload.getOp()) {
-                case CRIAR_CONTA: 
-                    this.criarConta(payload.getUsuario());
-                    break;
-                case CRIAR_SALA:
-                    this.criarSala(payload.getSala());
-                    break;
-                case ENVIAR_MENSAGEM:
-                    this.enviarMensagem(payload.getMensagem());
-                    break;
-                case INSERIR_USUARIO_NA_SALA:
-                    this.inserirUsuarioNaSala(payload.getUsuario(), payload.getSala(), payload.getSala().getSenha());
-                    break;
-                case REMOVER_SALA:
-                    this.removerSala(payload.getSala());
-                    break;
-                case REMOVER_USUARIO_DA_SALA:
-                    this.removerUsuarioDaSala(payload.getUsuario(), payload.getSala());
-                    break;
-                case TESTE:
-                    this.teste();
-                    break;
+            while (true) {
+                try {
+                    payload = (Payload) in.readObject();
+                    switch (payload.getOp()) {
+                        case CRIAR_CONTA: 
+                            this.criarConta(payload.getUsuario());
+                            break;
+                        case CRIAR_SALA:
+                            this.criarSala(payload.getSala());
+                            break;
+                        case ENVIAR_MENSAGEM:
+                            this.enviarMensagem(payload.getMensagem());
+                            break;
+                        case INSERIR_USUARIO_NA_SALA:
+                            this.inserirUsuarioNaSala(payload.getUsuario(), payload.getSala(), payload.getSala().getSenha());
+                            break;
+                        case REMOVER_SALA:
+                            this.removerSala(payload.getSala());
+                            break;
+                        case REMOVER_USUARIO_DA_SALA:
+                            this.removerUsuarioDaSala(payload.getUsuario(), payload.getSala());
+                            break;
+                        case TESTE:
+                            System.out.println("recebeu");
+                            this.teste();
+                            break;
+                    }
+                } catch (EOFException ex) {}
             }
+        
         } catch (IOException | ClassNotFoundException | BusinessException | PersistenceException ex) {
             Logger.getLogger(ChatAdapter.class.getName()).log(Level.SEVERE, null, ex);
         }
