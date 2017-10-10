@@ -59,7 +59,7 @@ public class ChatAdapter implements Runnable, Distribuivel {
                     this.enviarMensagem(payload.getMensagem());
                     break;
                 case INSERIR_USUARIO_NA_SALA:
-                    this.inserirUsuarioNaSala(payload.getUsuario(), payload.getSala(), payload.getSala().getSenha());
+                    this.inserirUsuarioNaSala(payload.getUsuario(), payload.getSala());
                     break;
                 case REMOVER_SALA:
                     this.removerSala(payload.getSala());
@@ -80,8 +80,8 @@ public class ChatAdapter implements Runnable, Distribuivel {
     }
 
     @Override
-    public void inserirUsuarioNaSala(Usuario usuario, Sala sala, String senha) {
-        dist.inserirUsuarioNaSala(usuario, sala, senha);
+    public void inserirUsuarioNaSala(Usuario usuario, Sala sala) {
+        dist.inserirUsuarioNaSala(usuario, sala);
     }
 
     @Override

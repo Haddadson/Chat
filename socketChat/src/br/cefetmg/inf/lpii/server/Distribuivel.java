@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public interface Distribuivel {
     public void enviarMensagem(Mensagem mensagem) throws PersistenceException, BusinessException, IOException;
-    public void inserirUsuarioNaSala(Usuario usuario, Sala sala, String senha);
+    public void inserirUsuarioNaSala(Usuario usuario, Sala sala);
     public void removerUsuarioDaSala(Usuario usuario, Sala sala) throws IOException;
     public void criarSala(Sala sala) throws BusinessException, PersistenceException, IOException;
     public void criarConta(Usuario usuario) throws IOException, BusinessException, PersistenceException;

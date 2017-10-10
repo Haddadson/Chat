@@ -169,6 +169,13 @@ public class TelaPrincipalController implements Initializable{
         //TODO: Receber o nome da sala do campo nomeSala e defini-lo como destinatario
     }
     
+    public void entrarSala(ActionEvent e) {
+        sala = new Sala();
+        sala.setNome(nomeSala.getText());
+        definirDestinatario();
+        proxy.inserirUsuarioNaSala(Compartilhado.getUsuario(), sala);
+    }
+    
     //Método para exibição das mensagens recebidas pela sala ou usuário selecionados
     public void exibirMensagens() {
         

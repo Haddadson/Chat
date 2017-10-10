@@ -62,7 +62,7 @@ public class ChatProxy implements Distribuivel {
     }
 
     @Override
-    public void inserirUsuarioNaSala(Usuario usuario, Sala sala, String senha) {
+    public void inserirUsuarioNaSala(Usuario usuario, Sala sala) {
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

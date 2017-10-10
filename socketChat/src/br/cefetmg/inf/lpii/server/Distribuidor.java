@@ -74,16 +74,16 @@ public class Distribuidor implements Distribuivel {
     }
     
     @Override
-    public synchronized void inserirUsuarioNaSala(Usuario usuario, Sala sala, String senha) {
+    public synchronized void inserirUsuarioNaSala(Usuario usuario, Sala sala) {
         if (sala.getSenha() == null) {
             sala.getUsuarios().add(usuario);
-        } else {
+        } /* else {
             if (sala.getSenha() != null && senha == null) {
                 throw new IllegalArgumentException("Tentativa de entrar em sala com senha sem passa-la como parametro");
             } else if (sala.getSenha() != null && senha.equals(sala.getSenha())) {
                 throw new IllegalArgumentException("Senha incorreta");
             }
-        }
+        }*/
     }
     
     @Override
