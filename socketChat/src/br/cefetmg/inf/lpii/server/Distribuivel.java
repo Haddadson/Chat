@@ -23,4 +23,5 @@ public interface Distribuivel {
     public void criarSala(Sala sala) throws BusinessException, PersistenceException, IOException;
     public void criarConta(Usuario usuario) throws IOException, BusinessException, PersistenceException;
     public void removerSala(Sala sala) throws IOException, BusinessException, PersistenceException;
+    public void teste() throws IOException;
 }

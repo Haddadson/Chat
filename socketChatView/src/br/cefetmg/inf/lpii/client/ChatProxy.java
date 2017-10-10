@@ -13,6 +13,7 @@ import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
 import br.cefetmg.inf.lpii.server.Distribuivel;
+import br.cefetmg.inf.lpii.entities.TipoOperacao;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -26,27 +27,29 @@ public class ChatProxy implements Distribuivel {
 
     private static ChatProxy chatProxy = null;
     private static ArrayList<Integer> portsBeingUsed = new ArrayList();
-    private final Socket socket;
-    private CanalDeEntrada canalDeEntrada;
+    private static Socket socket;
+    private static CanalDeEntrada canalDeEntrada;
     private ObjectOutputStream out;  
     private Payload payload;
     
     private ChatProxy(Socket socket) {
-        this.socket = socket;
-        this.criarCanalDeEntrada();
+        ChatProxy.socket = socket;
     }
   
     public static ChatProxy getInstance(Socket socket) {
         if (chatProxy != null) {
             throw new IllegalArgumentException("Instancia ja existe com outro socket");
         }
-        return new ChatProxy(socket);
+        ChatProxy.chatProxy = new ChatProxy(socket);
+        criarCanalDeEntrada(socket);
+        return chatProxy;
     }
     
     public static ChatProxy getInstance() {
         if (chatProxy == null) {
             throw new IllegalArgumentException("Instancia nao existe. Exige construtor com socket");
         }
+        
         return chatProxy;
     }
     
@@ -90,4 +93,18 @@ public class ChatProxy implements Distribuivel {
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    private static void criarCanalDeEntrada(Socket socket) {
+        ChatProxy.canalDeEntrada = new CanalDeEntrada(socket);
+        new Thread(canalDeEntrada).start();
+    }
+    
+    public void teste() throws IOException {
+        ObjectOutputStream out = new ObjectOutputStream(ChatProxy.socket.getOutputStream());
+        out.writeObject(new Payload(TipoOperacao.TESTE));
+        out.flush();
+        out.writeObject(new Payload(TipoOperacao.TESTE));
+        out.flush();
+    }
+
 }

@@ -118,5 +118,11 @@ public class Distribuidor implements Distribuivel {
         this.out.writeBoolean(this.salaManagementImpl.remover(sala.getId()));
         this.out.flush();
     }
+
+    @Override
+    public void teste() throws IOException {
+        this.out.writeObject("teste");
+        this.out.flush();
+    }
     
 }

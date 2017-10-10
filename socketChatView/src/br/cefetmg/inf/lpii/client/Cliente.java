@@ -28,7 +28,8 @@ public class Cliente {
             
             //Chama o Proxy para fazer a transmissão de dados
             ChatProxy proxy = ChatProxy.getInstance(new Socket(host, porta));
-
+            proxy.teste();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

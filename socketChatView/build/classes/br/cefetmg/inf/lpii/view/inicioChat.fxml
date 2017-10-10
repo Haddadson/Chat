@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="247.0" prefWidth="411.0" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.cefetmg.inf.lpii.controllers.InicioChatController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -48,24 +51,11 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="208.0" prefWidth="367.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="222.0" prefWidth="307.0" VBox.vgrow="ALWAYS">
       <children>
-            <Accordion layoutX="411.0" layoutY="83.0" />
-            <ScrollPane layoutX="186.0" layoutY="16.0" prefHeight="222.0" prefWidth="440.0" />
-            <ScrollPane layoutX="16.0" layoutY="16.0" prefHeight="167.0" prefWidth="152.0">
-               <content>
-                  <Label text="Groups" />
-               </content>
-            </ScrollPane>
-            <CheckBox layoutX="553.0" layoutY="315.0" mnemonicParsing="false" text="All" />
-            <CheckBox layoutX="553.0" layoutY="338.0" mnemonicParsing="false" text="Private" />
-            <Button layoutX="549.0" layoutY="255.0" mnemonicParsing="false" text="Send" />
-            <TextArea layoutX="186.0" layoutY="255.0" prefHeight="102.0" prefWidth="345.0" />
-            <ScrollPane layoutX="16.0" layoutY="195.0" prefHeight="160.0" prefWidth="152.0">
-               <content>
-                  <Label text="Users" />
-               </content>
-            </ScrollPane>
+            <Label layoutX="74.0" layoutY="84.0" text="Escolha seu nome:" />
+            <TextField id="nomeUsuario" fx:id="nomeUsuario" layoutX="176.0" layoutY="80.0" />
+            <Button id="defineUsuario" fx:id="defineUsuario" layoutX="273.0" layoutY="123.0" mnemonicParsing="false" onAction="#inserirUsuario" text="Definir" />
       </children>
     </AnchorPane>
   </children>
