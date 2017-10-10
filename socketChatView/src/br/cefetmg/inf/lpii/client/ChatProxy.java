@@ -66,15 +66,15 @@ public class ChatProxy implements Distribuivel {
     }
 
     @Override
-    public void inserirUsuarioNaSala(Usuario usuario, Sala sala) {
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void inserirUsuarioNaSala(Usuario usuario, Sala sala) throws IOException, BusinessException, PersistenceException{
+        Payload pl = new Payload(TipoOperacao.INSERIR_USUARIO_NA_SALA);
+        out.writeObject(pl);
     }
 
     @Override
     public void removerUsuarioDaSala(Usuario usuario, Sala sala) throws IOException {
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Payload pl = new Payload(TipoOperacao.REMOVER_USUARIO_DA_SALA);
+        out.writeObject(pl);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class ChatProxy implements Distribuivel {
 
     @Override
     public void removerSala(Sala sala) throws IOException, BusinessException, PersistenceException {
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Payload pl = new Payload(TipoOperacao.REMOVER_SALA);
+        out.writeObject(pl);
     }
     
     private static void criarCanalDeEntrada(Socket socket) {
@@ -108,18 +108,20 @@ public class ChatProxy implements Distribuivel {
 
     @Override
     public void retornarMensagens() throws IOException, BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Payload pl = new Payload(TipoOperacao.RETORNAR_MENSAGENS);
+        out.writeObject(pl);
     }
 
     @Override
     public void retornarUsuarios() throws IOException, BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Payload pl = new Payload(TipoOperacao.RETORNAR_USUARIOS);
+        out.writeObject(pl);
     }
 
     @Override
     public void retornarSalas() throws IOException, BusinessException, PersistenceException {
         Payload pl = new Payload(TipoOperacao.RETORNAR_SALAS);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        out.writeObject(pl);
     }
 
 
