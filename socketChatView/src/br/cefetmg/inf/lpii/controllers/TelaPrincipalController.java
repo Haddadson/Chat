@@ -156,7 +156,7 @@ public class TelaPrincipalController implements Initializable{
        }
     }
     
-    public void definirDestinario() {
+    public void definirDestinatario() {
         //TODO: Receber o nome do destinatário do campo destinatario e defini-lo como destinatario
     }
     

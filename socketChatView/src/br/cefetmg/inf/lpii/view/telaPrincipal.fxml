@@ -80,13 +80,12 @@
             </Label>
             <TextField fx:id="nomeSala" layoutX="19.0" layoutY="177.0" prefHeight="25.0" prefWidth="177.0" />
             <Label layoutX="19.0" layoutY="160.0" text="Nome da Sala:" />
-            <Button layoutX="93.0" layoutY="208.0" mnemonicParsing="false" text="Entrar" />
-            <Button layoutX="127.0" layoutY="391.0" mnemonicParsing="false" text="Conversar" />
+            <Button layoutX="93.0" layoutY="208.0" mnemonicParsing="false" onAction="#definirSalaDestino" text="Entrar" />
+            <Button layoutX="127.0" layoutY="391.0" mnemonicParsing="false" onAction="#definirDestinatario" text="Conversar" />
             <Button layoutX="486.0" layoutY="10.0" mnemonicParsing="false" onAction="#inserirUsuario" text="Definir" />
-            <TextField layoutX="20.0" layoutY="391.0" prefHeight="25.0" prefWidth="100.0" />
-            <Label layoutX="22.0" layoutY="372.0" text="Nome do usuário:" />
+            <TextField fx:id="destinatario" layoutX="20.0" layoutY="391.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="22.0" layoutY="372.0" text="Destinatário:" />
       </children>
     </AnchorPane>
-      <TextArea prefHeight="0.0" prefWidth="725.0" />
   </children>
 </VBox>
