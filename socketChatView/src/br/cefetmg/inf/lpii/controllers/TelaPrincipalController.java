@@ -161,11 +161,14 @@ public class TelaPrincipalController implements Initializable{
     }
     
     public void definirSalaDestino() {
+        sala = new Sala();
+        sala.setNome(nomeSala.getText());
         //TODO: Receber o nome da sala do campo nomeSala e defini-lo como destinatario
     }
     
     //Método para exibição das mensagens recebidas pela sala ou usuário selecionados
     public void exibirMensagens() {
+        
         //TODO: Exibir as mensagens no painelMensagem
     }
     
@@ -175,7 +178,8 @@ public class TelaPrincipalController implements Initializable{
     }
     
     //Método para exibição dos Usuários logados na tela
-    public void eixibirUsuarios() {
+    public void exibirUsuarios() {
+        
         //TODO: Exibir os usuarios no painelUsuarios
     }
 

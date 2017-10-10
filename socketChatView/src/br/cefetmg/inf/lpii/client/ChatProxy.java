@@ -63,11 +63,13 @@ public class ChatProxy implements Distribuivel {
 
     @Override
     public void inserirUsuarioNaSala(Usuario usuario, Sala sala, String senha) {
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void removerUsuarioDaSala(Usuario usuario, Sala sala) throws IOException {
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -85,6 +87,7 @@ public class ChatProxy implements Distribuivel {
 
     @Override
     public void removerSala(Sala sala) throws IOException, BusinessException, PersistenceException {
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
