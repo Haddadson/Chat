@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -58,6 +59,9 @@ public class TelaPrincipalController implements Initializable{
     
     @FXML
     private TextField nomeSala;
+    
+    @FXML
+    private Label teste;
   
     
     private Mensagem mensagem;
@@ -121,6 +125,8 @@ public class TelaPrincipalController implements Initializable{
             Compartilhado.setUsuario(usuarioCompartilhado);
             proxy.criarConta(usuarioCompartilhado);
         }
+        
+        
     }
     
     public void inserirSala(ActionEvent e) {
@@ -177,13 +183,14 @@ public class TelaPrincipalController implements Initializable{
     
     //Método para exibição das salas existentes na tela
     public void exibirSalas() throws IOException, BusinessException, PersistenceException {
-        proxy.retornarSalas();
+        //proxy.retornarSalas();
         //TODO: Exibir as salas no painelSalas
     }
     
     //Método para exibição dos Usuários logados na tela
     public void exibirUsuarios() {
         //TODO: Exibir os usuarios no painelUsuarios
+        
     }
 
 }

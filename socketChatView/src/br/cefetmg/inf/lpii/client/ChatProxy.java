@@ -8,7 +8,6 @@ package br.cefetmg.inf.lpii.client;
 import br.cefetmg.inf.lpii.entities.Mensagem;
 import br.cefetmg.inf.lpii.entities.Payload;
 import br.cefetmg.inf.lpii.entities.Sala;
-import br.cefetmg.inf.lpii.entities.TipoOperacao;
 import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
@@ -105,7 +104,6 @@ public class ChatProxy implements Distribuivel {
         out.flush();
     }
 
-
     @Override
     public void retornarMensagens() throws IOException, BusinessException, PersistenceException {
         Payload pl = new Payload(TipoOperacao.RETORNAR_MENSAGENS);
@@ -123,6 +121,5 @@ public class ChatProxy implements Distribuivel {
         Payload pl = new Payload(TipoOperacao.RETORNAR_SALAS);
         out.writeObject(pl);
     }
-
-
+    
 }
