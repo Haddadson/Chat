@@ -82,9 +82,9 @@ public class TelaPrincipalController implements Initializable{
     private Desencapsulador des;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        des = Desencapsulador.getInstance(this);
         cliente = new Cliente();
         proxy = ChatProxy.getInstance();
-        des = new Desencapsulador(this);
         
         /*listaSalas.setOnMouseClicked((MouseEvent mouseEvent) -> {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {

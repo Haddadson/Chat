@@ -19,15 +19,21 @@ public class Desencapsulador {
     private static TelaPrincipalController controller;
     
     public static Desencapsulador getInstance() {
+        if (Desencapsulador.desencapsulador == null) {
+            throw new IllegalArgumentException("Instancia nao existe. Exige construtor com controller");
+        }
         return desencapsulador;
     }
     
     public static Desencapsulador getInstance(TelaPrincipalController controller) {
-        Desencapsulador.controller = controller;
+        if (Desencapsulador.desencapsulador != null) {
+            throw new IllegalArgumentException("Instancia ja existe com controller");
+        }
+        Desencapsulador.desencapsulador = new Desencapsulador(controller);
         return desencapsulador;
     }
 
-    public Desencapsulador(TelaPrincipalController controller) {
+    private Desencapsulador(TelaPrincipalController controller) {
         Desencapsulador.controller = controller;
     }
     
