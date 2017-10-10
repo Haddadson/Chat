@@ -26,7 +26,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -72,12 +75,21 @@ public class TelaPrincipalController implements Initializable{
     private Sala sala;
     private Usuario destino;
     private Cliente cliente;
+    private ListView<?> listaSalas;
     private ArrayList<Usuario> listaUsuarios;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cliente = new Cliente();
         proxy = ChatProxy.getInstance();
+        
+        listaSalas.setOnMouseClicked((MouseEvent mouseEvent) -> {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        entrarSala();
+                    }
+                }
+        });
     }
     
     public boolean checaInputConta() {
@@ -152,6 +164,7 @@ public class TelaPrincipalController implements Initializable{
             //Seleciona a data e hora atuais
             currentTime = new java.sql.Timestamp(System.currentTimeMillis());
             //Define uma mensagem
+            
             //TODO: definir o destinatário (usuario)
             mensagem = new Mensagem(usuarioCompartilhado, usuario, insereMensagem.getText(), currentTime);
             try {
@@ -167,12 +180,16 @@ public class TelaPrincipalController implements Initializable{
 
     }
     
-    public void definirSalaDestino() {
-        
-    }
-    
-    public void entrarSala(ActionEvent e) {
-        
+    public void entrarSala() {
+        //TODO: criar método getSala (Recebe a sala passada por parâmetro) no Proxy
+        //sala = proxy.getSala(sala);
+        ArrayList<Usuario> users= sala.getUsuarios();
+        users.add(Compartilhado.getUsuario());
+        try {
+            proxy.inserirUsuarioNaSala(Compartilhado.getUsuario(), sala);
+        } catch (IOException | BusinessException | PersistenceException ex) {
+            Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     
     //Método para exibição das mensagens recebidas pela sala ou usuário selecionados
