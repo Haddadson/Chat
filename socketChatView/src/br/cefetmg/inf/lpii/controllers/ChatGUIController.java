@@ -5,9 +5,12 @@
  */
 package br.cefetmg.inf.lpii.controllers;
 
+import br.cefetmg.inf.lpii.client.ChatProxy;
 import br.cefetmg.inf.lpii.entities.Mensagem;
 import br.cefetmg.inf.lpii.entities.Usuario;
+import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -17,6 +20,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -47,11 +52,6 @@ public class ChatGUIController extends Application implements Initializable {
     @FXML
     private ScrollPane painelUsuarios;
     
-    @FXML
-    private CheckBox destinatarioAll;
-    
-    @FXML
-    private CheckBox destinatarioPrivate;
     
     @FXML
     private Button enviarMensagem;
@@ -71,22 +71,27 @@ public class ChatGUIController extends Application implements Initializable {
     
     private Stage stage;
     
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+    
     }
    
     //Método para selecionar o texto no campo insereMensagem
-    public void captarMensagem() throws PersistenceException {
+    public void captarMensagem() {
         if (insereMensagem.getText() != null) {
             //Seleciona a data e hora atuais
             currentTime = new java.sql.Timestamp(System.currentTimeMillis());
             //Define uma mensagem
             mensagem = new Mensagem(usuario, usuario, insereMensagem.getText(), currentTime);
+
        }
    }
     
     //Método para envio da mensagem ao clicar no botão 
+    @FXML
     public void enviarMensagem(ActionEvent e) throws PersistenceException {
         captarMensagem();
         //TODO: enviar mensagem selecionada através de Payload para o Proxy
@@ -100,19 +105,17 @@ public class ChatGUIController extends Application implements Initializable {
     }
     
     //Método para exibição das mensagens recebidas pela sala ou usuário selecionados
-    @FXML
     public void exibirMensagens() {
+        
         //TODO: Exibir as mensagens no painelMensagem
     }
     
     //Método para exibição das salas existentes na tela
-    @FXML
     public void eixibirSalas() {
         //TODO: Exibir as salas no painelSalas
     }
     
     //Método para exibição dos Usuários logados na tela
-    @FXML
     public void eixibirUsuarios() {
         //TODO: Exibir os usuarios no painelUsuarios
     }

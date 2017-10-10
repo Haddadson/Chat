@@ -82,6 +82,7 @@ public class InicioChatController implements Initializable {
     }
     
    
+    @FXML
     public void inserirUsuario(ActionEvent e) throws Exception{
         if(checaInput()){
             usuarioCompartilhado = new Usuario(nomeUsuario.getText());
