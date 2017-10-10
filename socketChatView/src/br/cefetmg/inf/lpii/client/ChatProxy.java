@@ -32,11 +32,12 @@ public class ChatProxy implements Distribuivel {
     private ObjectOutputStream out;  
     private Payload payload;
     
-    private ChatProxy(Socket socket) {
+    private ChatProxy(Socket socket) throws IOException {
         ChatProxy.socket = socket;
+        this.out  = new ObjectOutputStream(ChatProxy.socket.getOutputStream());
     }
   
-    public static ChatProxy getInstance(Socket socket) {
+    public static ChatProxy getInstance(Socket socket) throws IOException {
         if (chatProxy != null) {
             throw new IllegalArgumentException("Instancia ja existe com outro socket");
         }
@@ -100,9 +101,6 @@ public class ChatProxy implements Distribuivel {
     }
     
     public void teste() throws IOException {
-        ObjectOutputStream out = new ObjectOutputStream(ChatProxy.socket.getOutputStream());
-        out.writeObject(new Payload(TipoOperacao.TESTE));
-        out.flush();
         out.writeObject(new Payload(TipoOperacao.TESTE));
         out.flush();
     }

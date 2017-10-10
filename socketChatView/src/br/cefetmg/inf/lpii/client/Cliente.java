@@ -10,6 +10,9 @@ import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -29,7 +32,7 @@ public class Cliente {
             //Chama o Proxy para fazer a transmissão de dados
             ChatProxy proxy = ChatProxy.getInstance(new Socket(host, porta));
             proxy.teste();
-            
+            proxy.teste();
         } catch (IOException e) {
             e.printStackTrace();
         }
