@@ -68,6 +68,7 @@ public class TelaPrincipalController implements Initializable{
     private ChatProxy proxy;
     private Usuario usuarioCompartilhado;
     private Sala sala;
+    private Usuario destino;
     private ArrayList<Usuario> listaUsuarios;
     
     @Override
@@ -157,7 +158,9 @@ public class TelaPrincipalController implements Initializable{
     }
     
     public void definirDestinatario() {
-        //TODO: Receber o nome do destinatário do campo destinatario e defini-lo como destinatario
+        destino = new Usuario();
+        destino.setNome(destinatario.getText());
+        exibirMensagens();
     }
     
     public void definirSalaDestino() {
