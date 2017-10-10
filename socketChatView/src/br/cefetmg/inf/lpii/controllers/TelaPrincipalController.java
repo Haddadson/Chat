@@ -7,6 +7,7 @@ package br.cefetmg.inf.lpii.controllers;
 
 import br.cefetmg.inf.lpii.client.ChatProxy;
 import br.cefetmg.inf.lpii.client.Cliente;
+import br.cefetmg.inf.lpii.client.Desencapsulador;
 import br.cefetmg.inf.lpii.entities.Mensagem;
 import br.cefetmg.inf.lpii.entities.Sala;
 import br.cefetmg.inf.lpii.entities.Usuario;
@@ -77,19 +78,21 @@ public class TelaPrincipalController implements Initializable{
     private Cliente cliente;
     private ListView<?> listaSalas;
     private ArrayList<Usuario> listaUsuarios;
-    
+    private ArrayList<Sala> salasRegistradas;
+    private Desencapsulador des;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cliente = new Cliente();
         proxy = ChatProxy.getInstance();
+        des = new Desencapsulador(this);
         
-        listaSalas.setOnMouseClicked((MouseEvent mouseEvent) -> {
+        /*listaSalas.setOnMouseClicked((MouseEvent mouseEvent) -> {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
                         entrarSala();
                     }
                 }
-        });
+        });*/
     }
     
     public boolean checaInputConta() {
@@ -137,8 +140,10 @@ public class TelaPrincipalController implements Initializable{
             Compartilhado.setUsuario(usuarioCompartilhado);
             proxy.criarConta(usuarioCompartilhado);
         }
-        
-        
+    }
+    
+    public void teste() {
+        System.out.println("testando controller");
     }
     
     public void inserirSala(ActionEvent e) {
@@ -181,8 +186,7 @@ public class TelaPrincipalController implements Initializable{
     }
     
     public void entrarSala() {
-        //TODO: criar método getSala (Recebe a sala passada por parâmetro) no Proxy
-        //sala = proxy.getSala(sala);
+        
         ArrayList<Usuario> users= sala.getUsuarios();
         users.add(Compartilhado.getUsuario());
         try {
@@ -200,7 +204,7 @@ public class TelaPrincipalController implements Initializable{
     
     //Método para exibição das salas existentes na tela
     public void exibirSalas() throws IOException, BusinessException, PersistenceException {
-        //proxy.retornarSalas();
+        proxy.retornarSalas();
         //TODO: Exibir as salas no painelSalas
     }
     

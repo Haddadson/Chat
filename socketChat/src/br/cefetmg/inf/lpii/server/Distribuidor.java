@@ -124,7 +124,8 @@ public class Distribuidor implements Distribuivel {
 
     @Override
     public void teste() throws IOException {
-        this.out.writeObject("teste");
+        Payload pl = new Payload(TipoOperacao.TESTE);
+        this.out.writeObject(pl);
         this.out.flush();
     }
     @Override

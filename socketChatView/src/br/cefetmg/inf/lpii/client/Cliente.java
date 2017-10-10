@@ -6,14 +6,8 @@
 package br.cefetmg.inf.lpii.client;
 
 import br.cefetmg.inf.lpii.entities.Usuario;
-import br.cefetmg.inf.lpii.exception.BusinessException;
-import br.cefetmg.inf.lpii.exception.PersistenceException;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 /**
  *

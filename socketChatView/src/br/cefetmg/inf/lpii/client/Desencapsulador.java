@@ -5,6 +5,7 @@
  */
 package br.cefetmg.inf.lpii.client;
 
+import br.cefetmg.inf.lpii.controllers.TelaPrincipalController;
 import br.cefetmg.inf.lpii.entities.Payload;
 
 /**
@@ -13,12 +14,24 @@ import br.cefetmg.inf.lpii.entities.Payload;
  */
 public class Desencapsulador {
     
-    private ChatProxy proxy;
+    private static Desencapsulador desencapsulador;
+    private static ChatProxy proxy;
+    private static TelaPrincipalController controller;
     
-    public Desencapsulador(ChatProxy proxy) {
-        this.proxy = proxy;
+    public static Desencapsulador getInstance() {
+        return desencapsulador;
     }
     
+    public static Desencapsulador getInstance(TelaPrincipalController controller) {
+        Desencapsulador.controller = controller;
+        return desencapsulador;
+    }
+
+    public Desencapsulador(TelaPrincipalController controller) {
+        Desencapsulador.controller = controller;
+    }
+    
+  
     public void encaminhar(Payload pl) {
         if (pl == null || pl.getOp() == null) {
             throw new IllegalArgumentException("payload nula");
@@ -45,6 +58,7 @@ public class Desencapsulador {
             case RETORNAR_USUARIOS:
                 break;
             case TESTE:
+                controller.teste();
                 break;
         }
     }

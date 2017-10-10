@@ -33,7 +33,8 @@ public class CanalDeEntrada implements Runnable {
             Logger.getLogger(CanalDeEntrada.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.proxy = ChatProxy.getInstance();
-        this.desencapsulador = new Desencapsulador(this.proxy);
+        this.desencapsulador = Desencapsulador.getInstance();
+                
     }
 
     @Override
