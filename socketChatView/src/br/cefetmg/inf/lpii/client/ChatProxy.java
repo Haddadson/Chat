@@ -73,11 +73,13 @@ public class ChatProxy implements Distribuivel {
     @Override
     public void criarSala(Sala sala) throws BusinessException, PersistenceException, IOException {
         Payload pl = new Payload(TipoOperacao.CRIAR_CONTA, sala);
+        out.writeObject(pl);
     }
 
     @Override
     public void criarConta(Usuario usuario) throws IOException, BusinessException, PersistenceException {
         Payload pl = new Payload(TipoOperacao.CRIAR_CONTA, usuario);
+        out.writeObject(pl);
     }
 
     @Override
