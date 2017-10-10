@@ -57,7 +57,8 @@ public class ChatProxy implements Distribuivel {
 
     @Override
     public void enviarMensagem(Mensagem mensagem) throws PersistenceException, BusinessException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Payload pl = new Payload(TipoOperacao.ENVIAR_MENSAGEM, mensagem);
+        out.writeObject(pl);
     }
 
     @Override

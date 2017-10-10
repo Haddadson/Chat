@@ -47,7 +47,7 @@ public class SocketChatView extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //Carrega o arquivo FXML
-        Parent root = FXMLLoader.load(getClass().getResource("inicioChat.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("telaPrincipal.fxml"));
         this.stage = stage;
         
         //Define a tela em uma cena
