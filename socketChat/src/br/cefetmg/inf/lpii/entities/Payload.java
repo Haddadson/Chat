@@ -5,11 +5,13 @@
  */
 package br.cefetmg.inf.lpii.entities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author João Pedro Renan
  */
-public class Payload {
+public class Payload implements Serializable {
     
     private TipoOperacao op;
     private Mensagem mensagem;

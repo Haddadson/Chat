@@ -6,6 +6,7 @@
 package br.cefetmg.inf.lpii.client;
 
 import br.cefetmg.inf.lpii.entities.Payload;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -18,15 +19,17 @@ import java.util.logging.Logger;
  */
 public class CanalDeEntrada implements Runnable {
 
-    private ObjectInputStream in;
+    //private ObjectInputStream in;
     private ChatProxy proxy;
+    private Socket socket;
     
     public CanalDeEntrada(Socket socket) {
-        try {
-            this.in = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(CanalDeEntrada.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //try {
+            //this.in = new ObjectInputStream(socket.getInputStream());
+            this.socket = socket;
+        //} catch (IOException ex) {
+        //    Logger.getLogger(CanalDeEntrada.class.getName()).log(Level.SEVERE, null, ex);
+        //}
         this.proxy = ChatProxy.getInstance();
     }
 
@@ -34,10 +37,21 @@ public class CanalDeEntrada implements Runnable {
     public void run() {
         Payload payload;
         while (true) {
+            ObjectInputStream in;
             try {
-                payload = (Payload) in.readObject();
-            } catch (IOException | ClassNotFoundException ex) {
+                in = new ObjectInputStream(socket.getInputStream());
+                //payload = (Payload) in.readObject();
+                System.out.println("aguardando recebimento do servidor");
+                String str = (String) in.readObject();
+                System.out.println(str);
+                System.out.println("Recebido");
+            } catch (EOFException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(CanalDeEntrada.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(CanalDeEntrada.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }

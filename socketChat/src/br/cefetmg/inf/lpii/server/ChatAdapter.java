@@ -67,6 +67,9 @@ public class ChatAdapter implements Runnable, Distribuivel {
                 case REMOVER_USUARIO_DA_SALA:
                     this.removerUsuarioDaSala(payload.getUsuario(), payload.getSala());
                     break;
+                case TESTE:
+                    this.teste();
+                    break;
             }
         } catch (IOException | ClassNotFoundException | BusinessException | PersistenceException ex) {
             Logger.getLogger(ChatAdapter.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,6 +105,11 @@ public class ChatAdapter implements Runnable, Distribuivel {
     @Override
     public void removerSala(Sala sala) throws IOException, BusinessException, PersistenceException {
         dist.removerSala(sala);
+    }
+
+    @Override
+    public void teste() throws IOException {
+        dist.teste();
     }
     
 }
