@@ -50,12 +50,14 @@ public class CriarSalaController implements Initializable {
     private Stage salaStage;
     private ArrayList<Usuario> listaUsuarios; 
     private ChatProxy proxy;
+    
     /**
      * Initializes the controller class.
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //proxy GetInstance
+        proxy = ChatProxy.getInstance();
     }    
     
     //Método para verificar a inserção de dados válidos
