@@ -6,7 +6,9 @@
 package br.cefetmg.inf.lpii.DAO.interfaces;
 
 import br.cefetmg.inf.lpii.entities.Mensagem;
+import br.cefetmg.inf.lpii.entities.Sala;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,4 +19,5 @@ public interface MensagemDAO {
     public boolean remover(Long id) throws PersistenceException;
     public boolean atualizar(Mensagem mensagem) throws PersistenceException;
     public Mensagem get(Long id)throws PersistenceException;
+    public ArrayList<Mensagem> getMensagens(Long idSala) throws PersistenceException;
 }

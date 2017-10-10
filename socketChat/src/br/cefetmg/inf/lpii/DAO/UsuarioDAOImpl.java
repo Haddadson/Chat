@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -118,7 +121,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public Usuario get(Long id) throws PersistenceException {
         //A id de um usuário é recebido e os dados relacionados a ele são retornados da base de dados
-        
         try {
             Usuario usuario;
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
@@ -137,6 +139,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             }
 
             return usuario;
+            
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceException(e);
         }

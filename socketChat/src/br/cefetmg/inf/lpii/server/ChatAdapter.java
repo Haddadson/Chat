@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,7 +81,7 @@ public class ChatAdapter implements Runnable, Distribuivel {
                             this.retornarSalas();
                             break;
                         case RETORNAR_MENSAGENS:
-                            this.retornarMensagens();
+                            this.retornarMensagens(payload.getSala().getId());
                             break;
                     }
                 } catch (EOFException ex) {}
@@ -129,8 +128,9 @@ public class ChatAdapter implements Runnable, Distribuivel {
     public void teste() throws IOException {
         dist.teste();
     }
-    public void retornarMensagens() throws IOException, BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public void retornarMensagens(Long salaID) throws IOException, BusinessException, PersistenceException {
+        dist.retornarMensagens(salaID);
     }
 
     @Override

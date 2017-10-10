@@ -8,6 +8,7 @@ package br.cefetmg.inf.lpii.service.interfaces;
 import br.cefetmg.inf.lpii.entities.Mensagem;
 import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,4 +19,5 @@ public interface MensagemManagement {
     public boolean remover(Long id) throws BusinessException, PersistenceException;
     public boolean atualizar(Mensagem mensagem) throws BusinessException, PersistenceException;
     public Mensagem get(Long id) throws BusinessException, PersistenceException;
+    public ArrayList<Mensagem> getMensagens(Long idSala) throws BusinessException, PersistenceException;
 }

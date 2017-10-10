@@ -6,6 +6,7 @@
 package br.cefetmg.inf.lpii.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,6 +18,7 @@ public class Payload implements Serializable {
     private Mensagem mensagem;
     private Usuario usuario;
     private Sala sala;
+    private ArrayList<Mensagem> mensagens;
     
     public Payload() {}
     
@@ -69,6 +71,14 @@ public class Payload implements Serializable {
 
     public void setSala(Sala sala) {
         this.sala = sala;
+    }
+
+    public ArrayList<Mensagem> getMensagens() {
+        return mensagens;
+    }
+
+    public void setMensagens(ArrayList<Mensagem> mensagens) {
+        this.mensagens = mensagens;
     }
     
 }

@@ -15,6 +15,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MensagemDAOImpl implements MensagemDAO {
 
@@ -157,6 +160,35 @@ public class MensagemDAOImpl implements MensagemDAO {
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceException(e);
         }
+    }
+
+    @Override
+    public ArrayList<Mensagem> getMensagens(Long idSala) throws PersistenceException {
+        // Recebe a id de uma sala e retorna um numero de mensagens dela
+        final int LIMITE = 30;
+        Mensagem msg;
+        Usuario usuario;
+        ArrayList<Mensagem> lista = new ArrayList<>();
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            String sql = "SELECT * FROM \"Mensagem\" WHERE COD_salaDestino = ? ORDER BY DAT_msg DESC LIMIT ?";
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)){
+                pstmt.setLong(1, idSala);
+                pstmt.setInt(2, LIMITE);
+                try (ResultSet rs = pstmt.executeQuery()){
+                    while (rs.next()) {
+                        msg = this.get(rs.getLong("COD_mensagem"));
+                        lista.add(msg);
+                    }
+                } catch (Exception e) {
+                    Logger.getLogger(MensagemDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+                }
+            } catch (Exception e) {
+                Logger.getLogger(MensagemDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(MensagemDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
     }
     
 }

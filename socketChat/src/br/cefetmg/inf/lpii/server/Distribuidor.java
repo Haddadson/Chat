@@ -12,7 +12,9 @@ import br.cefetmg.inf.lpii.DAO.interfaces.MensagemDAO;
 import br.cefetmg.inf.lpii.DAO.interfaces.SalaDAO;
 import br.cefetmg.inf.lpii.DAO.interfaces.UsuarioDAO;
 import br.cefetmg.inf.lpii.entities.Mensagem;
+import br.cefetmg.inf.lpii.entities.Payload;
 import br.cefetmg.inf.lpii.entities.Sala;
+import br.cefetmg.inf.lpii.entities.TipoOperacao;
 import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
@@ -125,8 +127,12 @@ public class Distribuidor implements Distribuivel {
         this.out.writeObject("teste");
         this.out.flush();
     }
-    public void retornarMensagens() throws IOException, BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public void retornarMensagens(Long salaID) throws IOException, BusinessException, PersistenceException {
+        Payload answerPl = new Payload(TipoOperacao.RETORNAR_MENSAGENS);
+        answerPl.setMensagens(this.mensagemManagementImpl.getMensagens(salaID));
+        this.out.writeObject(answerPl);
+        this.out.flush();
     }
 
     @Override

@@ -10,6 +10,7 @@ import br.cefetmg.inf.lpii.service.interfaces.MensagemManagement;
 import br.cefetmg.inf.lpii.entities.Mensagem;
 import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
+import java.util.ArrayList;
 
 /**
  *
@@ -105,6 +106,14 @@ public class MensagemManagementImpl implements MensagemManagement {
             throw new BusinessException("Id da mensagem nao pode ser nulo");
         }
         return mensagemDAO.get(id);
+    }
+
+    @Override
+    public ArrayList<Mensagem> getMensagens(Long idSala) throws BusinessException, PersistenceException {
+        if (idSala == null) {
+            throw new BusinessException("Id da sala nao pode ser nulo");
+        }
+        return mensagemDAO.getMensagens(idSala);
     }
     
 }
