@@ -19,6 +19,7 @@ public class Payload implements Serializable {
     private Usuario usuario;
     private Sala sala;
     private ArrayList<Mensagem> mensagens;
+    private ArrayList<Sala> salas;
     
     public Payload() {}
     
@@ -80,5 +81,13 @@ public class Payload implements Serializable {
     public void setMensagens(ArrayList<Mensagem> mensagens) {
         this.mensagens = mensagens;
     }
-    
+
+    public ArrayList<Sala> getSalas() {
+        return salas;
+    }
+
+    public void setSalas(ArrayList<Sala> salas) {
+        this.salas = salas;
+    }
+
 }

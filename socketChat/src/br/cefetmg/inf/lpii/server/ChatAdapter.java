@@ -141,7 +141,6 @@ public class ChatAdapter implements Runnable, Distribuivel {
     @Override
     public void retornarSalas() throws IOException, BusinessException, PersistenceException {
         dist.retornarSalas();
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

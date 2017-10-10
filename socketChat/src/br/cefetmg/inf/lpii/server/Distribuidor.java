@@ -142,7 +142,10 @@ public class Distribuidor implements Distribuivel {
 
     @Override
     public void retornarSalas() throws IOException, BusinessException, PersistenceException {
-        this.salaManagementImpl.getTodas();
+        Payload answerPl = new Payload(TipoOperacao.RETORNAR_SALAS);
+        answerPl.setSalas(this.salaManagementImpl.getTodas());
+        this.out.writeObject(answerPl);
+        this.out.flush();
     }
 
     

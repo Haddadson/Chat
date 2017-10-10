@@ -23,6 +23,7 @@ public class CanalDeEntrada implements Runnable {
     private ChatProxy proxy;
     private Socket socket;
     private ObjectInputStream in;
+    private Desencapsulador desencapsulador;
     
     public CanalDeEntrada(Socket socket) {
         try {
@@ -32,23 +33,22 @@ public class CanalDeEntrada implements Runnable {
             Logger.getLogger(CanalDeEntrada.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.proxy = ChatProxy.getInstance();
+        this.desencapsulador = new Desencapsulador(this.proxy);
     }
 
     @Override
     public void run() {
-        Payload payload;
         while (true) {
             try {
-//                in = new ObjectInputStream(socket.getInputStream());
-                //payload = (Payload) in.readObject();
-                System.out.println("aguardando recebimento do servidor");
-                String str = (String) this.in.readObject();
-                System.out.println(str);
+
+                System.out.println("Aguardando recebimento do servidor...");
+                Payload response = (Payload) this.in.readObject();
                 System.out.println("Recebido");
+                this.desencapsulador.encaminhar(response);
+                System.out.println("Encaminhado!");
+                
             } catch (EOFException ex) {
-            } catch (IOException ex) {
-                Logger.getLogger(CanalDeEntrada.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(CanalDeEntrada.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 ex.printStackTrace();

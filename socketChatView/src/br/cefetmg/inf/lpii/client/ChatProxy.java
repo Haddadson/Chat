@@ -99,6 +99,7 @@ public class ChatProxy implements Distribuivel {
         new Thread(canalDeEntrada).start();
     }
     
+    @Override
     public void teste() throws IOException {
         out.writeObject(new Payload(TipoOperacao.TESTE));
         out.flush();
