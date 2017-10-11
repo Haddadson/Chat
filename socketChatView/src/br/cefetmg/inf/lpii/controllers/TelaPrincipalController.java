@@ -218,7 +218,7 @@ public class TelaPrincipalController implements Initializable{
             //Define uma mensagem
             
             //TODO: definir o destinatário (usuario)
-            mensagem = new Mensagem(usuarioCompartilhado, usuario, insereMensagem.getText(), currentTime);
+            mensagem = new Mensagem(usuarioCompartilhado, this.salaSendoExibida, insereMensagem.getText(), currentTime);
             try {
                 proxy.enviarMensagem(mensagem);
             } catch (PersistenceException | BusinessException | IOException ex) {
