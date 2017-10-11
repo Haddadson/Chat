@@ -230,7 +230,7 @@ public class TelaPrincipalController implements Initializable{
         // determina sala como sendo a exibida
         this.salaSendoExibida = sala;
         // exibe usuarios na sala
-        this.exibirUsuarios(sala.getUsuarios());
+        this.requisitarUsuarios(sala);
         this.exibirMensagens(mensagens);
     }
     // resposta vem em entrarSalaResponse
@@ -256,11 +256,6 @@ public class TelaPrincipalController implements Initializable{
     
     //Método para exibição das salas existentes na tela
     
-    //Método para exibição dos Usuários logados na tela
-    public void exibirUsuarios(ArrayList<Usuario> usuarios) {
-        //TODO: Exibir os usuarios no painelUsuarios
-        
-    }
 
     // Após a chegada, será chamada a registrarSalas(List<Sala> salas)!
     public void requisitarSalas() {
@@ -282,17 +277,24 @@ public class TelaPrincipalController implements Initializable{
         //TODO: Exibir as salas no painelSalas
 
     }
-    // apos a chegada da response, seá chamada registrarUsuarios();
-    public void requisitarUsuarios() {
+    // apos a chegada da response, seá chamada registrarUsuariosResponse();
+    public void requisitarUsuarios(Sala sala) {
         try {
-            this.proxy.retornarUsuarios(this.salaSendoExibida.getId());
+            this.proxy.retornarUsuarios(sala.getId());
         } catch (IOException | BusinessException | PersistenceException ex) {
             Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    // Chamado após requisitarUsuariosRequest
     public void registrarUsuarios(List<Usuario> usuarios) {
-        this.listaUsuariosGeral = (ArrayList<Usuario>) usuarios;
+        this.listaUsuarios = (ArrayList<Usuario>) usuarios;
+        this.exibirUsuarios(FXCollections.observableArrayList(usuarios));
     }
     
+    //Método para exibição dos Usuários logados na tela
+    public void exibirUsuarios(ObservableList<Usuario> usuarios) {
+        //TODO: Exibir os usuarios no painelUsuarios
+        tabUsuarios.setItems(usuarios);
+        colUsuariosSala.setCellValueFactory(new PropertyValueFactory<>("nome"));
+    }
 }
