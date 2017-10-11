@@ -101,8 +101,7 @@ public class TelaPrincipalController implements Initializable{
         des = Desencapsulador.getInstance(this);
         cliente = new Cliente();
         proxy = ChatProxy.getInstance();
-        
-        testaInicializacao();
+
         //TODO: receber salas para setar no parametro
         requisitarSalas();
 
@@ -114,25 +113,7 @@ public class TelaPrincipalController implements Initializable{
         }
         });*/
     }
-    
-    public void testaInicializacao(){
-        Usuario primeiro = new Usuario("breno");
-        Usuario segundo = new Usuario("haddad");
-        listaUsuarios = new ArrayList<>();
-        listaUsuarios.add(primeiro);
-        listaUsuarios.add(segundo);
-        salasRegistradas = new ArrayList<>();
-        Sala um = new Sala(listaUsuarios, "um");
-        Sala dois = new Sala(listaUsuarios, "dois");
-        System.out.println(um.getNome());
-        salasRegistradas.add(um);
-        salasRegistradas.add(dois);
-        for (int i = 0; i < salasRegistradas.size(); i++) {
-            Sala teste = salasRegistradas.get(i);
-            System.out.println(teste.getNome());
-        }
-    }
-    
+
     public boolean checaInputConta() {
         String mensagemErro = "";
 
