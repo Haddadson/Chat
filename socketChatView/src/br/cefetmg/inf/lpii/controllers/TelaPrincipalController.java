@@ -34,7 +34,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 /**
  * FXML Controller class
  *
@@ -105,17 +108,25 @@ public class TelaPrincipalController implements Initializable{
         des = Desencapsulador.getInstance(this);
         cliente = new Cliente();
         proxy = ChatProxy.getInstance();
-
-        //TODO: receber salas para setar no parametro
+        salasRegistradas = new ArrayList<>();
         requisitarSalas();
-
-        /*listaSalas.setOnMouseClicked((MouseEvent mouseEvent) -> {
-        if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-        if (mouseEvent.getClickCount() == 2) {
-        entrarSala();
-        }
-        }
-        });*/
+        
+        //Define DoubleClick em sala para entrar e exibir usuários
+        tabSalas.setRowFactory(tv ->{
+            TableRow<Sala> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                Sala salaSelecionada = row.getItem();
+                if(!row.isEmpty() && event.getButton()==MouseButton.PRIMARY && event.getClickCount() == 2){
+                    entrarSalaRequest(salaSelecionada);
+                    System.out.println("2click");
+                }
+                if(!row.isEmpty() && event.getButton()==MouseButton.PRIMARY && event.getClickCount() == 1){
+                    requisitarUsuarios(salaSelecionada);
+                    System.out.println("1click");
+                }
+            });
+            return row;
+        });
     }
 
     public boolean checaInputConta() {
@@ -228,9 +239,11 @@ public class TelaPrincipalController implements Initializable{
         this.requisitarUsuarios(sala);
         this.exibirMensagens(mensagens);
     }
+    
     // resposta vem em entrarSalaResponse
     public void entrarSalaRequest(Sala sala) {
         try {
+            System.out.println("teste");
             this.proxy.inserirUsuarioNaSala(this.usuarioCompartilhado, sala);
         } catch (IOException | BusinessException | PersistenceException ex) {
             Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
@@ -260,6 +273,7 @@ public class TelaPrincipalController implements Initializable{
             Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     // Chamado após requisitarSalas()
     public void registrarSalas(List<Sala> salas) {
         this.salasRegistradas = (ArrayList<Sala>) salas;

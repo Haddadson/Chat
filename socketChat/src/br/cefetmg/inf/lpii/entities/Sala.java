@@ -30,6 +30,10 @@ public class Sala  implements Serializable {
         this.nome = nome;
     }
     
+    public Sala(String nome){
+        this.nome = nome;
+    }
+    
     public Sala() {
     }    
 
