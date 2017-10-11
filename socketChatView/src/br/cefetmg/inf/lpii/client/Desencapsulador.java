@@ -7,6 +7,7 @@ package br.cefetmg.inf.lpii.client;
 
 import br.cefetmg.inf.lpii.controllers.TelaPrincipalController;
 import br.cefetmg.inf.lpii.entities.Payload;
+import br.cefetmg.inf.lpii.entities.Sala;
 
 /**
  *
@@ -46,22 +47,29 @@ public class Desencapsulador {
             case CRIAR_CONTA:
                 break;
             case CRIAR_SALA:
+                // envia pro controller dados da sala recebida
+                Sala novaSala = pl.getSala();
+                
                 break;
             case ENVIAR_MENSAGEM:
+                Desencapsulador.controller.exibirMensagens(pl.getMensagem());
                 break;
             case INSERIR_USUARIO_NA_SALA:
                 break;
             case INSERIR_USUARIO_NA_SALA_SENHA:
                 break;
-            case REMOVER_SALA:
-                break;
             case REMOVER_USUARIO_DA_SALA:
                 break;
             case RETORNAR_MENSAGENS:
+                //envia pro controller lista com mensagens recentes
+                Desencapsulador.controller.exibirMensagens(pl.getMensagens());
                 break;
             case RETORNAR_SALAS:
+                //envia pro controller lista com todas as salas
+                Desencapsulador.controller.registrarSalas(pl.getSalas());
                 break;
             case RETORNAR_USUARIOS:
+                Desencapsulador.controller.exibirUsuarios(pl.getSala().getUsuarios());
                 break;
             case TESTE:
                 controller.teste();

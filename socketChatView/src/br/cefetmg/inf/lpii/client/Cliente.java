@@ -15,30 +15,18 @@ import java.net.Socket;
  */
 public class Cliente {
     //Atributo que recebe o usuário da sessão atual
-    private Usuario usuario;
     
     public Cliente(){
         try {
             //Define o host e a porta para conexão
             String host = "localhost";
             int porta = 2223;
-            
             //Chama o Proxy para fazer a transmissão de dados
             ChatProxy proxy = ChatProxy.getInstance(new Socket(host, porta));
-            proxy.teste();
-            proxy.teste();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-    
-    
 }

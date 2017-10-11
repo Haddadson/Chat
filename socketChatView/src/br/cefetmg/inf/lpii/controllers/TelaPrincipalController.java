@@ -21,6 +21,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -99,23 +100,18 @@ public class TelaPrincipalController implements Initializable{
         des = Desencapsulador.getInstance(this);
         cliente = new Cliente();
         proxy = ChatProxy.getInstance();
-        
-        
-        try {
-            testaInicializacao();
-            //TODO: receber salas para setar no parametro
-            exibirSalas(FXCollections.observableArrayList(salasRegistradas));
-            
-            /*listaSalas.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-            if (mouseEvent.getClickCount() == 2) {
-            entrarSala();
-            }
-            }
-            });*/
-        } catch (BusinessException | PersistenceException | IOException ex) {
-                Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-          }
+
+        testaInicializacao();
+        //TODO: receber salas para setar no parametro
+        exibirSalas(FXCollections.observableArrayList(salasRegistradas));
+
+        /*listaSalas.setOnMouseClicked((MouseEvent mouseEvent) -> {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+        if (mouseEvent.getClickCount() == 2) {
+        entrarSala();
+        }
+        }
+        });*/
     }
     
     public void testaInicializacao(){
@@ -238,22 +234,35 @@ public class TelaPrincipalController implements Initializable{
     }
     
     //Método para exibição das mensagens recebidas pela sala ou usuário selecionados
-    public void exibirMensagens() {
-
+    public void exibirMensagens(ArrayList<Mensagem> mensagens) {
         //TODO: Exibir as mensagens no painelMensagem
     }
     
+    public void exibirMensagens(Mensagem mensagem) {
+        //reenvia panew Sala().setId(salaID)new Sala().setId(salaID)new Sala().setId(salaID)new Sala().setId(salaID)new Sala().setId(salaID)new Sala().setId(salaID)new Sala().setId(salaID)ra exibirMensagens que recebe ArrayList.
+        ArrayList<Mensagem> msg = new ArrayList();
+        msg.add(mensagem);
+        this.exibirMensagens(msg);
+    }
+    
     //Método para exibição das salas existentes na tela
-    public void exibirSalas(ObservableList<Sala> listSala) throws IOException, BusinessException, PersistenceException {
+    public void exibirSalas(ObservableList<Sala> listSala) {
         tabSalas.setItems(listSala);
         colSalas.setCellValueFactory(new PropertyValueFactory<>("nome"));
         //TODO: Exibir as salas no painelSalas
+
     }
     
     //Método para exibição dos Usuários logados na tela
-    public void exibirUsuarios() {
+    public void exibirUsuarios(ArrayList<Usuario> usuarios) {
         //TODO: Exibir os usuarios no painelUsuarios
         
     }
 
+    public void registrarSalas(List<Sala> salas) {
+        
+        this.salasRegistradas = (ArrayList<Sala>) salas;
+        this.exibirSalas((ObservableList<Sala>) salas);
+    }
+    
 }
