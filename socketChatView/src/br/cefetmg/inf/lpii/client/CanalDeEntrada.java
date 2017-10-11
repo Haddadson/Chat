@@ -9,6 +9,7 @@ import br.cefetmg.inf.lpii.entities.Payload;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.OptionalDataException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,10 +44,17 @@ public class CanalDeEntrada implements Runnable {
             try {
 
                 System.out.println("Aguardando recebimento do servidor...");
-                Payload response = (Payload) this.in.readObject();
-                System.out.println("Recebido");
-                this.desencapsulador.encaminhar(response);
-                System.out.println("Encaminhado!");
+                Payload response;
+                try{
+                
+                    response = (Payload) this.in.readObject();
+                    System.out.println("Recebido");
+                    this.desencapsulador.encaminhar(response);
+                    System.out.println("Encaminhado!");
+                } catch( OptionalDataException ex) {
+                    System.out.println(ex.eof);
+                    System.out.println(ex.length);
+                }
                 
             } catch (EOFException ex) {
             } catch (IOException | ClassNotFoundException ex) {

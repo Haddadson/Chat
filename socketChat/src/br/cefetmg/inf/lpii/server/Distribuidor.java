@@ -106,13 +106,15 @@ public class Distribuidor implements Distribuivel {
     
     @Override
     public synchronized void criarSala(Sala sala) throws BusinessException, PersistenceException, IOException {
-        this.out.writeLong(salaManagementImpl.inserir(sala));
+        sala.setId(salaManagementImpl.inserir(sala));
+        this.out.writeObject(new Payload(TipoOperacao.CRIAR_SALA, sala));
         this.out.flush();
     }
     
     @Override
     public synchronized void criarConta(Usuario usuario) throws IOException, BusinessException, PersistenceException {
-        this.out.writeLong(usuarioManagementImpl.inserir(usuario));
+        usuario.setId(usuarioManagementImpl.inserir(usuario));
+        this.out.writeObject(usuario);
         this.out.flush();
     }
 
