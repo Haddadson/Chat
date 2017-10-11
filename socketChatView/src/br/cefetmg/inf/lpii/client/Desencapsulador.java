@@ -47,6 +47,7 @@ public class Desencapsulador {
             case CRIACAO_USUARIO_NEGADA: 
                 break;
             case CRIAR_CONTA:
+                Desencapsulador.controller.registrarUsuarioCompartilhado(pl.getUsuario());
                 break;
             case CRIAR_SALA:
                 // envia pro controller dados da sala recebida

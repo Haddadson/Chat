@@ -155,13 +155,20 @@ public class TelaPrincipalController implements Initializable{
     @FXML
     public void inserirUsuario(ActionEvent e) throws Exception{
         if(checaInputConta()){
-
-            proxy.criarConta(usuarioCompartilhado);
+            proxy.criarConta(new Usuario((nomeUsuario.getText())));
         }
     }
     
     public void registrarUsuarioCompartilhado(Usuario usuario) {
-        this.usuarioCompartilhado = usuario;
+        if (usuario.getId() != null) {
+            this.usuarioCompartilhado = usuario;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Campo inválido");
+            alert.setHeaderText("Por favor, insira um outro nome");
+            alert.setContentText("Este nome já está sendo usado");
+            alert.showAndWait();
+        }
     }
 
     public void teste() {

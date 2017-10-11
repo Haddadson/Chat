@@ -123,8 +123,16 @@ public class Distribuidor implements Distribuivel {
     
     @Override
     public synchronized void criarConta(Usuario usuario) throws IOException, BusinessException, PersistenceException {
-        usuario.setId(usuarioManagementImpl.inserir(usuario));
-        this.out.writeObject(usuario);
+        Long idUsuario;
+        try {
+            idUsuario = usuarioManagementImpl.inserir(usuario);
+        } catch (PersistenceException ex) {
+            idUsuario = null;
+        }
+        usuario.setId(idUsuario);
+        Payload pl = new Payload(TipoOperacao.CRIAR_CONTA);
+        pl.setUsuario(usuario);
+        this.out.writeObject(pl);
         this.out.flush();
     }
 

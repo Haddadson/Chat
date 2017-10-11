@@ -44,17 +44,17 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
         try (Connection connection = ConnectionManager.getInstance().getConnection();) {
 
-            String sql = "INSERT INTO \"Usuario\" (COD_usuario, NOM_usuario) "
-                    + "    VALUES (?, ?) returning COD_usuario;";
+            String sql = "INSERT INTO Usuario (NOM_usuario) "
+                    + "    VALUES (?) returning COD_usuario;";
 
             try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-                pstmt.setLong(1, usuario.getId());
-                pstmt.setString(2, usuario.getNome());
+                pstmt.setString(1, usuario.getNome());
                 
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         userId = rs.getLong("COD_usuario");
                         usuario.setId(userId);
+                        
                     }
                 }
             }
