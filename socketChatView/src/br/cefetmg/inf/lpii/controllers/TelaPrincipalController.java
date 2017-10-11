@@ -86,11 +86,12 @@ public class TelaPrincipalController implements Initializable{
     private Timestamp currentTime;
     private ChatProxy proxy;
     private Usuario usuarioCompartilhado;
-    private Sala sala;
+    private Sala salaSendoExibida;
     private Usuario destino;
     private Cliente cliente;
     
     private ArrayList<Usuario> listaUsuarios;
+    private ArrayList<Usuario> listaUsuariosGeral;
     private ArrayList<Sala> salasRegistradas;
     private Desencapsulador des;
     
@@ -100,10 +101,10 @@ public class TelaPrincipalController implements Initializable{
         des = Desencapsulador.getInstance(this);
         cliente = new Cliente();
         proxy = ChatProxy.getInstance();
-
+        
         testaInicializacao();
         //TODO: receber salas para setar no parametro
-        exibirSalas(FXCollections.observableArrayList(salasRegistradas));
+        requisitarSalas();
 
         /*listaSalas.setOnMouseClicked((MouseEvent mouseEvent) -> {
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
@@ -173,12 +174,15 @@ public class TelaPrincipalController implements Initializable{
     @FXML
     public void inserirUsuario(ActionEvent e) throws Exception{
         if(checaInputConta()){
-            usuarioCompartilhado = new Usuario(nomeUsuario.getText());
-            Compartilhado.setUsuario(usuarioCompartilhado);
+
             proxy.criarConta(usuarioCompartilhado);
         }
     }
     
+    public void registrarUsuarioCompartilhado(Usuario usuario) {
+        this.usuarioCompartilhado = usuario;
+    }
+
     public void teste() {
         System.out.println("testando controller");
     }
@@ -191,7 +195,7 @@ public class TelaPrincipalController implements Initializable{
 
             //Caso a sala tenha senha, um construtor específico é chamado, definindo-a
             
-            sala = new Sala(listaUsuarios, nomeSala.getText(), null);
+            Sala sala = new Sala(listaUsuarios, nomeSala.getText(), null);
             try {
                 proxy.criarSala(sala);
             } catch (BusinessException | PersistenceException | IOException ex) {
@@ -222,15 +226,20 @@ public class TelaPrincipalController implements Initializable{
 
     }
     
-    public void entrarSala() {
-        
-        ArrayList<Usuario> users= sala.getUsuarios();
-        users.add(Compartilhado.getUsuario());
+    public void entrarSalaResponse(Sala sala, ArrayList<Mensagem> mensagens) {
+        // determina sala como sendo a exibida
+        this.salaSendoExibida = sala;
+        // exibe usuarios na sala
+        this.exibirUsuarios(sala.getUsuarios());
+        this.exibirMensagens(mensagens);
+    }
+    // resposta vem em entrarSalaResponse
+    public void entrarSalaRequest(Sala sala) {
         try {
-            proxy.inserirUsuarioNaSala(Compartilhado.getUsuario(), sala);
+            this.proxy.inserirUsuarioNaSala(this.usuarioCompartilhado, sala);
         } catch (IOException | BusinessException | PersistenceException ex) {
             Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
     
     //Método para exibição das mensagens recebidas pela sala ou usuário selecionados
@@ -246,12 +255,6 @@ public class TelaPrincipalController implements Initializable{
     }
     
     //Método para exibição das salas existentes na tela
-    public void exibirSalas(ObservableList<Sala> listSala) {
-        tabSalas.setItems(listSala);
-        colSalas.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        //TODO: Exibir as salas no painelSalas
-
-    }
     
     //Método para exibição dos Usuários logados na tela
     public void exibirUsuarios(ArrayList<Usuario> usuarios) {
@@ -259,10 +262,37 @@ public class TelaPrincipalController implements Initializable{
         
     }
 
+    // Após a chegada, será chamada a registrarSalas(List<Sala> salas)!
+    public void requisitarSalas() {
+        try {
+            this.proxy.retornarSalas();
+        } catch (IOException | BusinessException | PersistenceException ex) {
+            Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    // Chamado após requisitarSalas()
     public void registrarSalas(List<Sala> salas) {
-        
         this.salasRegistradas = (ArrayList<Sala>) salas;
-        this.exibirSalas((ObservableList<Sala>) salas);
+        this.exibirSalas(FXCollections.observableArrayList(salas));
+    }
+    
+    public void exibirSalas(ObservableList<Sala> listSala) {
+        tabSalas.setItems(listSala);
+        colSalas.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        //TODO: Exibir as salas no painelSalas
+
+    }
+    // apos a chegada da response, seá chamada registrarUsuarios();
+    public void requisitarUsuarios() {
+        try {
+            this.proxy.retornarUsuarios(this.salaSendoExibida.getId());
+        } catch (IOException | BusinessException | PersistenceException ex) {
+            Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void registrarUsuarios(List<Usuario> usuarios) {
+        this.listaUsuariosGeral = (ArrayList<Usuario>) usuarios;
     }
     
 }

@@ -75,7 +75,7 @@ public class ChatAdapter implements Runnable, Distribuivel {
                             this.teste();
                             break;
                         case RETORNAR_USUARIOS:
-                            this.retornarUsuarios();
+                            this.retornarUsuarios(payload.getSala().getId());
                             break;
                         case RETORNAR_SALAS:
                             this.retornarSalas();
@@ -134,7 +134,7 @@ public class ChatAdapter implements Runnable, Distribuivel {
     }
 
     @Override
-    public void retornarUsuarios() throws IOException, BusinessException, PersistenceException {
+    public void retornarUsuarios(Long salaID) throws IOException, BusinessException, PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

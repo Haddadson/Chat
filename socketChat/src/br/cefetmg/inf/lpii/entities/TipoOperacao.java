@@ -21,7 +21,8 @@ public enum TipoOperacao {
     TESTE(8),
     RETORNAR_USUARIOS(9),
     RETORNAR_SALAS(10),
-    RETORNAR_MENSAGENS(11);
+    RETORNAR_MENSAGENS(11),
+    CRIACAO_USUARIO_NEGADA(12);
     
     private final int valor;
 

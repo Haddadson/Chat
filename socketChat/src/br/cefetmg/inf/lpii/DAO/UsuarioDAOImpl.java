@@ -58,7 +58,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                     }
                 }
             }
-            connection.close();
 
         } catch (ClassNotFoundException | SQLException ex) {
             ex.getMessage();

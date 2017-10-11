@@ -118,7 +118,7 @@ public class ChatProxy implements Distribuivel {
     }
 
     @Override
-    public void retornarUsuarios() throws IOException, BusinessException, PersistenceException {
+    public void retornarUsuarios(Long salaID) throws IOException, BusinessException, PersistenceException {
         Payload pl = new Payload(TipoOperacao.RETORNAR_USUARIOS);
         out.writeObject(pl);
     }

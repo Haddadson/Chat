@@ -157,8 +157,10 @@ public class SalaDAOImpl implements SalaDAO {
                             sala.setId(rs.getLong("COD_sala"));
                             sala.setNome(rs.getString("NOM_sala"));
                             sala.setSenha(rs.getString("TXT_senha"));
-                        }while(rs.next());
-                    }                  }
+                            listAll.add(sala);
+                        } while(rs.next());
+                    }                  
+                }
             }
             
             return listAll;

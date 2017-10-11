@@ -26,6 +26,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -79,14 +81,22 @@ public class Distribuidor implements Distribuivel {
     @Override
     public synchronized void inserirUsuarioNaSala(Usuario usuario, Sala sala) {
         if (sala.getSenha() == null) {
-            sala.getUsuarios().add(usuario);
-        } /* else {
+            try {
+                sala.getUsuarios().add(usuario);
+                Payload pl = new Payload(TipoOperacao.INSERIR_USUARIO_NA_SALA);
+                pl.setSala(sala);
+                pl.setMensagens(mensagemManagementImpl.getMensagens(sala.getId()));
+            } /* else {
             if (sala.getSenha() != null && senha == null) {
-                throw new IllegalArgumentException("Tentativa de entrar em sala com senha sem passa-la como parametro");
+            throw new IllegalArgumentException("Tentativa de entrar em sala com senha sem passa-la como parametro");
             } else if (sala.getSenha() != null && senha.equals(sala.getSenha())) {
-                throw new IllegalArgumentException("Senha incorreta");
+            throw new IllegalArgumentException("Senha incorreta");
             }
-        }*/
+            }*/ 
+            catch (BusinessException | PersistenceException ex) {
+                Logger.getLogger(Distribuidor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     @Override
@@ -139,7 +149,7 @@ public class Distribuidor implements Distribuivel {
     }
 
     @Override
-    public void retornarUsuarios() throws IOException, BusinessException, PersistenceException {
+    public void retornarUsuarios(Long salaID) throws IOException, BusinessException, PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

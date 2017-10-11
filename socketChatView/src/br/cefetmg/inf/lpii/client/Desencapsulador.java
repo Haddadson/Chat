@@ -44,6 +44,8 @@ public class Desencapsulador {
             throw new IllegalArgumentException("payload nula");
         }
         switch (pl.getOp()) {
+            case CRIACAO_USUARIO_NEGADA: 
+                break;
             case CRIAR_CONTA:
                 break;
             case CRIAR_SALA:
@@ -55,6 +57,7 @@ public class Desencapsulador {
                 Desencapsulador.controller.exibirMensagens(pl.getMensagem());
                 break;
             case INSERIR_USUARIO_NA_SALA:
+                Desencapsulador.controller.entrarSalaResponse(pl.getSala(), pl.getMensagens());
                 break;
             case INSERIR_USUARIO_NA_SALA_SENHA:
                 break;
@@ -68,6 +71,7 @@ public class Desencapsulador {
                 //envia pro controller lista com todas as salas
                 Desencapsulador.controller.registrarSalas(pl.getSalas());
                 break;
+            //retorna os usuarios de uma sala
             case RETORNAR_USUARIOS:
                 Desencapsulador.controller.exibirUsuarios(pl.getSala().getUsuarios());
                 break;
