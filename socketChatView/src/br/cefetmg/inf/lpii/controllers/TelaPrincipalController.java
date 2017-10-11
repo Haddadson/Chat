@@ -183,6 +183,7 @@ public class TelaPrincipalController implements Initializable{
     
     public void inserirSala(ActionEvent e) {
         if (checaInputSalas()) {
+            this.nomeSala.clear();
             //Adiciona o usuário da sessão atual na lista de pessoas da sala
             listaUsuarios = new ArrayList();
             listaUsuarios.add(Compartilhado.getUsuario());

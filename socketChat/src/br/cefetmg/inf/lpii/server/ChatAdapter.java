@@ -57,6 +57,7 @@ public class ChatAdapter implements Runnable, Distribuivel {
                             break;
                         case CRIAR_SALA:
                             this.criarSala(payload.getSala());
+                            this.retornarSalas();
                             break;
                         case ENVIAR_MENSAGEM:
                             this.enviarMensagem(payload.getMensagem());
