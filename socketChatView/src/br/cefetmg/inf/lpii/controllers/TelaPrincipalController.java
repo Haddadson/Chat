@@ -183,7 +183,6 @@ public class TelaPrincipalController implements Initializable{
     
     public void inserirSala(ActionEvent e) {
         if (checaInputSalas()) {
-            this.nomeSala.clear();
             //Adiciona o usuário da sessão atual na lista de pessoas da sala
             listaUsuarios = new ArrayList();
             listaUsuarios.add(Compartilhado.getUsuario());
@@ -191,6 +190,7 @@ public class TelaPrincipalController implements Initializable{
             //Caso a sala tenha senha, um construtor específico é chamado, definindo-a
             
             Sala sala = new Sala(listaUsuarios, nomeSala.getText(), null);
+            this.nomeSala.clear();
             try {
                 proxy.criarSala(sala);
             } catch (BusinessException | PersistenceException | IOException ex) {
