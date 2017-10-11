@@ -67,9 +67,9 @@
                </content></ScrollPane>
             <ScrollPane id="sala" fx:id="painelSalas" layoutX="16.0" layoutY="39.0" prefHeight="122.0" prefWidth="177.0">
                <content>
-                  <TableView fx:id="salasTable" prefHeight="120.0" prefWidth="175.0">
+                  <TableView fx:id="tabSalas" prefHeight="120.0" prefWidth="175.0">
                     <columns>
-                      <TableColumn maxWidth="175.0" minWidth="175.0" prefWidth="175.0" resizable="false" text="Salas" />
+                      <TableColumn fx:id="colSalas" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" resizable="false" text="Salas" />
                     </columns>
                   </TableView>
                </content>
@@ -78,9 +78,9 @@
             <TextArea id="textoEnvio" fx:id="insereMensagem" layoutX="224.0" layoutY="285.0" prefHeight="102.0" prefWidth="438.0" />
             <ScrollPane id="usuario" fx:id="painelUsuarios" layoutX="19.0" layoutY="256.0" prefHeight="132.0" prefWidth="175.0">
                <content>
-                  <TableView fx:id="usersTable" prefHeight="130.0" prefWidth="173.0">
+                  <TableView fx:id="tabUsuarios" prefHeight="130.0" prefWidth="173.0">
                     <columns>
-                      <TableColumn maxWidth="175.0" minWidth="175.0" prefWidth="175.0" resizable="false" text="Usuários" />
+                      <TableColumn fx:id="colUsuariosSala" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" resizable="false" text="Usuários" />
                     </columns>
                   </TableView>
                </content>
