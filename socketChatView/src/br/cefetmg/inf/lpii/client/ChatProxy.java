@@ -28,8 +28,7 @@ public class ChatProxy implements Distribuivel {
     private static ArrayList<Integer> portsBeingUsed = new ArrayList();
     private static Socket socket;
     private static CanalDeEntrada canalDeEntrada;
-    private ObjectOutputStream out;  
-    private Payload payload;
+    private final ObjectOutputStream out;  
     
     private ChatProxy(Socket socket) throws IOException {
         ChatProxy.socket = socket;
@@ -53,61 +52,68 @@ public class ChatProxy implements Distribuivel {
         return chatProxy;
     }
     
+    private static void criarCanalDeEntrada(Socket socket) {
+        ChatProxy.canalDeEntrada = new CanalDeEntrada(socket);
+        new Thread(canalDeEntrada).start();
+    }
+    
     public void criarCanalDeEntrada() {
-        this.canalDeEntrada = new CanalDeEntrada(this.socket);
+        ChatProxy.canalDeEntrada = new CanalDeEntrada(ChatProxy.socket);
         new Thread(canalDeEntrada).start();
     }
 
     @Override
     public void enviarMensagem(Mensagem mensagem) throws PersistenceException, BusinessException, IOException {
-        Payload pl = new Payload(TipoOperacao.ENVIAR_MENSAGEM, mensagem);
+        Payload pl = new Payload(TipoOperacao.ENVIAR_MENSAGEM);
+        pl.setMensagem(mensagem);
         out.writeObject(pl);
     }
 
     @Override
     public void inserirUsuarioNaSala(Usuario usuario, Sala sala) throws IOException, BusinessException, PersistenceException{
         Payload pl = new Payload(TipoOperacao.INSERIR_USUARIO_NA_SALA);
+        pl.setUsuario(usuario);
+        pl.setSala(sala);
         out.writeObject(pl);
     }
 
     @Override
     public void removerUsuarioDaSala(Usuario usuario, Sala sala) throws IOException {
         Payload pl = new Payload(TipoOperacao.REMOVER_USUARIO_DA_SALA);
+        pl.setSala(sala);
+        pl.setUsuario(usuario);
         out.writeObject(pl);
     }
 
     @Override
     public void criarSala(Sala sala) throws BusinessException, PersistenceException, IOException {
-        Payload pl = new Payload(TipoOperacao.CRIAR_SALA, sala);
+        Payload pl = new Payload(TipoOperacao.CRIAR_SALA);
+        pl.setSala(sala);
         out.writeObject(pl);
     }
 
     @Override
     public void criarConta(Usuario usuario) throws IOException, BusinessException, PersistenceException {
-        Payload pl = new Payload(TipoOperacao.CRIAR_CONTA, usuario);
+        Payload pl = new Payload(TipoOperacao.CRIAR_CONTA);
+        pl.setUsuario(usuario);
         out.writeObject(pl);
     }
 
     @Override
     public void removerSala(Sala sala) throws IOException, BusinessException, PersistenceException {
         Payload pl = new Payload(TipoOperacao.REMOVER_SALA);
+        pl.setSala(sala);
         out.writeObject(pl);
     }
     
-    private static void criarCanalDeEntrada(Socket socket) {
-        ChatProxy.canalDeEntrada = new CanalDeEntrada(socket);
-        new Thread(canalDeEntrada).start();
-    }
     
-    @Override
-    public void teste() throws IOException {
-        out.writeObject(new Payload(TipoOperacao.TESTE));
-        out.flush();
-    }
 
     @Override
     public void retornarMensagens(Long salaID) throws IOException, BusinessException, PersistenceException {
         Payload pl = new Payload(TipoOperacao.RETORNAR_MENSAGENS);
+        Sala sala = new Sala();
+        sala.setId(salaID);
+        pl.setSala(sala);
         out.writeObject(pl);
     }
 
@@ -123,4 +129,9 @@ public class ChatProxy implements Distribuivel {
         out.writeObject(pl);
     }
     
+    @Override
+    public void teste() throws IOException {
+        out.writeObject(new Payload(TipoOperacao.TESTE));
+        out.flush();
+    }
 }
