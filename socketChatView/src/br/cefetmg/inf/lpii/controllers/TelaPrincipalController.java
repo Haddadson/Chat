@@ -23,15 +23,16 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-
+import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * FXML Controller class
  *
@@ -66,7 +67,18 @@ public class TelaPrincipalController implements Initializable{
     
     @FXML
     private Label teste;
-  
+    
+    @FXML
+    private TableColumn<Sala, String> colSalas;
+    
+    @FXML
+    private TableColumn<Usuario, String> colUsuariosSala;
+    
+    @FXML
+    private TableView<Sala> tabSalas;
+    
+    @FXML
+    private TableView<Usuario> tabUsuarios;
     
     private Mensagem mensagem;
     private Usuario usuario;
@@ -76,23 +88,52 @@ public class TelaPrincipalController implements Initializable{
     private Sala sala;
     private Usuario destino;
     private Cliente cliente;
-    private ListView<?> listaSalas;
+    
     private ArrayList<Usuario> listaUsuarios;
     private ArrayList<Sala> salasRegistradas;
     private Desencapsulador des;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         des = Desencapsulador.getInstance(this);
         cliente = new Cliente();
         proxy = ChatProxy.getInstance();
         
-        /*listaSalas.setOnMouseClicked((MouseEvent mouseEvent) -> {
-                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                    if (mouseEvent.getClickCount() == 2) {
-                        entrarSala();
-                    }
-                }
-        });*/
+        
+        try {
+            testaInicializacao();
+            //TODO: receber salas para setar no parametro
+            exibirSalas(FXCollections.observableArrayList(salasRegistradas));
+            
+            /*listaSalas.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+            if (mouseEvent.getClickCount() == 2) {
+            entrarSala();
+            }
+            }
+            });*/
+        } catch (BusinessException | PersistenceException | IOException ex) {
+                Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+          }
+    }
+    
+    public void testaInicializacao(){
+        Usuario primeiro = new Usuario("breno");
+        Usuario segundo = new Usuario("haddad");
+        listaUsuarios = new ArrayList<>();
+        listaUsuarios.add(primeiro);
+        listaUsuarios.add(segundo);
+        salasRegistradas = new ArrayList<>();
+        Sala um = new Sala(listaUsuarios, "um");
+        Sala dois = new Sala(listaUsuarios, "dois");
+        System.out.println(um.getNome());
+        salasRegistradas.add(um);
+        salasRegistradas.add(dois);
+        for (int i = 0; i < salasRegistradas.size(); i++) {
+            Sala teste = salasRegistradas.get(i);
+            System.out.println(teste.getNome());
+        }
     }
     
     public boolean checaInputConta() {
@@ -203,8 +244,9 @@ public class TelaPrincipalController implements Initializable{
     }
     
     //Método para exibição das salas existentes na tela
-    public void exibirSalas() throws IOException, BusinessException, PersistenceException {
-        proxy.retornarSalas();
+    public void exibirSalas(ObservableList<Sala> listSala) throws IOException, BusinessException, PersistenceException {
+        tabSalas.setItems(listSala);
+        colSalas.setCellValueFactory(new PropertyValueFactory<>("nome"));
         //TODO: Exibir as salas no painelSalas
     }
     
