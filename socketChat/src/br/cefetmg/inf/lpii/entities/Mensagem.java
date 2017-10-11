@@ -5,13 +5,14 @@
  */
 package br.cefetmg.inf.lpii.entities;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  *
  * @author Aluno
  */
-public class Mensagem {
+public class Mensagem implements Serializable {
 
     private Usuario remetente;
     private Usuario usuarioDestino;

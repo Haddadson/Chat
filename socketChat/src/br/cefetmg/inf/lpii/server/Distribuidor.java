@@ -44,13 +44,13 @@ public class Distribuidor implements Distribuivel {
 
     public Distribuidor(Socket socket) throws IOException {
         
-        this.usuarioManagementImpl = new UsuarioManagementImpl(usuarioDAO);
-        this.mensagemManagementImpl = new MensagemManagementImpl(mensagemDAO);
-        this.salaManagementImpl = new SalaManagementImpl(salaDAO);
-        
         this.usuarioDAO = UsuarioDAOImpl.getInstance();
         this.mensagemDAO = MensagemDAOImpl.getInstance();
         this.salaDAO = SalaDAOImpl.getInstance();
+        
+        this.usuarioManagementImpl = new UsuarioManagementImpl(usuarioDAO);
+        this.mensagemManagementImpl = new MensagemManagementImpl(mensagemDAO);
+        this.salaManagementImpl = new SalaManagementImpl(salaDAO);
         
         this.out = new ObjectOutputStream(socket.getOutputStream());
         Distribuidor.SOCKETS.add(socket);

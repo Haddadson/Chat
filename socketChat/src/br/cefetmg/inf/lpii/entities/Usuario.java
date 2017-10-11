@@ -7,6 +7,7 @@ package br.cefetmg.inf.lpii.entities;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Aluno
  */
-public class Usuario {
+public class Usuario  implements Serializable {
     // atributos persistidos
     private Long id;
     private String nome;

@@ -5,13 +5,14 @@
  */
 package br.cefetmg.inf.lpii.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Aluno
  */
-public class Sala {
+public class Sala  implements Serializable {
     
     private ArrayList<Usuario> usuarios;
     private String nome;
