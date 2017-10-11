@@ -33,6 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * FXML Controller class
@@ -80,6 +81,9 @@ public class TelaPrincipalController implements Initializable{
     
     @FXML
     private TableView<Usuario> tabUsuarios;
+    
+    @FXML
+    private Button botaoDefinirNomeUser;
     
     private Mensagem mensagem;
     private Usuario usuario;
@@ -162,6 +166,8 @@ public class TelaPrincipalController implements Initializable{
     public void registrarUsuarioCompartilhado(Usuario usuario) {
         if (usuario.getId() != null) {
             this.usuarioCompartilhado = usuario;
+            this.nomeUsuario.setDisable(true);
+            this.botaoDefinirNomeUser.setVisible(false);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Campo inválido");
