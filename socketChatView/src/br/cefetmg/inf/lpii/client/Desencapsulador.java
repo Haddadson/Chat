@@ -75,7 +75,7 @@ public class Desencapsulador {
                 break;
             //retorna os usuarios de uma sala
             case RETORNAR_USUARIOS:
-                Desencapsulador.controller.registrarUsuarios(pl.getSala().getUsuarios());
+                Desencapsulador.controller.registrarUsuarios(pl.getUsuarios());
                 break;
             case TESTE:
                 break;

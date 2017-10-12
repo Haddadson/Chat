@@ -20,6 +20,7 @@ public class Payload implements Serializable {
     private Sala sala;
     private ArrayList<Mensagem> mensagens;
     private ArrayList<Sala> salas;
+    private ArrayList<Usuario> usuarios;
     
     public Payload() {}
     
@@ -88,6 +89,14 @@ public class Payload implements Serializable {
 
     public void setSalas(ArrayList<Sala> salas) {
         this.salas = salas;
+    }
+
+    public ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(ArrayList<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
 }

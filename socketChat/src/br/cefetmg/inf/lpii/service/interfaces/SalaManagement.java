@@ -20,4 +20,5 @@ public interface SalaManagement {
     public boolean atualizar(Sala sala) throws BusinessException, PersistenceException;
     public Sala get(Long id) throws BusinessException, PersistenceException;
     public ArrayList<Sala> getTodas() throws PersistenceException;
+    public void inserirUsuario(Long usuarioID, Long salaID) throws BusinessException, PersistenceException;
 }

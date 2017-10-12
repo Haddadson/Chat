@@ -116,28 +116,6 @@ public class TelaPrincipalController implements Initializable{
         requisitarSalas();
         
         //Define DoubleClick em sala para entrar e exibir usuários
-        tabSalas.setRowFactory(tv ->{
-            TableRow<Sala> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                Sala salaSelecionada = row.getItem();
-                if(!row.isEmpty() && event.getButton()==MouseButton.PRIMARY && event.getClickCount() == 2){
-                    entrarSalaRequest(salaSelecionada);
-                    System.out.println("2click");
-                }
-                if(!row.isEmpty() && event.getButton()==MouseButton.PRIMARY && event.getClickCount() == 1){
-                    requisitarUsuarios(salaSelecionada);
-                    System.out.println("1click");
-                }
-            });
-            return row;
-        });
-        Sala teste5 = new Sala("oi");
-        Usuario teste2 = new Usuario("Haddad");
-        Mensagem msg = new Mensagem(teste2, teste5, "TESTE", currentTime);
-        Mensagem msg2 = new Mensagem(teste2, teste5, "TESTE2", currentTime);
-        exibirMensagens(msg);
-        exibirMensagens(msg2);
-        
     }
     
     public boolean checaInputConta() {
@@ -243,7 +221,8 @@ public class TelaPrincipalController implements Initializable{
         // determina sala como sendo a exibida
         this.salaSendoExibida = sala;
         // exibe usuarios na sala
-        this.requisitarUsuarios(sala);
+        System.out.println("Usuario entrou na sala " + sala.getId() );
+        this.requisitarUsuarios(this.salaSendoExibida);
         this.exibirMensagens(FXCollections.observableArrayList(mensagens));
     }
     
@@ -261,7 +240,7 @@ public class TelaPrincipalController implements Initializable{
     public void exibirMensagens(ObservableList<Mensagem> mensagens) {
         //TODO: Exibir as mensagens no painelMensagem
         ObservableList<String> lista = FXCollections.observableArrayList();
-        if (mensagens.get(0) == null) {
+        if (mensagens.isEmpty()) {
             tabMensagens.setItems(lista);
         } else {
             for (int i = 0; i < mensagens.size(); i++) {
@@ -300,6 +279,16 @@ public class TelaPrincipalController implements Initializable{
     public void exibirSalas(ObservableList<Sala> listSala) {
         tabSalas.setItems(listSala);
         colSalas.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tabSalas.setRowFactory(tv ->{
+            TableRow<Sala> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                Sala salaSelecionada = row.getItem();
+                if(!row.isEmpty() && event.getButton()==MouseButton.PRIMARY && event.getClickCount() == 1){
+                    entrarSalaRequest(salaSelecionada);
+                }
+            });
+            return row;
+        });
         //TODO: Exibir as salas no painelSalas
 
     }

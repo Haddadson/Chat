@@ -101,7 +101,7 @@ public class ChatAdapter implements Runnable, Distribuivel {
     }
 
     @Override
-    public void inserirUsuarioNaSala(Usuario usuario, Sala sala) {
+    public void inserirUsuarioNaSala(Usuario usuario, Sala sala) throws IOException {
         dist.inserirUsuarioNaSala(usuario, sala);
     }
 
@@ -136,7 +136,7 @@ public class ChatAdapter implements Runnable, Distribuivel {
 
     @Override
     public void retornarUsuarios(Long salaID) throws IOException, BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dist.retornarUsuarios(salaID);
     }
 
     @Override

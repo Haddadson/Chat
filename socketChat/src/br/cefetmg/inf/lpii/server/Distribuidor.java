@@ -66,34 +66,35 @@ public class Distribuidor implements Distribuivel {
         // se for msg p/ 1 unico usuario
         if (mensagem.getUsuarioDestino() != null) {
                 this.out = mensagem.getUsuarioDestino().getOut();
-                this.out.writeObject(mensagem);
+                Payload pl = new Payload(TipoOperacao.ENVIAR_MENSAGEM);
+                pl.setMensagem(mensagem);
+                this.out.writeObject(pl);
                 this.out.flush();
         } else {
             // se for p/ uma sala, envia p todos 
             for (Usuario usuario : mensagem.getSalaDestino().getUsuarios()) {
                 this.out = usuario.getOut();
-                this.out.writeObject(mensagem);
+                Payload pl = new Payload(TipoOperacao.ENVIAR_MENSAGEM);
+                pl.setMensagem(mensagem);
+                this.out.writeObject(pl);
                 this.out.flush();
             }
         }
     }
     
     @Override
-    public synchronized void inserirUsuarioNaSala(Usuario usuario, Sala sala) {
+    public synchronized void inserirUsuarioNaSala(Usuario usuario, Sala sala) throws IOException {
         if (sala.getSenha() == null) {
             try {
+                sala.setUsuarios(new ArrayList<Usuario>());
                 sala.getUsuarios().add(usuario);
                 Payload pl = new Payload(TipoOperacao.INSERIR_USUARIO_NA_SALA);
+                salaManagementImpl.inserirUsuario(usuario.getId(), sala.getId());
                 pl.setSala(sala);
                 pl.setMensagens(mensagemManagementImpl.getMensagens(sala.getId()));
-            } /* else {
-            if (sala.getSenha() != null && senha == null) {
-            throw new IllegalArgumentException("Tentativa de entrar em sala com senha sem passa-la como parametro");
-            } else if (sala.getSenha() != null && senha.equals(sala.getSenha())) {
-            throw new IllegalArgumentException("Senha incorreta");
-            }
-            }*/ 
-            catch (BusinessException | PersistenceException ex) {
+                out.writeObject(pl);
+                out.flush();
+            } catch (BusinessException | PersistenceException ex) {
                 Logger.getLogger(Distribuidor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -158,7 +159,10 @@ public class Distribuidor implements Distribuivel {
 
     @Override
     public void retornarUsuarios(Long salaID) throws IOException, BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Payload pl = new Payload(TipoOperacao.RETORNAR_USUARIOS);
+        pl.setUsuarios(this.salaManagementImpl.getUsuarios(salaID));
+        this.out.writeObject(pl);
+        this.out.flush();
     }
 
     @Override

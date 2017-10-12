@@ -6,6 +6,7 @@
 package br.cefetmg.inf.lpii.DAO.interfaces;
 
 import br.cefetmg.inf.lpii.entities.Sala;
+import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
 import java.util.ArrayList;
 
@@ -19,4 +20,6 @@ public interface SalaDAO {
     public boolean atualizar(Sala sala) throws PersistenceException;
     public Sala get(Long id) throws PersistenceException;
     public ArrayList<Sala> getTodas() throws PersistenceException;
+    public ArrayList<Usuario> getUsuarios(Long salaID) throws PersistenceException;
+    public void inserirUsuario(Long usuarioID, Long salaID) throws PersistenceException;
 }

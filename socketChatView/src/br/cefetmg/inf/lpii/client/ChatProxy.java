@@ -67,6 +67,7 @@ public class ChatProxy implements Distribuivel {
         Payload pl = new Payload(TipoOperacao.ENVIAR_MENSAGEM);
         pl.setMensagem(mensagem);
         out.writeObject(pl);
+        out.flush();
     }
 
     @Override
@@ -75,6 +76,7 @@ public class ChatProxy implements Distribuivel {
         pl.setUsuario(usuario);
         pl.setSala(sala);
         out.writeObject(pl);
+        out.flush();
     }
 
     @Override
@@ -83,6 +85,7 @@ public class ChatProxy implements Distribuivel {
         pl.setSala(sala);
         pl.setUsuario(usuario);
         out.writeObject(pl);
+        out.flush();
     }
 
     @Override
@@ -90,6 +93,7 @@ public class ChatProxy implements Distribuivel {
         Payload pl = new Payload(TipoOperacao.CRIAR_SALA);
         pl.setSala(sala);
         out.writeObject(pl);
+        out.flush();
     }
 
     @Override
@@ -97,6 +101,7 @@ public class ChatProxy implements Distribuivel {
         Payload pl = new Payload(TipoOperacao.CRIAR_CONTA);
         pl.setUsuario(usuario);
         out.writeObject(pl);
+        out.flush();
     }
 
     @Override
@@ -104,6 +109,7 @@ public class ChatProxy implements Distribuivel {
         Payload pl = new Payload(TipoOperacao.REMOVER_SALA);
         pl.setSala(sala);
         out.writeObject(pl);
+        out.flush();
     }
     
     
@@ -115,18 +121,24 @@ public class ChatProxy implements Distribuivel {
         sala.setId(salaID);
         pl.setSala(sala);
         out.writeObject(pl);
+        out.flush();
     }
 
     @Override
     public void retornarUsuarios(Long salaID) throws IOException, BusinessException, PersistenceException {
         Payload pl = new Payload(TipoOperacao.RETORNAR_USUARIOS);
+        Sala sala = new Sala();
+        sala.setId(salaID);
+        pl.setSala(sala);
         out.writeObject(pl);
+        out.flush();
     }
 
     @Override
     public void retornarSalas() throws IOException, BusinessException, PersistenceException {
         Payload pl = new Payload(TipoOperacao.RETORNAR_SALAS);
         out.writeObject(pl);
+        out.flush();
     }
     
     @Override

@@ -47,7 +47,7 @@ public class MensagemDAOImpl implements MensagemDAO {
 
         try {
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-                String sql = "INSERT INTO \"Mensagem\" (COD_remetente, COD_mensagem, COD_destinatario, COD_salaDestino, DAT_msg, TXT_conteudo) "
+                String sql = "INSERT INTO Mensagem (COD_remetente, COD_mensagem, COD_destinatario, COD_salaDestino, DAT_msg, TXT_conteudo) "
                         + "    VALUES (?, ?, ?, ?, ?, ?) returning COD_mensagem;";
                 
                 try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -79,7 +79,7 @@ public class MensagemDAOImpl implements MensagemDAO {
         
         try {
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-                String sql = "DELETE FROM \"Mensagem\" WHERE COD_mensagem = ?";
+                String sql = "DELETE FROM Mensagem WHERE COD_mensagem = ?";
                 
                 try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
                     pstmt.setLong(1, id);
@@ -102,7 +102,7 @@ public class MensagemDAOImpl implements MensagemDAO {
         
         try {
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-                String sql = "UPDATE \"Mensagem\" " +
+                String sql = "UPDATE Mensagem " +
                         " SET COD_remetente = ?, " +
                         "     COD_destinatario = ?, " +
                         "     COD_salaDestino = ?, " +
@@ -135,7 +135,7 @@ public class MensagemDAOImpl implements MensagemDAO {
             Mensagem mensagem;
             Usuario usuario;
             try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-                String sql = "SELECT * FROM \"Mensagem\" WHERE COD_mensagem = ? ";
+                String sql = "SELECT * FROM Mensagem WHERE COD_mensagem = ? ";
                 try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
                     pstmt.setLong(1, id);
                     try (ResultSet rs = pstmt.executeQuery()) {
@@ -170,7 +170,7 @@ public class MensagemDAOImpl implements MensagemDAO {
         Usuario usuario;
         ArrayList<Mensagem> lista = new ArrayList<>();
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            String sql = "SELECT * FROM \"Mensagem\" WHERE COD_salaDestino = ? ORDER BY DAT_msg DESC LIMIT ?";
+            String sql = "SELECT * FROM mensagem WHERE COD_salaDestino = ? ORDER BY DAT_msg DESC LIMIT ?";
             try (PreparedStatement pstmt = connection.prepareStatement(sql)){
                 pstmt.setLong(1, idSala);
                 pstmt.setInt(2, LIMITE);

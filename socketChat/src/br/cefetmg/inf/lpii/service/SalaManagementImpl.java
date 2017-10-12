@@ -8,6 +8,7 @@ package br.cefetmg.inf.lpii.service;
 import br.cefetmg.inf.lpii.DAO.interfaces.SalaDAO;
 import br.cefetmg.inf.lpii.service.interfaces.SalaManagement;
 import br.cefetmg.inf.lpii.entities.Sala;
+import br.cefetmg.inf.lpii.entities.Usuario;
 import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
 import java.util.ArrayList;
@@ -96,6 +97,21 @@ public class SalaManagementImpl implements SalaManagement{
         // Todas as salas presentes na base de dados são retornadas
         
          return salaDAO.getTodas();
+    }
+
+    public ArrayList<Usuario> getUsuarios(Long salaID) throws BusinessException, PersistenceException {
+        if (salaID == null) {
+            throw new BusinessException("Id da sala nao pode ser nulo");
+        }
+        return salaDAO.getUsuarios(salaID);
+    }
+
+    @Override
+    public void inserirUsuario(Long usuarioID, Long salaID) throws BusinessException, PersistenceException {
+        if (usuarioID == null || salaID == null) {
+            throw new BusinessException("Id da sala ou usuario nao pode ser nulo");
+        }
+        salaDAO.inserirUsuario(usuarioID, salaID);
     }
     
 }

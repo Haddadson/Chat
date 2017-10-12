@@ -7,7 +7,11 @@ package br.cefetmg.inf.lpii.DAO;
 
 import br.cefetmg.inf.lpii.DAO.interfaces.SalaDAO;
 import br.cefetmg.inf.lpii.entities.Sala;
+import br.cefetmg.inf.lpii.entities.Usuario;
+import br.cefetmg.inf.lpii.exception.BusinessException;
 import br.cefetmg.inf.lpii.exception.PersistenceException;
+import br.cefetmg.inf.lpii.service.UsuarioManagementImpl;
+import br.cefetmg.inf.lpii.service.interfaces.UsuarioManagement;
 import br.cefetmg.inf.lpii.util.db.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -127,6 +131,7 @@ public class SalaDAOImpl implements SalaDAO {
                             sala.setId(id);
                             sala.setNome(rs.getString("NOM_sala"));
                             sala.setSenha(rs.getString("TXT_senha"));
+                            sala.setUsuarios(this.getUsuarios(id));
                         }
                     }
                 }
@@ -157,6 +162,7 @@ public class SalaDAOImpl implements SalaDAO {
                             sala.setId(rs.getLong("COD_sala"));
                             sala.setNome(rs.getString("NOM_sala"));
                             sala.setSenha(rs.getString("TXT_senha"));
+                            sala.setUsuarios(this.getUsuarios(sala.getId()));
                             listAll.add(sala);
                         } while(rs.next());
                     }                  
@@ -167,6 +173,44 @@ public class SalaDAOImpl implements SalaDAO {
             
         }catch (ClassNotFoundException | SQLException e){
             throw new PersistenceException(e);
+        }
+    }
+
+    @Override
+    public ArrayList<Usuario> getUsuarios(Long salaID) throws PersistenceException {
+        ArrayList<Usuario> listAll = new ArrayList<>();
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            String sql = "SELECT cod_usuario FROM usuariosala WHERE cod_sala = ?";
+            try (PreparedStatement pstmt = connection.prepareCall(sql)) {
+                pstmt.setLong(1, salaID);
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    UsuarioManagement um = new UsuarioManagementImpl(UsuarioDAOImpl.getInstance());
+                    Usuario u = um.get(rs.getLong("cod_usuario"));
+                    listAll.add(u);
+                }
+            } catch (BusinessException ex) {
+                Logger.getLogger(SalaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(SalaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            ex.getStackTrace();
+        }
+        return listAll;
+    }
+
+    @Override
+    public void inserirUsuario(Long usuarioID, Long salaID) throws PersistenceException {
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            String sql = "INSERT INTO usuariosala(COD_usuario, COD_SALA) VALUES (?, ?)";
+            try (PreparedStatement pstmt = connection.prepareCall(sql)) {
+                pstmt.setLong(1, usuarioID);
+                pstmt.setLong(2, salaID);
+                pstmt.execute();
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(SalaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
