@@ -114,11 +114,37 @@ public class TelaPrincipalController implements Initializable{
         proxy = ChatProxy.getInstance();
         salasRegistradas = new ArrayList<>();
         requisitarSalas();
-        
-        //Define DoubleClick em sala para entrar e exibir usuários
+
+        //Define DoubleClick em sala para entrar e OneClick para exibir usuários
+        tabSalas.setRowFactory(tv ->{
+            TableRow<Sala> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {               
+                Sala salaSelecionada = row.getItem();
+                if(!row.isEmpty() && event.getButton()==MouseButton.PRIMARY && event.getClickCount() == 2){
+                    entrarSalaRequest(salaSelecionada);
+                    System.out.println("2click");
+                }
+                if(!row.isEmpty() && event.getButton()==MouseButton.PRIMARY && event.getClickCount() == 1){
+                    requisitarUsuarios(salaSelecionada);
+                    exibirUsuarios((ObservableList<Usuario>) salaSelecionada.getUsuarios());
+                    System.out.println("1click");
+                }
+            });
+            return row;
+        });
+        Sala teste5 = new Sala("oi");
+        Usuario teste2 = new Usuario("Haddad");
+        Mensagem msg = new Mensagem(teste2, teste5, "TESTE", currentTime);
+        Mensagem msg2 = new Mensagem(teste2, teste5, "TESTE2", currentTime);
+        exibirMensagens(msg);
+        exibirMensagens(msg2);
+
     }
     
     public boolean checaInputConta() {
+        
+        //Checa se o nome do usuário é válido
+        
         String mensagemErro = "";
 
         if (nomeUsuario.getText() == null || nomeUsuario.getText().length() == 0) {
@@ -159,6 +185,8 @@ public class TelaPrincipalController implements Initializable{
     @FXML
     public void inserirUsuario(ActionEvent e) throws Exception{
         if(checaInputConta()){
+            //Pega o nome do usuário inserido no campo e persiste na base de dados
+            
             proxy.criarConta(new Usuario((nomeUsuario.getText())));
         }
     }
@@ -309,6 +337,7 @@ public class TelaPrincipalController implements Initializable{
     //Método para exibição dos Usuários logados na tela
     public void exibirUsuarios(ObservableList<Usuario> usuarios) {
         //TODO: Exibir os usuarios no painelUsuarios
+        
         tabUsuarios.setItems(usuarios);
         colUsuariosSala.setCellValueFactory(new PropertyValueFactory<>("nome"));
     }
