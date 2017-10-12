@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="466.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.cefetmg.inf.lpii.controllers.TelaPrincipalController">
+<VBox prefHeight="466.0" prefWidth="725.0" xmlns="http://javafx.com/javafx/8.0.71" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.cefetmg.inf.lpii.controllers.TelaPrincipalController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -63,7 +63,7 @@
             <Accordion layoutX="411.0" layoutY="83.0" />
             <ScrollPane id="conversa" fx:id="painelMensagem" layoutX="226.0" layoutY="39.0" prefHeight="226.0" prefWidth="438.0">
                <content>
-                  <ListView fx:id="messagesList" prefHeight="224.0" prefWidth="436.0" />
+                  <ListView fx:id="tabMensagens" prefHeight="224.0" prefWidth="436.0" />
                </content></ScrollPane>
             <ScrollPane id="sala" fx:id="painelSalas" layoutX="16.0" layoutY="39.0" prefHeight="122.0" prefWidth="177.0">
                <content>

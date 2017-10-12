@@ -8,6 +8,7 @@ package br.cefetmg.inf.lpii.client;
 import br.cefetmg.inf.lpii.controllers.TelaPrincipalController;
 import br.cefetmg.inf.lpii.entities.Payload;
 import br.cefetmg.inf.lpii.entities.Sala;
+import javafx.collections.FXCollections;
 
 /**
  *
@@ -66,7 +67,7 @@ public class Desencapsulador {
                 break;
             case RETORNAR_MENSAGENS:
                 //envia pro controller lista com mensagens recentes
-                Desencapsulador.controller.exibirMensagens(pl.getMensagens());
+                Desencapsulador.controller.exibirMensagens(FXCollections.observableArrayList(pl.getMensagens()));
                 break;
             case RETORNAR_SALAS:
                 //envia pro controller lista com todas as salas

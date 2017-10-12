@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -35,11 +34,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+import javafx.util.Callback;
+
 /**
  * FXML Controller class
  *
@@ -88,6 +89,9 @@ public class TelaPrincipalController implements Initializable{
     private TableView<Usuario> tabUsuarios;
     
     @FXML
+    private ListView<String> tabMensagens;
+    
+    @FXML
     private Button botaoDefinirNomeUser;
     
     private Mensagem mensagem;
@@ -127,6 +131,13 @@ public class TelaPrincipalController implements Initializable{
             });
             return row;
         });
+        Sala teste5 = new Sala("oi");
+        Usuario teste2 = new Usuario("Haddad");
+        Mensagem msg = new Mensagem(teste2, teste5, "TESTE", currentTime);
+        Mensagem msg2 = new Mensagem(teste2, teste5, "TESTE2", currentTime);
+        exibirMensagens(msg);
+        exibirMensagens(msg2);
+        
     }
     
     public boolean checaInputConta() {
@@ -233,7 +244,7 @@ public class TelaPrincipalController implements Initializable{
         this.salaSendoExibida = sala;
         // exibe usuarios na sala
         this.requisitarUsuarios(sala);
-        this.exibirMensagens(mensagens);
+        this.exibirMensagens(FXCollections.observableArrayList(mensagens));
     }
     
     // resposta vem em entrarSalaResponse
@@ -247,15 +258,25 @@ public class TelaPrincipalController implements Initializable{
     }
     
     //Método para exibição das mensagens recebidas pela sala ou usuário selecionados
-    public void exibirMensagens(ArrayList<Mensagem> mensagens) {
+    public void exibirMensagens(ObservableList<Mensagem> mensagens) {
         //TODO: Exibir as mensagens no painelMensagem
+        ObservableList<String> lista = FXCollections.observableArrayList();
+        if (mensagens.get(0) == null) {
+            tabMensagens.setItems(lista);
+        } else {
+            for (int i = 0; i < mensagens.size(); i++) {
+                lista.add(mensagens.get(i).getRemetente().getNome() + " diz: " + mensagens.get(i).getConteudo());
+            }
+            tabMensagens.setItems(lista);
+        }
     }
+    
     
     public void exibirMensagens(Mensagem mensagem) {
         //reenvia panew Sala().setId(salaID)new Sala().setId(salaID)new Sala().setId(salaID)new Sala().setId(salaID)new Sala().setId(salaID)new Sala().setId(salaID)new Sala().setId(salaID)ra exibirMensagens que recebe ArrayList.
         ArrayList<Mensagem> msg = new ArrayList();
         msg.add(mensagem);
-        this.exibirMensagens(msg);
+        this.exibirMensagens(FXCollections.observableArrayList(msg));
     }
     
     //Método para exibição das salas existentes na tela
