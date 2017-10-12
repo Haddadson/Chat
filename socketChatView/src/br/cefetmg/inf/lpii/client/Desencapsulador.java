@@ -77,7 +77,6 @@ public class Desencapsulador {
                 Desencapsulador.controller.registrarUsuarios(pl.getSala().getUsuarios());
                 break;
             case TESTE:
-                controller.teste();
                 break;
         }
     }

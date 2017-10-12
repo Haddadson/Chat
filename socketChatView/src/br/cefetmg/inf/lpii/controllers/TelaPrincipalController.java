@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -38,6 +39,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -81,7 +83,7 @@ public class TelaPrincipalController implements Initializable{
     
     @FXML
     private TableView<Sala> tabSalas;
-    
+   
     @FXML
     private TableView<Usuario> tabUsuarios;
     
@@ -96,12 +98,10 @@ public class TelaPrincipalController implements Initializable{
     private Sala salaSendoExibida;
     private Usuario destino;
     private Cliente cliente;
-    
     private ArrayList<Usuario> listaUsuarios;
     private ArrayList<Usuario> listaUsuariosGeral;
     private ArrayList<Sala> salasRegistradas;
     private Desencapsulador des;
-    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -128,7 +128,7 @@ public class TelaPrincipalController implements Initializable{
             return row;
         });
     }
-
+    
     public boolean checaInputConta() {
         String mensagemErro = "";
 
@@ -188,10 +188,6 @@ public class TelaPrincipalController implements Initializable{
         }
     }
 
-    public void teste() {
-        System.out.println("testando controller");
-    }
-    
     public void inserirSala(ActionEvent e) {
         if (checaInputSalas()) {
             //Adiciona o usuário da sessão atual na lista de pessoas da sala
