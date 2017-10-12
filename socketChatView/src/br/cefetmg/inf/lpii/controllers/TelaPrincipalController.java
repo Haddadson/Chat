@@ -192,6 +192,9 @@ public class TelaPrincipalController implements Initializable{
     }
     
     public void registrarUsuarioCompartilhado(Usuario usuario) {
+        
+        //Defini o nome do usuário na conversa
+        
         if (usuario.getId() != null) {
             this.usuarioCompartilhado = usuario;
             this.nomeUsuario.setDisable(true);
@@ -304,6 +307,7 @@ public class TelaPrincipalController implements Initializable{
         this.exibirSalas(FXCollections.observableArrayList(salas));
     }
     
+    //Exibe todas as salas presentes na base de dados no painel de Salas
     public void exibirSalas(ObservableList<Sala> listSala) {
         tabSalas.setItems(listSala);
         colSalas.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -317,7 +321,6 @@ public class TelaPrincipalController implements Initializable{
             });
             return row;
         });
-        //TODO: Exibir as salas no painelSalas
 
     }
     // apos a chegada da response, seá chamada registrarUsuariosResponse();
@@ -336,7 +339,7 @@ public class TelaPrincipalController implements Initializable{
     
     //Método para exibição dos Usuários logados na tela
     public void exibirUsuarios(ObservableList<Usuario> usuarios) {
-        //TODO: Exibir os usuarios no painelUsuarios
+    //Exibe os usuários de cada sala no painel Usuarios
         
         tabUsuarios.setItems(usuarios);
         colUsuariosSala.setCellValueFactory(new PropertyValueFactory<>("nome"));
